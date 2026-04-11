@@ -111,8 +111,7 @@ body.light .code-mask{background:rgba(240,242,255,.85)}
 .vote-btn.vok{background:rgba(62,207,142,.18);border-color:var(--grn);color:var(--grn)}
 .vote-btn.vbad{background:rgba(233,69,96,.18);border-color:var(--acc);color:var(--acc)}
 .vote-cnt{font-size:10px;color:var(--mut);font-family:'JetBrains Mono',monospace;flex-shrink:0}
-.ai-src{font-size:10px;color:var(--mut);margin-top:6px;display:flex;align-items:center;gap:3px}
-.ai-src-dot{width:4px;height:4px;border-radius:50%;background:var(--blue)}
+
 /* 게임 페이지 */
 .back-btn{background:var(--bg3);border:1px solid var(--b2);color:var(--txt2);padding:7px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;display:flex;align-items:center;gap:5px;margin-bottom:1rem;transition:all .2s;width:fit-content}
 .back-btn:hover{border-color:var(--acc);color:var(--acc)}
@@ -749,7 +748,7 @@ var SLUG_TO_KO_FRONT = {
   'ace-division-mecha':'에이스 디비전',
   'zenless-zone-zero':'젠레스 존 제로',
   'combo-hero':'콤보 히어로',
-  'honor-of-kings':'왕자영요',
+  'honor-of-kings':'Honor of Kings',
   'genshin-impact':'원신',
   'summoners-war':'서머너즈 워',
   'tarisland':'타리스랜드',
@@ -766,10 +765,10 @@ var SLUG_TO_KO_FRONT = {
 };
 
 function fixGameName(name) {
-  if (!name) return '알 수 없음';
+  if (!name || name.trim() === '') return null;
   /* 슬러그처럼 생긴 경우 한글로 변환 */
-  if (/^[a-z0-9-]+$/.test(name) && SLUG_TO_KO_FRONT[name]) {
-    return SLUG_TO_KO_FRONT[name];
+  if (/^[a-z0-9-]+$/.test(name)) {
+    return SLUG_TO_KO_FRONT[name] || null; /* 매핑 없으면 null → 필터링됨 */
   }
   return name;
 }
@@ -796,7 +795,7 @@ function renderCoupons(list) {
     var info = GDB[c.game] || { icon: '🎮', bg: '#1a1030' };
     var b = bmap[c.status] || ['b-ok', '사용가능'];
     var expCls = c.expire === '무기한' ? 'grn' : daysTill(c.expire) < 7 ? 'red' : 'mut';
-    var expTxt = c.expire === '무기한' ? '✅ 무기한' : '⏰ ' + c.expire;
+    var expTxt = (!c.expire || c.expire === '무기한' || c.expire === 'undefined') ? '✅ 무기한' : '⏰ ' + c.expire;
     var mv = MY_VOTES[c.id];
     var votes = c.votes || { ok: 0, bad: 0 };
     var total = (votes.ok || 0) + (votes.bad || 0);
@@ -833,7 +832,7 @@ function renderCoupons(list) {
     html += '<button class="vote-btn' + (mv === 'ok' ? ' vok' : '') + '" onclick="castVote(\'' + c.id + '\',\'ok\')">👍</button>';
     html += '<button class="vote-btn' + (mv === 'bad' ? ' vbad' : '') + '" onclick="castVote(\'' + c.id + '\',\'bad\')">👎</button>';
     html += '</div></div>';
-    html += '<div class="ai-src"><div class="ai-src-dot"></div>' + (c.src || c.source || '블루스택') + ' · ' + ((c.views || 0).toLocaleString()) + '명</div>';
+
     html += '</div></div>';
   });
   grid.innerHTML = html;
@@ -866,7 +865,7 @@ function showGameInline(gameName) {
     html = '<div style="color:var(--mut);font-size:13px;padding:1rem">아직 등록된 쿠폰이 없어요.</div>';
   } else {
     coupons.forEach(function(c) {
-      var expTxt = c.expire === '무기한' ? '✅ 무기한' : '⏰ ' + c.expire;
+      var expTxt = (!c.expire || c.expire === '무기한' || c.expire === 'undefined') ? '✅ 무기한' : '⏰ ' + c.expire;
       var codeId = 'gc_' + Math.random().toString(36).substr(2,6);
       html += '<div class="coupon-card">';
       html += '<div class="cc-body" style="padding:1rem">';
@@ -944,7 +943,7 @@ function openGame(gameName) {
     coupons.forEach(function(c) {
       var b = bmap[c.status] || ['b-ok', '사용가능'];
       var expCls = c.expire === '무기한' ? 'grn' : daysTill(c.expire) < 7 ? 'red' : 'mut';
-      var expTxt = c.expire === '무기한' ? '✅ 무기한' : '⏰ ' + c.expire;
+      var expTxt = (!c.expire || c.expire === '무기한' || c.expire === 'undefined') ? '✅ 무기한' : '⏰ ' + c.expire;
       var link = info.url ? '<a class="coupon-link-btn" href="' + info.url + '" target="_blank" rel="noopener">📋 <span style="flex:1;text-align:left">쿠폰 입력하러 가기</span> ↗</a>' : '';
       html += '<div class="coupon-card">';
       html += '<div class="cc-head"><div class="game-img-wrap"><div class="fbi">' + info.icon + '</div></div>';
@@ -1264,7 +1263,7 @@ firebase.initializeApp({
 var db = firebase.firestore();
 
 /* ── 캐시 ── */
-var CACHE_KEY = 'cd_coupons_v3';
+var CACHE_KEY = 'cd_coupons_v5';
 var CACHE_TTL = 30 * 60 * 1000;
 function getCached() {
   try {
@@ -1282,9 +1281,27 @@ function setCache(data) {
 /* ── 데이터 적용 ── */
 function applyData(dbCoupons) {
   if (!dbCoupons || dbCoupons.length === 0) return;
+  /* 유효하지 않은 쿠폰 제거 */
+  dbCoupons = dbCoupons.filter(function(c) {
+    if (!c.game || c.game.trim() === '') return false;
+    if (!c.code || c.code.trim() === '') return false;
+    /* 영문 슬러그만 있고 한글 매핑 없는 게임 제거 */
+    var name = fixGameName(c.game);
+    if (!name) return false; /* 매핑 없는 슬러그 제거 */
+    c.game = name; /* 슬러그면 한글로 교체 */
+    /* expire undefined 처리 */
+    if (!c.expire || c.expire === 'undefined') c.expire = '무기한';
+    return true;
+  });
+  /* Firebase 게임명과 하드코딩 게임명 중복 제거 후 합치기 */
+  var dbGames = {};
+  dbCoupons.forEach(function(c) { dbGames[c.game] = 1; });
+  /* 하드코딩 데이터 중 Firebase에 없는 게임만 추가 */
+  var hardcoded = COUPONS.filter(function(c) { return !dbGames[c.game]; });
+  var merged = dbCoupons.concat(hardcoded);
   /* 순위순 정렬 */
-  dbCoupons.sort(function(a, b) { return (a.rank || 500) - (b.rank || 500); });
-  COUPONS = dbCoupons;
+  merged.sort(function(a, b) { return (a.rank || 500) - (b.rank || 500); });
+  COUPONS = merged;
   renderCoupons(COUPONS);
   renderRank();
   var games = [];
