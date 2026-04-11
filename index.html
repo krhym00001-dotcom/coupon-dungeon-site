@@ -1061,8 +1061,9 @@ function showToast(msg) {
   setTimeout(function() { t.classList.remove('show'); }, 2500);
 }
 function daysTill(s) {
-  if (s === '무기한') return 999;
+  if (!s || s === '무기한') return 999;
   var p = s.split('.');
+  if (p.length < 3) return 999;
   return Math.ceil((new Date(p[0], p[1] - 1, p[2]) - new Date()) / 86400000);
 }
 function setGenre(btn, g) {
