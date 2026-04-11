@@ -877,7 +877,7 @@ function renderNews() {
     return;
   }
   document.getElementById('newsGrid').innerHTML = NEWS.map(function(n) {
-    var click = n.url ? 'onclick="window.open('' + n.url + '','_blank')"' : '';
+    var click = n.url ? 'onclick="window.open(\'' + n.url + '\',\'_blank\')"' : '';
     return '<div class="news-card" ' + click + ' style="' + (n.url?'cursor:pointer':'') + '">' +
       '<div class="news-ico">' + (n.icon||'📰') + '</div>' +
       '<div style="flex:1"><div class="news-title">' + n.title + '</div>' +
@@ -1146,7 +1146,7 @@ async function loadFromDB() {
   var cached = getCached();
   if (cached && cached.length > 0) {
     console.log('캐시에서 쿠폰 ' + cached.length + '개 로드');
-    applyData(cached);
+    window.applyData(cached);
     return;
   }
   try {
@@ -1155,7 +1155,7 @@ async function loadFromDB() {
     var dbCoupons = [];
     snap.forEach(function(doc) { dbCoupons.push(Object.assign({ id: doc.id }, doc.data())); });
     setCache(dbCoupons);
-    applyData(dbCoupons);
+    window.applyData(dbCoupons);
     console.log('Firebase ' + dbCoupons.length + '개 로드 완료!');
   } catch(e) { console.warn('Firebase 실패:', e.message); }
 }
@@ -1169,7 +1169,7 @@ async function loadGuidesFromDB() {
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
     window.GUIDES = items;
-    renderGuides();
+    window.renderGuides();
     document.getElementById('guideCount').textContent = items.length;
   } catch(e) { console.warn('공략 로드 실패:', e.message); }
 }
@@ -1183,7 +1183,7 @@ async function loadNewsFromDB() {
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
     window.NEWS = items;
-    renderNews();
+    window.renderNews();
     document.getElementById('newsCount').textContent = items.length;
   } catch(e) { console.warn('뉴스 로드 실패:', e.message); }
 }
@@ -1197,7 +1197,7 @@ async function loadPreordersFromDB() {
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
     window.PREORDERS = items;
-    renderPreorders();
+    window.renderPreorders();
     document.getElementById('preCount').textContent = items.length;
   } catch(e) { console.warn('사전예약 로드 실패:', e.message); }
 }
