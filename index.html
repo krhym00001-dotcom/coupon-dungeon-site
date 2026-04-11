@@ -737,34 +737,36 @@ function showGameInline(gameName) {
   var coupons = window.COUPONS.filter(function(c) { return c.game === gameName; });
   var info = GDB[gameName] || { icon: '🎮', bg: '#1a1030' };
   var unlocked = isUnlocked();
-  var bmap = { new: ['b-new', 'NEW'], hot: ['b-hot', 'HOT'], ok: ['b-ok', '사용가능'] };
   document.getElementById('gamePageHdr').innerHTML =
     '<div class="game-page-img"><div class="gpfb" id="gpfb">' + info.icon + '</div>' +
     '<img id="gpimg" alt="' + gameName + '"></div>' +
     '<div class="game-page-info"><h2>' + gameName + '</h2>' +
-    '<p>총 ' + coupons.length + '개 쿠폰 · ' + (coupons[0] ? coupons[0].dev||'' : '') + '</p></div>';
+    '<p>총 ' + coupons.length + '개 쿠폰</p></div>';
   loadImg(gameName, document.getElementById('gpimg'), document.getElementById('gpfb'), coupons[0] && coupons[0].imageUrl);
   var html = '';
   if (!coupons.length) {
     html = '<div style="color:var(--mut);font-size:13px;padding:1rem">아직 등록된 쿠폰이 없어요.</div>';
   } else {
     coupons.forEach(function(c) {
-      var b = bmap[c.status] || ['b-ok', '사용가능'];
-      var expCls = c.expire === '무기한' ? 'grn' : daysTill(c.expire) < 7 ? 'red' : 'mut';
       var expTxt = c.expire === '무기한' ? '✅ 무기한' : '⏰ ' + c.expire;
-      html += '<div class="coupon-card"><div class="cc-head">' +
-        '<div class="game-img-wrap"><div class="fbi">' + info.icon + '</div></div>' +
-        '<div class="cc-info"><div class="cc-name">' + c.game + '</div>' +
-        '<div class="cc-meta">' + (c.genre||'').toUpperCase() + '</div></div>' +
-        '<span class="cc-badge ' + b[0] + '">' + b[1] + '</span></div>' +
-        '<div class="cc-body"><div class="cc-reward">🎁 <span>' + c.reward + '</span></div>' +
-        '<div class="code-wrap"><div class="code-lbl">쿠폰 코드</div>' +
-        '<div class="code-txt' + (unlocked ? '' : ' blurred') + '">' + c.code + '</div>' +
-        '<div class="code-mask' + (unlocked ? ' gone' : '') + '">' +
-        '<button class="unlock-code-btn" onclick="openAdModal()">📺 광고 보고 공개</button></div></div>' +
-        '<div class="cc-foot"><span class="exp ' + expCls + '">' + expTxt + '</span>' +
-        '<button class="copy-cta' + (unlocked ? ' vis' : '') + '" onclick="copyCode('' + c.code + '',this)">복사하기</button></div>' +
-        '</div></div>';
+      var codeId = 'gc_' + Math.random().toString(36).substr(2,6);
+      html += '<div class="coupon-card">';
+      html += '<div class="cc-body" style="padding:1rem">';
+      html += '<div class="cc-reward" style="margin-bottom:10px">🎁 <span>' + c.reward + '</span></div>';
+      html += '<div class="code-wrap">';
+      html += '<div class="code-lbl">쿠폰 코드</div>';
+      html += '<div class="code-txt' + (unlocked ? '' : ' blurred') + '" id="' + codeId + '">' + c.code + '</div>';
+      if (!unlocked) {
+        html += '<div class="code-mask"><button class="unlock-code-btn" onclick="openAdModal()">📺 광고 보고 공개</button></div>';
+      }
+      html += '</div>';
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">';
+      html += '<span style="font-size:11px;color:var(--mut)">' + expTxt + '</span>';
+      if (unlocked) {
+        html += '<button class="copy-cta vis" onclick="copyCode('' + c.code.replace(/'/g, "\'") + '',this)">복사하기</button>';
+      }
+      html += '</div>';
+      html += '</div></div>';
     });
   }
   document.getElementById('gamePageGrid').innerHTML = html;
@@ -777,7 +779,6 @@ function showGameInline(gameName) {
   document.querySelectorAll('.tab, nav a').forEach(function(el) { el.classList.remove('on'); });
   window.scrollTo(0, 0);
 }
-
 /* ───── 슬러그 생성 (SEO URL용) ───── */
 function toSlug(str) {
   return str
