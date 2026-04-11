@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://calm-llama-f6930c.netlify.app/sitemap.xml
