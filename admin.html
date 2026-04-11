@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>쿠폰던전 관리자</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0f0f1a;color:#efefef;font-family:'Segoe UI',sans-serif;min-height:100vh}
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh}
+.login-box{background:#1a1a2c;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem;width:100%;max-width:360px;text-align:center}
+.login-box h1{font-size:20px;margin-bottom:.5rem}
+.login-box p{font-size:13px;color:#aaa;margin-bottom:1.5rem}
+input{width:100%;background:#0f0f1a;border:1px solid rgba(255,255,255,.15);color:#efefef;padding:10px 14px;border-radius:8px;font-size:14px;margin-bottom:10px;outline:none}
+input:focus{border-color:#e94560}
+.btn{background:#e94560;color:#fff;border:none;padding:10px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;width:100%}
+.btn:hover{background:#c73652}
+.btn-sec{background:rgba(255,255,255,.08);color:#efefef;border:1px solid rgba(255,255,255,.15)}
+.btn-sec:hover{background:rgba(255,255,255,.14)}
+.btn-grn{background:#3ecf8e;color:#000}
+.btn-grn:hover{background:#2db87a}
+.btn-red{background:#e94560;color:#fff}
+.btn-sm{padding:6px 12px;font-size:12px;width:auto;border-radius:6px}
+
+/* 대시보드 */
+#dashboard{display:none}
+header{background:#13131f;border-bottom:1px solid rgba(255,255,255,.07);padding:0 1.5rem;height:54px;display:flex;align-items:center;justify-content:space-between}
+header h1{font-size:16px;font-weight:700}
+.logout-btn{background:none;border:1px solid rgba(255,255,255,.2);color:#aaa;padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer}
+.tabs{display:flex;background:#13131f;border-bottom:1px solid rgba(255,255,255,.07);padding:0 1.5rem}
+.tab{padding:12px 16px;font-size:13px;font-weight:500;color:#aaa;cursor:pointer;border-bottom:2px solid transparent}
+.tab.on{color:#efefef;border-bottom-color:#e94560}
+.content{max-width:900px;margin:0 auto;padding:1.5rem}
+
+/* 폼 */
+.card{background:#1a1a2c;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.card h2{font-size:14px;font-weight:700;margin-bottom:1rem;color:#e94560}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-row.full{grid-template-columns:1fr}
+label{font-size:12px;color:#aaa;margin-bottom:4px;display:block}
+select{width:100%;background:#0f0f1a;border:1px solid rgba(255,255,255,.15);color:#efefef;padding:10px 14px;border-radius:8px;font-size:13px;outline:none}
+textarea{width:100%;background:#0f0f1a;border:1px solid rgba(255,255,255,.15);color:#efefef;padding:10px 14px;border-radius:8px;font-size:13px;outline:none;resize:vertical;min-height:120px;font-family:inherit}
+textarea:focus,select:focus,input:focus{border-color:#e94560}
+
+/* 목록 */
+.list-item{background:#13131f;border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
+.list-item-info{flex:1;min-width:0}
+.list-item-title{font-size:13px;font-weight:700;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.list-item-meta{font-size:11px;color:#aaa}
+.list-item-actions{display:flex;gap:6px;flex-shrink:0}
+.badge{font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700}
+.badge-guide{background:rgba(79,142,247,.2);color:#4f8ef7}
+.badge-pre{background:rgba(155,93,229,.2);color:#9b5de5}
+.badge-news{background:rgba(62,207,142,.2);color:#3ecf8e}
+.empty{text-align:center;color:#555;font-size:13px;padding:2rem}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(50px);background:#3ecf8e;color:#000;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;opacity:0;transition:all .3s;pointer-events:none;z-index:9999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.25rem}
+.stat-box{background:#13131f;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:1rem;text-align:center}
+.stat-num{font-size:28px;font-weight:700;color:#e94560}
+.stat-lbl{font-size:12px;color:#aaa;margin-top:4px}
+</style>
+</head>
+<body>
+
+<!-- 로그인 -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div style="font-size:32px;margin-bottom:10px">⚔️</div>
+    <h1>쿠폰던전 관리자</h1>
+    <p>관리자 비밀번호를 입력하세요</p>
+    <input type="password" id="pwInput" placeholder="비밀번호" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="btn" onclick="doLogin()">로그인</button>
+  </div>
+</div>
+
+<!-- 대시보드 -->
+<div id="dashboard">
+  <header>
+    <h1>⚔️ 쿠폰던전 관리자</h1>
+    <button class="logout-btn" onclick="doLogout()">로그아웃</button>
+  </header>
+  <div class="tabs">
+    <div class="tab on" onclick="showTab('guide',this)">📖 공략</div>
+    <div class="tab" onclick="showTab('preorder',this)">🚀 사전예약</div>
+    <div class="tab" onclick="showTab('news',this)">📰 게임뉴스</div>
+    <div class="tab" onclick="showTab('coupon',this)">🎫 쿠폰 직접추가</div>
+  </div>
+
+  <!-- 공략 탭 -->
+  <div class="content" id="tab-guide">
+    <div class="card">
+      <h2>📖 공략 글 작성</h2>
+      <div class="form-row">
+        <div><label>게임명</label><input type="text" id="g-game" placeholder="예: 원신"></div>
+        <div><label>카테고리</label>
+          <select id="g-cat">
+            <option>초보가이드</option><option>공략</option><option>캐릭터</option>
+            <option>팁</option><option>무과금</option><option>이벤트</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full"><label>제목</label><input type="text" id="g-title" placeholder="예: 원신 초보자 완벽 가이드 2026"></div>
+      <div class="form-row full"><label>썸네일 이모지</label><input type="text" id="g-icon" placeholder="예: ✨" style="width:80px"></div>
+      <div class="form-row full">
+        <label>본문 내용 (마크다운 지원)</label>
+        <textarea id="g-content" placeholder="## 시작하기&#10;&#10;공략 내용을 여기에 입력하세요...&#10;&#10;## 팁&#10;- 팁 1&#10;- 팁 2"></textarea>
+      </div>
+      <button class="btn btn-grn btn-sm" onclick="saveGuide()" style="margin-top:8px">✅ 공략 저장</button>
+    </div>
+    <div id="guide-list"><div class="empty">등록된 공략이 없어요</div></div>
+  </div>
+
+  <!-- 사전예약 탭 -->
+  <div class="content" id="tab-preorder" style="display:none">
+    <div class="card">
+      <h2>🚀 사전예약 등록</h2>
+      <div class="form-row">
+        <div><label>게임명</label><input type="text" id="p-game" placeholder="예: 아이온2"></div>
+        <div><label>개발사</label><input type="text" id="p-dev" placeholder="예: NCSOFT"></div>
+      </div>
+      <div class="form-row">
+        <div><label>장르</label>
+          <select id="p-genre">
+            <option value="RPG">RPG</option><option value="MMORPG">MMORPG</option>
+            <option value="FPS">FPS</option><option value="전략">전략</option>
+            <option value="캐주얼">캐주얼</option><option value="액션">액션</option>
+          </select>
+        </div>
+        <div><label>출시 예정일</label><input type="text" id="p-launch" placeholder="예: 2026.06.01"></div>
+      </div>
+      <div class="form-row">
+        <div><label>D-day (숫자만)</label><input type="number" id="p-dday" placeholder="예: 30"></div>
+        <div><label>사전예약자 수</label><input type="text" id="p-reg" placeholder="예: 50,000"></div>
+      </div>
+      <div class="form-row full"><label>게임 소개</label><textarea id="p-desc" style="min-height:80px" placeholder="게임 간단 소개..."></textarea></div>
+      <div class="form-row full"><label>사전예약 링크 URL</label><input type="text" id="p-url" placeholder="https://..."></div>
+      <button class="btn btn-grn btn-sm" onclick="savePreorder()" style="margin-top:8px">✅ 사전예약 저장</button>
+    </div>
+    <div id="preorder-list"><div class="empty">등록된 사전예약이 없어요</div></div>
+  </div>
+
+  <!-- 뉴스 탭 -->
+  <div class="content" id="tab-news" style="display:none">
+    <div class="card">
+      <h2>📰 게임뉴스 작성</h2>
+      <div class="form-row">
+        <div><label>게임명</label><input type="text" id="n-game" placeholder="예: 리니지W"></div>
+        <div><label>이모지 아이콘</label><input type="text" id="n-icon" placeholder="예: 🔥" style="width:80px"></div>
+      </div>
+      <div class="form-row full"><label>뉴스 제목</label><input type="text" id="n-title" placeholder="예: 리니지W 신규 서버 오픈 — 특별 보상 지급"></div>
+      <div class="form-row full"><label>뉴스 내용</label><textarea id="n-content" style="min-height:100px" placeholder="뉴스 상세 내용..."></textarea></div>
+      <div class="form-row full"><label>원문 링크 (선택)</label><input type="text" id="n-url" placeholder="https://..."></div>
+      <button class="btn btn-grn btn-sm" onclick="saveNews()" style="margin-top:8px">✅ 뉴스 저장</button>
+    </div>
+    <div id="news-list"><div class="empty">등록된 뉴스가 없어요</div></div>
+  </div>
+
+  <!-- 쿠폰 직접추가 탭 -->
+  <div class="content" id="tab-coupon" style="display:none">
+    <div class="card">
+      <h2>🎫 쿠폰 직접 추가</h2>
+      <div class="form-row">
+        <div><label>게임명</label><input type="text" id="c-game" placeholder="예: 원신"></div>
+        <div><label>쿠폰 코드</label><input type="text" id="c-code" placeholder="예: GENSHIN2026"></div>
+      </div>
+      <div class="form-row">
+        <div><label>보상 내용</label><input type="text" id="c-reward" placeholder="예: 원석 60개 + 경험치 책"></div>
+        <div><label>만료일</label><input type="text" id="c-expire" placeholder="예: 2026.12.31 또는 무기한"></div>
+      </div>
+      <div class="form-row">
+        <div><label>장르</label>
+          <select id="c-genre">
+            <option value="rpg">RPG</option><option value="fps">FPS</option>
+            <option value="strategy">전략</option><option value="casual">캐주얼</option>
+          </select>
+        </div>
+        <div><label>출처</label><input type="text" id="c-source" placeholder="예: 공식 트위터"></div>
+      </div>
+      <button class="btn btn-grn btn-sm" onclick="saveCoupon()" style="margin-top:8px">✅ 쿠폰 저장</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const ADMIN_PW = 'coupondungeon2026'; // ← 원하는 비밀번호로 변경하세요!
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyBd0e5i2LMNtZkM1aib4kZdgjUWkzMtN7Q',
+  authDomain: 'dooood-2c725.firebaseapp.com',
+  projectId: 'dooood-2c725',
+  storageBucket: 'dooood-2c725.firebasestorage.app',
+  messagingSenderId: '805524185808',
+  appId: '1:805524185808:web:2e3ebcd0e27172efa334d5',
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// 로그인
+window.doLogin = function() {
+  const pw = document.getElementById('pwInput').value;
+  if (pw === ADMIN_PW) {
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadAll();
+  } else {
+    showToast('❌ 비밀번호가 틀렸어요!');
+  }
+};
+window.doLogout = function() {
+  document.getElementById('loginWrap').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+};
+
+// 탭 전환
+window.showTab = function(name, el) {
+  ['guide','preorder','news','coupon'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = t === name ? 'block' : 'none';
+  });
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  if (el) el.classList.add('on');
+};
+
+// 토스트
+window.showToast = function(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+};
+
+// ── 공략 ──────────────────────────────────
+window.saveGuide = async function() {
+  const game = document.getElementById('g-game').value.trim();
+  const title = document.getElementById('g-title').value.trim();
+  const content = document.getElementById('g-content').value.trim();
+  const cat = document.getElementById('g-cat').value;
+  const icon = document.getElementById('g-icon').value.trim() || '🎮';
+  if (!game || !title || !content) { showToast('❌ 게임명, 제목, 내용을 입력해주세요'); return; }
+  try {
+    await addDoc(collection(db, 'guides'), {
+      game, title, content, cat, icon,
+      views: 0,
+      createdAt: new Date().toISOString(),
+    });
+    showToast('✅ 공략 저장 완료!');
+    ['g-game','g-title','g-content','g-icon'].forEach(id => document.getElementById(id).value = '');
+    loadGuides();
+  } catch(e) { showToast('❌ 저장 실패: ' + e.message); }
+};
+
+async function loadGuides() {
+  try {
+    const snap = await getDocs(query(collection(db, 'guides'), orderBy('createdAt', 'desc')));
+    const el = document.getElementById('guide-list');
+    if (snap.empty) { el.innerHTML = '<div class="empty">등록된 공략이 없어요</div>'; return; }
+    el.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      el.innerHTML += `<div class="list-item">
+        <div style="font-size:24px">${data.icon}</div>
+        <div class="list-item-info">
+          <div class="list-item-title">${data.title}</div>
+          <div class="list-item-meta">${data.game} · <span class="badge badge-guide">${data.cat}</span></div>
+        </div>
+        <div class="list-item-actions">
+          <button class="btn btn-red btn-sm" onclick="delDoc('guides','${d.id}','guide-list',loadGuides)">삭제</button>
+        </div>
+      </div>`;
+    });
+  } catch(e) {}
+}
+
+// ── 사전예약 ──────────────────────────────
+window.savePreorder = async function() {
+  const game = document.getElementById('p-game').value.trim();
+  const dev = document.getElementById('p-dev').value.trim();
+  const launch = document.getElementById('p-launch').value.trim();
+  const dday = parseInt(document.getElementById('p-dday').value) || 0;
+  const reg = document.getElementById('p-reg').value.trim() || '0';
+  const genre = document.getElementById('p-genre').value;
+  const desc = document.getElementById('p-desc').value.trim();
+  const url = document.getElementById('p-url').value.trim();
+  if (!game || !launch) { showToast('❌ 게임명과 출시일을 입력해주세요'); return; }
+  try {
+    await addDoc(collection(db, 'preorders'), {
+      game, dev, launch, dday, reg, genre, desc, url,
+      createdAt: new Date().toISOString(),
+    });
+    showToast('✅ 사전예약 저장 완료!');
+    ['p-game','p-dev','p-launch','p-dday','p-reg','p-desc','p-url'].forEach(id => document.getElementById(id).value = '');
+    loadPreorders();
+  } catch(e) { showToast('❌ 저장 실패: ' + e.message); }
+};
+
+async function loadPreorders() {
+  try {
+    const snap = await getDocs(query(collection(db, 'preorders'), orderBy('createdAt', 'desc')));
+    const el = document.getElementById('preorder-list');
+    if (snap.empty) { el.innerHTML = '<div class="empty">등록된 사전예약이 없어요</div>'; return; }
+    el.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      el.innerHTML += `<div class="list-item">
+        <div style="font-size:24px">🚀</div>
+        <div class="list-item-info">
+          <div class="list-item-title">${data.game}</div>
+          <div class="list-item-meta">${data.dev} · ${data.genre} · 출시: ${data.launch} · D-${data.dday}</div>
+        </div>
+        <div class="list-item-actions">
+          <button class="btn btn-red btn-sm" onclick="delDoc('preorders','${d.id}','preorder-list',loadPreorders)">삭제</button>
+        </div>
+      </div>`;
+    });
+  } catch(e) {}
+}
+
+// ── 뉴스 ──────────────────────────────────
+window.saveNews = async function() {
+  const game = document.getElementById('n-game').value.trim();
+  const title = document.getElementById('n-title').value.trim();
+  const content = document.getElementById('n-content').value.trim();
+  const icon = document.getElementById('n-icon').value.trim() || '📰';
+  const url = document.getElementById('n-url').value.trim();
+  if (!game || !title) { showToast('❌ 게임명과 제목을 입력해주세요'); return; }
+  const now = new Date();
+  const date = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+  try {
+    await addDoc(collection(db, 'news'), {
+      game, title, content, icon, url, date,
+      createdAt: new Date().toISOString(),
+    });
+    showToast('✅ 뉴스 저장 완료!');
+    ['n-game','n-title','n-content','n-icon','n-url'].forEach(id => document.getElementById(id).value = '');
+    loadNews();
+  } catch(e) { showToast('❌ 저장 실패: ' + e.message); }
+};
+
+async function loadNews() {
+  try {
+    const snap = await getDocs(query(collection(db, 'news'), orderBy('createdAt', 'desc')));
+    const el = document.getElementById('news-list');
+    if (snap.empty) { el.innerHTML = '<div class="empty">등록된 뉴스가 없어요</div>'; return; }
+    el.innerHTML = '';
+    snap.forEach(d => {
+      const data = d.data();
+      el.innerHTML += `<div class="list-item">
+        <div style="font-size:24px">${data.icon}</div>
+        <div class="list-item-info">
+          <div class="list-item-title">${data.title}</div>
+          <div class="list-item-meta">${data.game} · ${data.date}</div>
+        </div>
+        <div class="list-item-actions">
+          <button class="btn btn-red btn-sm" onclick="delDoc('news','${d.id}','news-list',loadNews)">삭제</button>
+        </div>
+      </div>`;
+    });
+  } catch(e) {}
+}
+
+// ── 쿠폰 직접 추가 ────────────────────────
+window.saveCoupon = async function() {
+  const game = document.getElementById('c-game').value.trim();
+  const code = document.getElementById('c-code').value.trim().toUpperCase();
+  const reward = document.getElementById('c-reward').value.trim();
+  const expire = document.getElementById('c-expire').value.trim() || '무기한';
+  const genre = document.getElementById('c-genre').value;
+  const source = document.getElementById('c-source').value.trim() || '직접입력';
+  if (!game || !code) { showToast('❌ 게임명과 쿠폰코드를 입력해주세요'); return; }
+  const id = `${game}_${code}`.replace(/[^a-zA-Z0-9가-힣_-]/g, '_');
+  try {
+    const { setDoc, doc: firestoreDoc } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+    await setDoc(firestoreDoc(db, 'coupons', id), {
+      game, code, reward, expire, genre, source,
+      rank: 500, status: 'new', views: 0,
+      votes: { ok: 0, bad: 0 },
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    showToast('✅ 쿠폰 저장 완료!');
+    ['c-game','c-code','c-reward','c-expire','c-source'].forEach(id => document.getElementById(id).value = '');
+  } catch(e) { showToast('❌ 저장 실패: ' + e.message); }
+};
+
+// ── 삭제 공통 ─────────────────────────────
+window.delDoc = async function(colName, id, listId, reloadFn) {
+  if (!confirm('정말 삭제할까요?')) return;
+  try {
+    await deleteDoc(doc(db, colName, id));
+    showToast('🗑️ 삭제 완료');
+    reloadFn();
+  } catch(e) { showToast('❌ 삭제 실패'); }
+};
+
+async function loadAll() {
+  await loadGuides();
+  await loadPreorders();
+  await loadNews();
+}
+</script>
+</body>
+</html>
