@@ -686,7 +686,7 @@ function renderCoupons(list) {
     var pct = total ? Math.round((votes.ok || 0) / total * 100) : 0;
     var more = coupons.length - 1;
 
-    html += '<div class="coupon-card" data-genre="' + c.genre + '">';
+    html += '<div class="coupon-card" data-genre="' + (c.genre || 'rpg') + '">';
     html += '<div class="banner-wrap" onclick="openGame(\'' + gameName.replace(/'/g, "\\'") + '\')">';
     html += '<div class="bfall" id="bf' + c.id + '" style="background:linear-gradient(135deg,' + info.bg + ',#1a1a2c)">' + info.icon + '</div>';
     html += '<img id="bi' + c.id + '" alt="' + gameName + '">';
@@ -698,10 +698,10 @@ function renderCoupons(list) {
     html += '<div class="game-img-wrap"><div class="fbi" id="if' + c.id + '">' + info.icon + '</div>';
     html += '<img id="ii' + c.id + '" alt="' + gameName + '"></div>';
     html += '<div class="cc-info"><div class="cc-name">' + gameName + '</div>';
-    html += '<div class="cc-meta">' + c.genre.toUpperCase() + ' · ' + c.dev + ' · 쿠폰 ' + coupons.length + '개</div></div>';
+    html += '<div class="cc-meta">' + ((c.genre || 'rpg') || 'RPG').toUpperCase() + ' · ' + ((c.dev || '') || '') + ' · 쿠폰 ' + coupons.length + '개</div></div>';
     html += '<span class="cc-badge ' + b[0] + '">' + b[1] + '</span></div>';
     html += '<div class="cc-body">';
-    html += '<div class="cc-reward">🎁 <span>' + c.reward + '</span></div>';
+    html += '<div class="cc-reward">🎁 <span>' + (c.reward || '인게임 보상') + '</span></div>';
     html += '<div class="code-wrap"><div class="code-lbl">최신 쿠폰 코드</div>';
     html += '<div class="code-txt' + (unlocked ? '' : ' blurred') + '" id="code' + c.id + '">' + c.code + '</div>';
     html += '<div class="code-mask' + (unlocked ? ' gone' : '') + '" id="mask' + c.id + '">';
@@ -716,7 +716,7 @@ function renderCoupons(list) {
     html += '<button class="vote-btn' + (mv === 'ok' ? ' vok' : '') + '" onclick="castVote(\'' + c.id + '\',\'ok\')">👍</button>';
     html += '<button class="vote-btn' + (mv === 'bad' ? ' vbad' : '') + '" onclick="castVote(\'' + c.id + '\',\'bad\')">👎</button>';
     html += '</div></div>';
-    html += '<div class="ai-src"><div class="ai-src-dot"></div>' + c.src + ' · ' + c.views.toLocaleString() + '명</div>';
+    html += '<div class="ai-src"><div class="ai-src-dot"></div>' + (c.src || c.source || '블루스택') + ' · ' + ((c.views || 0).toLocaleString()) + '명</div>';
     html += '</div></div>';
   });
   grid.innerHTML = html;
@@ -832,7 +832,7 @@ function openGame(gameName) {
       html += '<div class="coupon-card">';
       html += '<div class="cc-head"><div class="game-img-wrap"><div class="fbi">' + info.icon + '</div></div>';
       html += '<div class="cc-info"><div class="cc-name">' + c.game + '</div>';
-      html += '<div class="cc-meta">' + c.genre.toUpperCase() + ' · ' + c.dev + '</div></div>';
+      html += '<div class="cc-meta">' + ((c.genre || 'rpg') || 'RPG').toUpperCase() + ' · ' + (c.dev || '') + '</div></div>';
       html += '<span class="cc-badge ' + b[0] + '">' + b[1] + '</span></div>';
       html += '<div class="cc-body"><div class="cc-reward">🎁 <span>' + c.reward + '</span></div>';
       html += '<div class="code-wrap"><div class="code-lbl">쿠폰 코드</div>';
@@ -1077,7 +1077,7 @@ function setGenre(btn, g) {
 function filterCards() {
   var q = document.getElementById('searchInput').value.toLowerCase();
   var filtered = COUPONS.filter(function(c) {
-    var mG = activeGenre === 'all' || c.genre === activeGenre;
+    var mG = activeGenre === 'all' || (c.genre || 'rpg') === activeGenre;
     var mQ = !q || c.game.toLowerCase().indexOf(q) > -1 || c.code.toLowerCase().indexOf(q) > -1;
     return mG && mQ;
   });
