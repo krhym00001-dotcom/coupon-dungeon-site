@@ -1176,7 +1176,7 @@ const db = getFirestore(app);
    30분간 localStorage에 저장된 데이터를 재사용.
    → Rate Limit 해결 + 로딩 속도 향상
 ─────────────────────────────────────────────── */
-var CACHE_KEY = 'cd_coupons_cache';
+var CACHE_KEY = 'cd_coupons_v3'; // 키 변경으로 기존 캐시 무효화
 var CACHE_TTL = 30 * 60 * 1000; // 30분
 
 function getCached() {
