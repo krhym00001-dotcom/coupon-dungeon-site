@@ -681,8 +681,9 @@ function renderCoupons(list) {
     var expCls = c.expire === '무기한' ? 'grn' : daysTill(c.expire) < 7 ? 'red' : 'mut';
     var expTxt = c.expire === '무기한' ? '✅ 무기한' : '⏰ ' + c.expire;
     var mv = MY_VOTES[c.id];
-    var total = c.votes.ok + c.votes.bad;
-    var pct = total ? Math.round(c.votes.ok / total * 100) : 0;
+    var votes = c.votes || { ok: 0, bad: 0 };
+    var total = (votes.ok || 0) + (votes.bad || 0);
+    var pct = total ? Math.round((votes.ok || 0) / total * 100) : 0;
     var more = coupons.length - 1;
 
     html += '<div class="coupon-card" data-genre="' + c.genre + '">';
@@ -710,7 +711,7 @@ function renderCoupons(list) {
     html += '<button class="view-all-btn" onclick="openGame(\'' + gameName.replace(/'/g, "\\'") + '\')">🎮 ' + gameName + ' 쿠폰 전체 보기 (' + coupons.length + '개) →</button>';
     html += '<div class="vote-wrap"><span class="vote-lbl">작동?</span>';
     html += '<div class="vote-bar"><div class="vote-bar-ok" id="vb' + c.id + '" style="width:' + pct + '%"></div></div>';
-    html += '<span class="vote-cnt" id="vc' + c.id + '">' + c.votes.ok + '👍</span>';
+    html += '<span class="vote-cnt" id="vc' + c.id + '">' + (votes.ok || 0) + '👍</span>';
     html += '<div class="vote-btns">';
     html += '<button class="vote-btn' + (mv === 'ok' ? ' vok' : '') + '" onclick="castVote(\'' + c.id + '\',\'ok\')">👍</button>';
     html += '<button class="vote-btn' + (mv === 'bad' ? ' vbad' : '') + '" onclick="castVote(\'' + c.id + '\',\'bad\')">👎</button>';
@@ -1032,12 +1033,13 @@ function castVote(id, type) {
   if (!c) return;
   var prev = MY_VOTES[id];
   if (prev === type) return;
-  if (prev) c.votes[prev]--;
-  c.votes[type]++;
+  if (!c.votes) c.votes = { ok: 0, bad: 0 };
+  if (prev) c.votes[prev] = Math.max(0, (c.votes[prev] || 0) - 1);
+  c.votes[type] = (c.votes[type] || 0) + 1;
   MY_VOTES[id] = type;
   localStorage.setItem('mv', JSON.stringify(MY_VOTES));
-  var total = c.votes.ok + c.votes.bad;
-  var pct = total ? Math.round(c.votes.ok / total * 100) : 0;
+  var total = (c.votes.ok || 0) + (c.votes.bad || 0);
+  var pct = total ? Math.round((c.votes.ok || 0) / total * 100) : 0;
   var vb = document.getElementById('vb' + id);
   var vc = document.getElementById('vc' + id);
   if (vb) vb.style.width = pct + '%';
