@@ -435,7 +435,7 @@ var GDB = {
 /* ───────────────────────────────
    쿠폰 데이터 (게임별 여러 개)
 ─────────────────────────────── */
-var COUPONS = [
+window.COUPONS = [
   // 리니지W (3개)
   {id:'lw1',game:'리니지W',genre:'rpg',dev:'NCSOFT',code:'LINEAGE2025WIN',reward:'다이아 3,000개 + 강화석 20개',expire:'2026.07.31',status:'new',views:1823,src:'공식 트위터',votes:{ok:142,bad:8}},
   {id:'lw2',game:'리니지W',genre:'rpg',dev:'NCSOFT',code:'LWIN2504EVENT',reward:'마법인형 3개 + 게임머니 100만',expire:'2026.07.31',status:'hot',views:987,src:'공식 카페',votes:{ok:88,bad:5}},
@@ -532,7 +532,7 @@ var COUPONS = [
   {id:'a21',game:'아이온2',genre:'rpg',dev:'NCSOFT',code:'AION2_2025',reward:'키나 1,000만 + 성장 패키지',expire:'2026.07.31',status:'new',views:1234,src:'공식 트위터',votes:{ok:109,bad:7}},
 ];
 
-var PREORDERS = [
+window.PREORDERS = [
   {id:'p1',game:'그랑사가',          genre:'RPG',   dev:'NPIXEL',    dday:3,  reg:'284,000', launch:'2025.04.12'},
   {id:'p2',game:'나이트 크로우',     genre:'MMORPG',dev:'MAG',       dday:8,  reg:'156,000', launch:'2025.04.17'},
   {id:'p3',game:'블루 아카이브',     genre:'RPG',   dev:'Nexon',     dday:5,  reg:'412,000', launch:'2025.04.14'},
@@ -541,7 +541,7 @@ var PREORDERS = [
   {id:'p6',game:'라그나로크 오리진', genre:'RPG',   dev:'Gravity',   dday:30, reg:'67,000',  launch:'2025.05.09'},
 ];
 
-var GUIDES = [
+window.GUIDES = [
   {game:'리니지W',              cat:'초보가이드', title:'리니지W 초보자 완벽 가이드 — 시작부터 성장까지',              icon:'⚔️', views:'12.4k'},
   {game:'메이플스토리M',        cat:'공략',       title:'메이플스토리M 스타포스 강화 효율 총정리 2025',               icon:'🧙', views:'8.7k'},
   {game:'로스트아크',           cat:'공략',       title:'로스트아크 결정석 파밍 최적 루트 — 하루 1,000개 가능?',      icon:'🌟', views:'15.2k'},
@@ -556,7 +556,7 @@ var GUIDES = [
   {game:'오버워치2',            cat:'팁',         title:'오버워치2 랭크 올리는 법 — 골드→플래티넘 가이드',            icon:'🦸', views:'7.2k'},
 ];
 
-var NEWS = [
+window.NEWS = [
   {icon:'🔥', title:'리니지W, 신규 서버 "아이온" 오픈 — 사전예약자 전원 특별 보상 지급',    date:'2025.04.09', game:'리니지W'},
   {icon:'🆕', title:'메이플스토리M 대규모 업데이트 — 신규 직업 "소울마스터" 추가 출시',     date:'2025.04.08', game:'메이플스토리M'},
   {icon:'🏆', title:'배틀그라운드 모바일 시즌30 시작 — 신규 맵 "사막 전장" 공개',          date:'2025.04.07', game:'배틀그라운드 모바일'},
@@ -1122,13 +1122,13 @@ function setCache(data) {
 
 function applyData(dbCoupons) {
   if (!dbCoupons || dbCoupons.length === 0) return;
-  COUPONS = dbCoupons;
-  renderCoupons(COUPONS);
+  window.COUPONS = dbCoupons;
+  renderCoupons(window.COUPONS);
   renderRank();
-  var games = [...new Set(COUPONS.map(function(c){ return c.game; }))];
+  var games = [...new Set(window.COUPONS.map(function(c){ return c.game; }))];
   document.getElementById('statGames').textContent = games.length;
-  document.getElementById('statCoupons').textContent = COUPONS.length;
-  console.log('쿠폰 ' + COUPONS.length + '개 적용 완료');
+  document.getElementById('statCoupons').textContent = window.COUPONS.length;
+  console.log('쿠폰 ' + window.COUPONS.length + '개 적용 완료');
 }
 
 /* 하드코딩 데이터 개수 저장 — Firebase 데이터가 이보다 적으면 무시 */
@@ -1158,7 +1158,7 @@ async function loadGuidesFromDB() {
     if (snap.empty) return;
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
-    GUIDES = items;
+    window.GUIDES = items;
     renderGuides();
     document.getElementById('guideCount').textContent = items.length;
   } catch(e) { console.warn('공략 로드 실패:', e.message); }
@@ -1172,7 +1172,7 @@ async function loadNewsFromDB() {
     if (snap.empty) return;
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
-    NEWS = items;
+    window.NEWS = items;
     renderNews();
     document.getElementById('newsCount').textContent = items.length;
   } catch(e) { console.warn('뉴스 로드 실패:', e.message); }
@@ -1186,7 +1186,7 @@ async function loadPreordersFromDB() {
     if (snap.empty) return;
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
-    PREORDERS = items;
+    window.PREORDERS = items;
     renderPreorders();
     document.getElementById('preCount').textContent = items.length;
   } catch(e) { console.warn('사전예약 로드 실패:', e.message); }
