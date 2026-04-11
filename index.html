@@ -732,8 +732,24 @@ function renderCoupons(list) {
   });
 }
 
+/* ───── 슬러그 생성 (SEO URL용) ───── */
+function toSlug(str) {
+  return str
+    .replace(/[:\s]+/g, '-')
+    .replace(/[^\w가-힣-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase();
+}
+
 /* ───── 게임 전용 페이지 ───── */
 function openGame(gameName) {
+  /* SEO 게임 전용 페이지로 이동 */
+  var slug = toSlug(gameName);
+  if (slug) {
+    window.location.href = '/game/' + slug + '.html';
+    return;
+  }
   var coupons = COUPONS.filter(function(c) { return c.game === gameName; });
   var info = GDB[gameName] || { icon: '🎮', bg: '#1a1030' };
   var unlocked = isUnlocked();
