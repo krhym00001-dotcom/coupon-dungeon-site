@@ -1128,138 +1128,109 @@ if (isUnlocked()) startUnlockTimer();
 else updateUnlockUI();
 </script>
 
+<!-- Firebase compat SDK (전역 스코프, module 아님) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
-/* applyData 전역 함수 */
-function applyData(dbCoupons) {
-  if (!dbCoupons || dbCoupons.length === 0) return;
-  window.COUPONS = dbCoupons;
-  renderCoupons(window.COUPONS);
-  renderRank();
-  var games = [...new Set(window.COUPONS.map(function(c){ return c.game; }))];
-  document.getElementById('statGames').textContent = games.length;
-  document.getElementById('statCoupons').textContent = window.COUPONS.length;
-  console.log('쿠폰 ' + window.COUPONS.length + '개 적용 완료');
-}
-/* module → 전역 함수 연결 */
-window.showTab = showTab;
-window.openGame = openGame;
-window.openGuide = openGuide;
-window.renderCoupons = renderCoupons;
-window.renderGuides = renderGuides;
-window.renderNews = renderNews;
-window.renderPreorders = renderPreorders;
-window.renderRank = renderRank;
-window.applyData = applyData;
-</script>
-
-<!-- Firebase SDK -->
-<script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, getDocs, query, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-
-const firebaseConfig = {
+/* Firebase 초기화 */
+firebase.initializeApp({
   apiKey: 'AIzaSyBd0e5i2LMNtZkM1aib4kZdgjUWkzMtN7Q',
   authDomain: 'dooood-2c725.firebaseapp.com',
   projectId: 'dooood-2c725',
   storageBucket: 'dooood-2c725.firebasestorage.app',
   messagingSenderId: '805524185808',
   appId: '1:805524185808:web:2e3ebcd0e27172efa334d5',
-  measurementId: 'G-JEJ1XTBXKQ'
-};
+});
+var db = firebase.firestore();
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-/* ── 캐시 설정 ──────────────────────────────────
-   CACHE_TTL : 캐시 유효 시간 (30분)
-   매 페이지 로드마다 Firebase를 호출하지 않고
-   30분간 localStorage에 저장된 데이터를 재사용.
-   → Rate Limit 해결 + 로딩 속도 향상
-─────────────────────────────────────────────── */
-var CACHE_KEY = 'cd_coupons_v3'; // 키 변경으로 기존 캐시 무효화
-var CACHE_TTL = 30 * 60 * 1000; // 30분
-
+/* ── 캐시 ── */
+var CACHE_KEY = 'cd_coupons_v3';
+var CACHE_TTL = 30 * 60 * 1000;
 function getCached() {
   try {
     var raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
     var obj = JSON.parse(raw);
-    if (Date.now() - obj.ts > CACHE_TTL) {
-      localStorage.removeItem(CACHE_KEY);
-      return null;
-    }
+    if (Date.now() - obj.ts > CACHE_TTL) { localStorage.removeItem(CACHE_KEY); return null; }
     return obj.data;
   } catch(e) { return null; }
 }
-
 function setCache(data) {
-  try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data }));
-  } catch(e) {}
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch(e) {}
 }
 
-/* applyData moved to global */
+/* ── 데이터 적용 ── */
+function applyData(dbCoupons) {
+  if (!dbCoupons || dbCoupons.length === 0) return;
+  COUPONS = dbCoupons;
+  renderCoupons(COUPONS);
+  renderRank();
+  var games = [];
+  var seen = {};
+  COUPONS.forEach(function(c) { if (!seen[c.game]) { seen[c.game] = 1; games.push(c.game); } });
+  document.getElementById('statGames').textContent = games.length;
+  document.getElementById('statCoupons').textContent = COUPONS.length;
+  console.log('✅ 쿠폰 ' + COUPONS.length + '개 적용!');
+}
 
-/* 하드코딩 데이터 개수 저장 — Firebase 데이터가 이보다 적으면 무시 */
-async function loadFromDB() {
+/* ── 쿠폰 로드 ── */
+function loadFromDB() {
   var cached = getCached();
   if (cached && cached.length > 0) {
-    console.log('캐시에서 쿠폰 ' + cached.length + '개 로드');
-    window.applyData(cached);
+    console.log('캐시 ' + cached.length + '개 로드');
+    applyData(cached);
     return;
   }
-  try {
-    var snap = await getDocs(collection(db, 'coupons'));
+  db.collection('coupons').get().then(function(snap) {
     if (snap.empty) { console.log('Firebase 비어있음'); return; }
-    var dbCoupons = [];
-    snap.forEach(function(doc) { dbCoupons.push(Object.assign({ id: doc.id }, doc.data())); });
-    setCache(dbCoupons);
-    window.applyData(dbCoupons);
-    console.log('Firebase ' + dbCoupons.length + '개 로드 완료!');
-  } catch(e) { console.warn('Firebase 실패:', e.message); }
+    var list = [];
+    snap.forEach(function(doc) { list.push(Object.assign({ id: doc.id }, doc.data())); });
+    setCache(list);
+    applyData(list);
+    console.log('Firebase ' + list.length + '개 로드!');
+  }).catch(function(e) { console.warn('Firebase 실패:', e.message); });
 }
-loadFromDB();
 
-/* ── 공략 Firebase 로드 ── */
-async function loadGuidesFromDB() {
-  try {
-    var snap = await getDocs(query(collection(db, 'guides'), orderBy('createdAt', 'desc')));
+/* ── 공략 로드 ── */
+function loadGuidesFromDB() {
+  db.collection('guides').orderBy('createdAt', 'desc').get().then(function(snap) {
     if (snap.empty) return;
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
-    window.GUIDES = items;
-    window.renderGuides();
+    GUIDES = items;
+    renderGuides();
     document.getElementById('guideCount').textContent = items.length;
-  } catch(e) { console.warn('공략 로드 실패:', e.message); }
+  }).catch(function(e) { console.warn('공략 로드 실패:', e.message); });
 }
-loadGuidesFromDB();
 
-/* ── 뉴스 Firebase 로드 ── */
-async function loadNewsFromDB() {
-  try {
-    var snap = await getDocs(query(collection(db, 'news'), orderBy('createdAt', 'desc')));
+/* ── 뉴스 로드 ── */
+function loadNewsFromDB() {
+  db.collection('news').orderBy('createdAt', 'desc').get().then(function(snap) {
     if (snap.empty) return;
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
-    window.NEWS = items;
-    window.renderNews();
+    NEWS = items;
+    renderNews();
     document.getElementById('newsCount').textContent = items.length;
-  } catch(e) { console.warn('뉴스 로드 실패:', e.message); }
+  }).catch(function(e) { console.warn('뉴스 로드 실패:', e.message); });
 }
-loadNewsFromDB();
 
-/* ── 사전예약 Firebase 로드 ── */
-async function loadPreordersFromDB() {
-  try {
-    var snap = await getDocs(query(collection(db, 'preorders'), orderBy('createdAt', 'desc')));
+/* ── 사전예약 로드 ── */
+function loadPreordersFromDB() {
+  db.collection('preorders').orderBy('createdAt', 'desc').get().then(function(snap) {
     if (snap.empty) return;
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
-    window.PREORDERS = items;
-    window.renderPreorders();
+    PREORDERS = items;
+    renderPreorders();
     document.getElementById('preCount').textContent = items.length;
-  } catch(e) { console.warn('사전예약 로드 실패:', e.message); }
+  }).catch(function(e) { console.warn('사전예약 로드 실패:', e.message); });
 }
+
+/* ── 실행 ── */
+loadFromDB();
+loadGuidesFromDB();
+loadNewsFromDB();
 loadPreordersFromDB();
 </script>
 
