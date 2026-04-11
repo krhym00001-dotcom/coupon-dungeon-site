@@ -865,11 +865,8 @@ function openGuide(idx) {
     .replace(/^### (.+)$/gm, '<h4 style="font-size:13px;font-weight:700;color:var(--acc2);margin:.8rem 0 .3rem">$1</h4>')
     .replace(/^\- (.+)$/gm, '<li style="margin:.2rem 0 .2rem 1rem;color:var(--txt2)">$1</li>')
     .replace(/\*\*(.+?)\*\*/g, '<b style="color:var(--txt)">$1</b>')
-    .replace(/
-
-/g, '<br><br>')
-    .replace(/
-/g, '<br>');
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n/g, '<br>');
   document.getElementById('guideModalContent').innerHTML = html;
   modal.classList.add('open');
 }
@@ -1072,6 +1069,19 @@ document.getElementById('statGames').textContent = _initGames;
 document.getElementById('statCoupons').textContent = COUPONS.length;
 if (isUnlocked()) startUnlockTimer();
 else updateUnlockUI();
+</script>
+
+<script>
+/* module → 전역 함수 연결 */
+window.showTab = showTab;
+window.openGame = openGame;
+window.openGuide = openGuide;
+window.renderCoupons = renderCoupons;
+window.renderGuides = renderGuides;
+window.renderNews = renderNews;
+window.renderPreorders = renderPreorders;
+window.renderRank = renderRank;
+window.applyData = applyData;
 </script>
 
 <!-- Firebase SDK -->
