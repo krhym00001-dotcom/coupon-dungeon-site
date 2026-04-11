@@ -662,6 +662,118 @@ function loadImgFromItunes(game, imgEl, fallEl) {
 }
 
 /* ───── 쿠폰 그리드 렌더 (게임 카드) ───── */
+/* ── 슬러그 → 한글 변환 ── */
+var SLUG_TO_KO_FRONT = {
+  'ragnarok-origin-classic':'라그나로크 오리진 클래식',
+  'ragnarok-origin':'라그나로크 오리진',
+  'last-z-survival-shooter':'Last Z: 서바이벌 슈터',
+  'dragon-traveler':'그놈은 드래곤',
+  'the-battle-cats':'냥코 대전쟁',
+  'lucky-defense':'운빨존많겜',
+  'jujutsu-kaisen-phantom-parade':'주술회전 팬텀 퍼레이드',
+  'cookierun-ovensmash':'쿠키런: 오븐스매시',
+  'dx-the-awakened':'DX: 각성자들',
+  'zombie-high-school':'좀비고등학교',
+  'the-seven-deadly-sins-origin':'일곱 개의 대죄: Origin',
+  'wow-adventurers':'우와 모험단',
+  'wuthering-waves':'명조: 워더링 웨이브',
+  'mongil-star-dive':'몬길: STAR DIVE',
+  'arknights-endfield':'명일방주: 엔드필드',
+  'top-heroes':'탑 히어로즈',
+  'cookierun':'쿠키런',
+  'cookierun-tower-of-adventures':'쿠키런: 모험의 탑',
+  'whiteout-survival':'WOS: 화이트아웃 서바이벌',
+  'where-winds-meet':'연운',
+  'raid-shadow-legends':'레이드: 그림자의 전설',
+  'pokemon-tcg-pocket':'포켓몬 카드 게임 Pocket',
+  'stella-sora':'스텔라 소라',
+  'the-return-of-the-king':'열혈강호: 귀환',
+  'once-human':'Once Human',
+  'vampir':'뱀피르',
+  'timeless-isle-latale':'라테일 플러스',
+  'seven-knights-re-birth':'세븐 나이츠 리버스',
+  'sword-of-justice':'역수한',
+  'legend-of-mir-2-red-knight':'미르2: 레드나이트',
+  'mafia-mobile':'마피아 모바일',
+  'maplestory-m':'메이플스토리M',
+  'solo-leveling-arise':'나 혼자만 레벨업: ARISE',
+  'persona-phantom-of-the-night':'페르소나: 팬텀 오브 더 나이트',
+  'dark-war-survival':'다크워: 서바이벌',
+  'tree-of-savior-new-world':'트리 오브 세이비어: 뉴월드',
+  'delta-force':'델타포스',
+  'soul-idle-two-sides-of-girls':'소울 아이들',
+  'mir-2-new-kingdom':'미르2: 새왕국',
+  'journey-of-monarch':'군주의 여정',
+  'dark-angel-wings-of-the-abyss':'다크엔젤: 심연의 날개',
+  'a-thousand-years-again':'천년 다시',
+  'three-kingdoms-of-gale':'질풍삼국',
+  'bleach-brave-souls':'블리치: 브레이브 소울즈',
+  'cloud-land-sword-and-magic':'운검선경',
+  'roem-fake-game':'ROEM',
+  'madout2':'MadOut2',
+  'fable-town-merging-games':'페이블타운',
+  'royal-kingdom':'로얄 킹덤',
+  'unlimited-fighter':'무한 파이터',
+  'abyss-destiny':'어비스 데스티니',
+  'gangrim-2':'강림2',
+  'devil-m':'데빌M',
+  'girl-war':'소녀전쟁',
+  'lord-of-nazarick':'나자릭의 군주',
+  'lineage-ii-revolution':'리니지2 레볼루션',
+  'left-to-survive-zombie-games':'Left to Survive',
+  'mini-empires-heroes-never-cry':'미니 엠파이어',
+  'go-go-muffin-cbt':'고고머핀',
+  'girls-frontline-2':'소녀전선2: 추방',
+  'horizon-walker':'호라이즌 워커',
+  'heroic-alliance':'영웅 얼라이언스',
+  'starseed-asnia-trigger':'스타시드: 아스니아 트리거',
+  'king-arthur-legends-rise':'킹 아서: 레전드 라이즈',
+  'mad-metal-world':'매드 메탈 월드',
+  'romantic-powerhouse':'로맨틱 파워하우스',
+  'ssms':'SSMS',
+  'dragons-totem':'드래곤의 토템',
+  'ace-defender-dragon-war':'에이스 디펜더',
+  'realm-of-mystery':'신비의 왕국',
+  'raising-heroes-4000-draws-given-away':'영웅 키우기',
+  'path-to-nowhere':'인외지道',
+  'ancient-seal-the-exorcist':'고인장: 강시도사',
+  'the-ragnarok':'더 라그나로크',
+  'zombie-io':'좀비.io',
+  'bangbang-survivor':'뱅뱅 서바이버',
+  'frost-and-fire-king-of-avalon':'킹 오브 아발론',
+  'monster-never-cry':'몬스터는 울지 않아',
+  'epic-seven':'에픽세븐',
+  'afk-journey':'AFK 저니',
+  'blade-m':'블레이드M',
+  'metin-overture-to-doom':'메틴',
+  'ace-division-mecha':'에이스 디비전',
+  'zenless-zone-zero':'젠레스 존 제로',
+  'combo-hero':'콤보 히어로',
+  'honor-of-kings':'왕자영요',
+  'genshin-impact':'원신',
+  'summoners-war':'서머너즈 워',
+  'tarisland':'타리스랜드',
+  'seven-knights-idle-adventure':'세븐나이츠 키우기',
+  'arthdal-chronicles':'아스달 연대기',
+  'soul-strike':'소울 스트라이크',
+  'the-grand-mafia':'더 그랜드 마피아',
+  'echocalypse':'에코칼립스',
+  'watcher-of-realms':'왓처 오브 렐름스',
+  'honkai-star-rail':'붕괴: 스타레일',
+  'dragonheir-silent-gods':'드래곤헤어: 사일런트 갓',
+  'limbus-company':'림버스 컴퍼니',
+  'reverse-1999':'리버스: 1999',
+};
+
+function fixGameName(name) {
+  if (!name) return '알 수 없음';
+  /* 슬러그처럼 생긴 경우 한글로 변환 */
+  if (/^[a-z0-9-]+$/.test(name) && SLUG_TO_KO_FRONT[name]) {
+    return SLUG_TO_KO_FRONT[name];
+  }
+  return name;
+}
+
 function renderCoupons(list) {
   var grid = document.getElementById('couponGrid');
   if (!list.length) { grid.innerHTML = '<div style="color:var(--mut);padding:1rem;font-size:13px">검색 결과가 없어요.</div>'; return; }
@@ -670,7 +782,12 @@ function renderCoupons(list) {
 
   // 게임별로 묶기
   var gameMap = {};
-  list.forEach(function(c) { if (!gameMap[c.game]) gameMap[c.game] = []; gameMap[c.game].push(c); });
+  list.forEach(function(c) {
+    var gname = fixGameName(c.game);
+    c.game = gname; /* 슬러그면 한글로 교체 */
+    if (!gameMap[gname]) gameMap[gname] = [];
+    gameMap[gname].push(c);
+  });
 
   var html = '';
   Object.keys(gameMap).forEach(function(gameName) {
@@ -1165,6 +1282,8 @@ function setCache(data) {
 /* ── 데이터 적용 ── */
 function applyData(dbCoupons) {
   if (!dbCoupons || dbCoupons.length === 0) return;
+  /* 순위순 정렬 */
+  dbCoupons.sort(function(a, b) { return (a.rank || 500) - (b.rank || 500); });
   COUPONS = dbCoupons;
   renderCoupons(COUPONS);
   renderRank();
