@@ -763,7 +763,8 @@ function showGameInline(gameName) {
       html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">';
       html += '<span style="font-size:11px;color:var(--mut)">' + expTxt + '</span>';
       if (unlocked) {
-        html += '<button class="copy-cta vis" onclick="copyCode('' + c.code.replace(/'/g, "\'") + '',this)">복사하기</button>';
+        var safeCode = c.code.replace(/\'/g, '');
+        html += '<button class="copy-cta vis" onclick="copyCode(\'' + safeCode + '\',this)">복사하기</button>';
       }
       html += '</div>';
       html += '</div></div>';
