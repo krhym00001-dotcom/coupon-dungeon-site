@@ -26,12 +26,7 @@ nav a{color:var(--txt2);font-size:13px;font-weight:500;padding:4px 0;border-bott
 nav a:hover,nav a.on{color:var(--txt);border-bottom-color:var(--acc)}
 .hdr-right{display:flex;align-items:center;gap:7px;flex-shrink:0}
 .theme-btn{background:var(--bg3);border:1px solid var(--b2);color:var(--txt2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
-.top-ad{background:linear-gradient(90deg,#150a30,#1e1250,#150a30);border-bottom:1px solid rgba(155,93,229,.3);padding:8px 1.25rem;display:flex;align-items:center;justify-content:center;gap:10px;font-size:12px;flex-wrap:wrap}
-body.light .top-ad{background:linear-gradient(90deg,#ede8ff,#e0d8ff,#ede8ff)}
-.top-ad-txt{color:#ccc}body.light .top-ad-txt{color:#555}
-.top-ad-txt strong{color:var(--acc2)}
-.top-ad-cta{background:var(--pur);color:#fff;border:none;padding:4px 12px;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif}
-.ad-pill{background:rgba(255,255,255,.1);color:#888;font-size:9px;padding:1px 5px;border-radius:3px}
+.top-ad{background:var(--bg2);border-bottom:1px solid var(--b);padding:4px 1.25rem;display:flex;align-items:center;justify-content:center}
 .tabs{background:var(--bg2);border-bottom:1px solid var(--b);padding:0 1.25rem;display:flex;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{padding:11px 14px;font-size:13px;font-weight:500;color:var(--txt2);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;flex-shrink:0}
@@ -182,11 +177,7 @@ body.light .code-mask{background:rgba(240,242,255,.85)}
 .sidebar{display:flex;flex-direction:column;gap:1rem}
 .sb-card{background:var(--card);border:1px solid var(--b);border-radius:12px;overflow:hidden}
 .sb-head{padding:10px 13px;border-bottom:1px solid var(--b);font-size:12px;font-weight:700;color:var(--txt2)}
-.sb-ad{background:var(--bg3);border:1px solid var(--b);border-radius:12px;padding:1rem;text-align:center}
-.sb-ad .adlbl{font-size:9px;color:var(--mut);border:1px solid var(--b);padding:1px 5px;border-radius:3px;margin-bottom:8px;display:inline-block}
-.sb-ad h4{font-size:13px;color:var(--acc2);font-weight:800;margin-bottom:4px}
-.sb-ad p{font-size:11px;color:var(--txt2);margin-bottom:9px;line-height:1.6}
-.sb-ad-btn{background:var(--pur);color:#fff;border:none;padding:7px;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;width:100%;font-family:'Noto Sans KR',sans-serif}
+.sb-ad{background:var(--bg3);border:1px solid var(--b);border-radius:12px;padding:4px;text-align:center;min-height:60px}
 .rank-row{padding:8px 13px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--b);cursor:pointer;transition:background .2s}
 .rank-row:last-child{border:none}
 .rank-row:hover{background:var(--bg3)}
@@ -211,11 +202,18 @@ footer a:hover{color:var(--txt)}
 </style>
 </head>
 <body>
+
+<!-- 상단 배너 광고 (AdSense) -->
 <div class="top-ad">
-  <span class="ad-pill">AD</span>
-  <span class="top-ad-txt">🔥 <strong>로스트아크 시즌4</strong> 오픈 — 지금 접속 시 전설 각인서 무료!</span>
-  <button class="top-ad-cta">▶ 받기</button>
+  <ins class="adsbygoogle"
+     style="display:block;width:100%;max-width:728px"
+     data-ad-client="ca-pub-3292286283313303"
+     data-ad-slot="auto"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
+
 <header>
   <div class="logo" onclick="showTab('coupon',null)">
     <div class="logo-icon">⚔️</div>
@@ -309,12 +307,15 @@ footer a:hover{color:var(--txt)}
   </div>
 </main>
 <aside class="sidebar">
+  <!-- 사이드바 상단 광고 (AdSense) -->
   <div class="sb-ad">
-    <div class="adlbl">AD</div>
-    <div style="font-size:24px;margin-bottom:6px">⚔️</div>
-    <h4>리니지W 신규 서버!</h4>
-    <p>가입 즉시 다이아 10,000개 + 전설 무기 지급</p>
-    <button class="sb-ad-btn">▶ 지금 시작</button>
+    <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-3292286283313303"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
   <div class="sb-card">
     <div class="sb-head">🔥 인기 게임 TOP 5</div>
@@ -328,12 +329,15 @@ footer a:hover{color:var(--txt)}
       투표 참여: <b style="color:var(--blue)" id="statVotes">0</b>건
     </div>
   </div>
+  <!-- 사이드바 하단 광고 (AdSense) -->
   <div class="sb-ad">
-    <div class="adlbl">AD</div>
-    <div style="font-size:24px;margin-bottom:6px">🐉</div>
-    <h4 style="color:var(--grn)">검은사막 모바일</h4>
-    <p>신규 클래스 기념 전설 장비 무료!</p>
-    <button class="sb-ad-btn" style="background:var(--grn);color:#000">▶ 참여하기</button>
+    <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-3292286283313303"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 </aside>
 </div>
@@ -437,99 +441,64 @@ var GDB = {
    쿠폰 데이터 (게임별 여러 개)
 ─────────────────────────────── */
 window.COUPONS = [
-  // 리니지W (3개)
   {id:'lw1',game:'리니지W',genre:'rpg',dev:'NCSOFT',code:'LINEAGE2025WIN',reward:'다이아 3,000개 + 강화석 20개',expire:'2026.07.31',status:'new',views:1823,src:'공식 트위터',votes:{ok:142,bad:8}},
   {id:'lw2',game:'리니지W',genre:'rpg',dev:'NCSOFT',code:'LWIN2504EVENT',reward:'마법인형 3개 + 게임머니 100만',expire:'2026.07.31',status:'hot',views:987,src:'공식 카페',votes:{ok:88,bad:5}},
   {id:'lw3',game:'리니지W',genre:'rpg',dev:'NCSOFT',code:'NCSOFT2025GIFT',reward:'강화석 50개 + 진화의 룬',expire:'무기한',status:'ok',views:765,src:'인게임 공지',votes:{ok:71,bad:3}},
-  // 리니지M (2개)
   {id:'lm1',game:'리니지M',genre:'rpg',dev:'NCSOFT',code:'LINEAGEM2025',reward:'다이아 2,000개 + 변신카드',expire:'2026.07.31',status:'new',views:1234,src:'공식 트위터',votes:{ok:98,bad:7}},
   {id:'lm2',game:'리니지M',genre:'rpg',dev:'NCSOFT',code:'LM2504SPRING',reward:'정령석 30개 + 경험치 물약',expire:'무기한',status:'ok',views:543,src:'공식 카페',votes:{ok:55,bad:2}},
-  // 리니지2M (2개)
   {id:'l2m1',game:'리니지2M',genre:'rpg',dev:'NCSOFT',code:'LINEAGE2M2025',reward:'다이아 1,500개 + 각성 재료',expire:'2026.07.31',status:'new',views:876,src:'공식 트위터',votes:{ok:78,bad:4}},
   {id:'l2m2',game:'리니지2M',genre:'rpg',dev:'NCSOFT',code:'L2M25SPRING',reward:'마법 주문서 10개 + 골드',expire:'무기한',status:'ok',views:432,src:'공식 카페',votes:{ok:42,bad:2}},
-  // 배틀그라운드 모바일 (3개)
   {id:'bg1',game:'배틀그라운드 모바일',genre:'fps',dev:'Krafton',code:'BGRK2025GIFT',reward:'UC 600 + 한정 스킨',expire:'무기한',status:'hot',views:3241,src:'공식 카페',votes:{ok:287,bad:12}},
   {id:'bg2',game:'배틀그라운드 모바일',genre:'fps',dev:'Krafton',code:'BGMOBILE2025',reward:'BP 10,000 + 경험치 카드',expire:'2026.05.01',status:'new',views:1876,src:'공식 트위터',votes:{ok:165,bad:8}},
   {id:'bg3',game:'배틀그라운드 모바일',genre:'fps',dev:'Krafton',code:'PUBGKR25S30',reward:'시즌 패스 7일 + 스킨',expire:'2026.07.31',status:'ok',views:1432,src:'공식 유튜브',votes:{ok:134,bad:6}},
-  // 메이플스토리M (3개)
   {id:'mm1',game:'메이플스토리M',genre:'rpg',dev:'Nexon',code:'MAPLM25SPRING',reward:'메소 5억 + 아르카나 조각 5개',expire:'2026.08.31',status:'hot',views:2987,src:'공식 유튜브',votes:{ok:201,bad:34}},
   {id:'mm2',game:'메이플스토리M',genre:'rpg',dev:'Nexon',code:'MAPLE2025FREE',reward:'스타포스 주문서 3개',expire:'무기한',status:'ok',views:1654,src:'공식 카페',votes:{ok:145,bad:12}},
   {id:'mm3',game:'메이플스토리M',genre:'rpg',dev:'Nexon',code:'MMM25NEXON',reward:'강화 큐브 5개 + 메소 1억',expire:'2026.07.31',status:'new',views:987,src:'인게임 공지',votes:{ok:89,bad:7}},
-  // 로스트아크 (3개)
   {id:'la1',game:'로스트아크',genre:'rpg',dev:'Smilegate',code:'LOSTARK25EVT',reward:'결정석 1,000개 + 카드팩 3개',expire:'무기한',status:'ok',views:1654,src:'공식 SNS',votes:{ok:198,bad:5}},
   {id:'la2',game:'로스트아크',genre:'rpg',dev:'Smilegate',code:'LARK2025S4',reward:'실링 100,000 + 강화재료 세트',expire:'2026.05.15',status:'new',views:2103,src:'공식 트위터',votes:{ok:187,bad:9}},
   {id:'la3',game:'로스트아크',genre:'rpg',dev:'Smilegate',code:'LOSTARK25RAID',reward:'마리아 교환권 + 골드 5,000',expire:'2026.07.31',status:'hot',views:1876,src:'공식 유튜브',votes:{ok:165,bad:11}},
-  // 원신 (3개)
   {id:'gs1',game:'원신',genre:'rpg',dev:'HoYoverse',code:'GENSHIN2025KR',reward:'원석 160개 + 육성 소재 패키지',expire:'2026.07.31',status:'new',views:3412,src:'공식 트위터',votes:{ok:312,bad:18}},
   {id:'gs2',game:'원신',genre:'rpg',dev:'HoYoverse',code:'GENSHINVER55',reward:'원석 60개 + 경험치 책',expire:'2026.07.31',status:'hot',views:2876,src:'공식 유튜브',votes:{ok:256,bad:14}},
   {id:'gs3',game:'원신',genre:'rpg',dev:'HoYoverse',code:'GSLIVE2025',reward:'원석 100개 + 마법광석',expire:'무기한',status:'ok',views:1987,src:'라이브 방송',votes:{ok:189,bad:10}},
-  // 붕괴: 스타레일 (2개)
   {id:'hsr1',game:'붕괴: 스타레일',genre:'rpg',dev:'HoYoverse',code:'STARRAIL2025',reward:'성간여정 60개 + 크레딧 10만',expire:'2026.07.31',status:'new',views:2341,src:'공식 트위터',votes:{ok:210,bad:11}},
   {id:'hsr2',game:'붕괴: 스타레일',genre:'rpg',dev:'HoYoverse',code:'HKRPG25SPRING',reward:'성간여정 30개 + 육성 소재',expire:'무기한',status:'ok',views:1654,src:'공식 카페',votes:{ok:154,bad:7}},
-  // 젠레스 존 제로 (2개)
   {id:'zz1',game:'젠레스 존 제로',genre:'rpg',dev:'HoYoverse',code:'ZENLESS2025KR',reward:'폴리크롬 160개 + 육성 재료',expire:'2026.07.31',status:'new',views:1876,src:'공식 트위터',votes:{ok:168,bad:10}},
   {id:'zz2',game:'젠레스 존 제로',genre:'rpg',dev:'HoYoverse',code:'ZZZ25AGENT',reward:'폴리크롬 60개 + 배터리',expire:'무기한',status:'ok',views:1123,src:'공식 SNS',votes:{ok:102,bad:5}},
-  // 쿠키런: 킹덤 (2개)
   {id:'ck1',game:'쿠키런: 킹덤',genre:'casual',dev:'Devsisters',code:'COOKIERUN2025',reward:'크리스탈 300개 + 레인보우 큐브',expire:'2026.07.31',status:'hot',views:1876,src:'공식 SNS',votes:{ok:167,bad:9}},
   {id:'ck2',game:'쿠키런: 킹덤',genre:'casual',dev:'Devsisters',code:'CKINGDOM25NEW',reward:'별사탕 500개 + 무지개 사탕',expire:'무기한',status:'ok',views:1234,src:'공식 트위터',votes:{ok:112,bad:5}},
-  // 에픽세븐 (2개)
   {id:'e71',game:'에픽세븐',genre:'rpg',dev:'Smilegate',code:'EPIC7SPRING25',reward:'스카이스톤 500개 + 성장 소재',expire:'2026.07.31',status:'new',views:1234,src:'공식 트위터',votes:{ok:112,bad:7}},
   {id:'e72',game:'에픽세븐',genre:'rpg',dev:'Smilegate',code:'E7ARENA2025',reward:'스카이스톤 200개 + 골드',expire:'무기한',status:'ok',views:876,src:'공식 SNS',votes:{ok:79,bad:4}},
-  // 블루 아카이브 (2개)
   {id:'ba1',game:'블루 아카이브',genre:'rpg',dev:'Nexon',code:'BLUEARCHIVE2025',reward:'파이로나이트 600개 + 모집권',expire:'2026.07.31',status:'new',views:2103,src:'공식 트위터',votes:{ok:189,bad:12}},
   {id:'ba2',game:'블루 아카이브',genre:'rpg',dev:'Nexon',code:'BA25ANNI',reward:'파이로나이트 300개 + 육성 재료',expire:'무기한',status:'ok',views:1456,src:'공식 유튜브',votes:{ok:134,bad:6}},
-  // 던전앤파이터M (2개)
   {id:'df1',game:'던전앤파이터M',genre:'rpg',dev:'Nexon',code:'DNFM2025EPIC',reward:'골드 1,000만 + 에픽 장비 선택권',expire:'2026.07.31',status:'hot',views:2103,src:'인게임 공지',votes:{ok:165,bad:21}},
   {id:'df2',game:'던전앤파이터M',genre:'rpg',dev:'Nexon',code:'DNFM25SEASON',reward:'강화석 30개 + 에픽 보조장비',expire:'무기한',status:'ok',views:1456,src:'공식 카페',votes:{ok:132,bad:8}},
-  // 검은사막 모바일 (2개)
   {id:'bd1',game:'검은사막 모바일',genre:'rpg',dev:'Pearl Abyss',code:'BDM2025DARK',reward:'블랙스톤 50개 + 마력의 서',expire:'2026.07.31',status:'new',views:987,src:'Discord',votes:{ok:76,bad:3}},
   {id:'bd2',game:'검은사막 모바일',genre:'rpg',dev:'Pearl Abyss',code:'BLACKDESERT25',reward:'메모리 조각 100개 + 강화 재료',expire:'무기한',status:'ok',views:765,src:'공식 트위터',votes:{ok:68,bad:4}},
-  // 오버워치2
   {id:'ow1',game:'오버워치2',genre:'fps',dev:'Blizzard',code:'OW2KR2025FREE',reward:'코인 500 + 한정 스프레이 3개',expire:'무기한',status:'ok',views:876,src:'공식 홈페이지',votes:{ok:89,bad:6}},
-  // 나이트 크로우
   {id:'nc1',game:'나이트 크로우',genre:'rpg',dev:'MAG',code:'NIGHTCROW2025',reward:'루비 300개 + 성장 패키지',expire:'2026.07.31',status:'new',views:1234,src:'공식 트위터',votes:{ok:98,bad:5}},
   {id:'nc2',game:'나이트 크로우',genre:'rpg',dev:'MAG',code:'CROW25SPRING',reward:'루비 150개 + 강화재료',expire:'무기한',status:'ok',views:654,src:'공식 카페',votes:{ok:59,bad:3}},
-  // 미르4
   {id:'mr1',game:'미르4',genre:'rpg',dev:'Wemade',code:'MIR42025DRACO',reward:'흑철 500개 + 경험치 물약',expire:'무기한',status:'ok',views:876,src:'공식 SNS',votes:{ok:78,bad:4}},
-  // 라그나로크 오리진
   {id:'ro1',game:'라그나로크 오리진',genre:'rpg',dev:'Gravity',code:'RAGNAROK2025',reward:'제니 100만 + 강화 아이템',expire:'2026.07.31',status:'hot',views:987,src:'공식 카페',votes:{ok:89,bad:6}},
   {id:'ro2',game:'라그나로크 오리진',genre:'rpg',dev:'Gravity',code:'RO25SPRING',reward:'제니 50만 + 경험치 부스터',expire:'무기한',status:'ok',views:543,src:'공식 트위터',votes:{ok:49,bad:2}},
-  // 뮤 오리진3
   {id:'mu1',game:'뮤 오리진3',genre:'rpg',dev:'Webzen',code:'MUORIGIN3_2025',reward:'다이아 1,000개 + 각성 재료',expire:'무기한',status:'ok',views:543,src:'공식 카페',votes:{ok:49,bad:3}},
-  // 세나
   {id:'sn1',game:'세나: 최후의 방어선',genre:'strategy',dev:'Nexon',code:'SENA2025EVENT',reward:'골드 10만 + 영웅 소환권',expire:'2026.07.31',status:'new',views:876,src:'공식 트위터',votes:{ok:78,bad:5}},
-  // 그랑사가
   {id:'gr1',game:'그랑사가',genre:'rpg',dev:'NPIXEL',code:'GRANDSAGA2025',reward:'다이아 500개 + 영웅 각성석',expire:'무기한',status:'ok',views:765,src:'공식 SNS',votes:{ok:69,bad:4}},
-  // 마비노기 모바일
   {id:'mb1',game:'마비노기 모바일',genre:'rpg',dev:'Nexon',code:'MABINOGI2025',reward:'금화 50만 + 특별 장비 상자',expire:'2026.07.31',status:'new',views:765,src:'공식 트위터',votes:{ok:67,bad:3}},
   {id:'mb2',game:'마비노기 모바일',genre:'rpg',dev:'Nexon',code:'MABI25SPRING',reward:'강화석 20개 + 재생의 물약',expire:'무기한',status:'ok',views:432,src:'공식 카페',votes:{ok:39,bad:2}},
-  // 트릭컬
   {id:'tr1',game:'트릭컬 RE:VIVE',genre:'rpg',dev:'Broccoli',code:'TRICKCAL2025',reward:'다이아 600개 + 픽업 티켓',expire:'2026.07.31',status:'new',views:1123,src:'공식 트위터',votes:{ok:101,bad:6}},
   {id:'tr2',game:'트릭컬 RE:VIVE',genre:'rpg',dev:'Broccoli',code:'TRICK25WINTER',reward:'다이아 200개 + 육성 소재',expire:'무기한',status:'ok',views:654,src:'공식 SNS',votes:{ok:59,bad:3}},
-  // 피파 모바일
   {id:'fp1',game:'피파 모바일',genre:'strategy',dev:'EA',code:'FIFAMOBILE25KR',reward:'FIFA 포인트 100 + 강화 아이템',expire:'무기한',status:'ok',views:654,src:'공식 SNS',votes:{ok:58,bad:4}},
-  // 브롤스타즈
   {id:'bs1',game:'브롤스타즈',genre:'casual',dev:'Supercell',code:'BRAWL2025STAR',reward:'젬 80개 + 한정 스킨 박스',expire:'2026.07.31',status:'hot',views:1543,src:'공식 SNS',votes:{ok:138,bad:9}},
   {id:'bs2',game:'브롤스타즈',genre:'casual',dev:'Supercell',code:'BRAWL25SEASON',reward:'젬 50개 + 핀 팩',expire:'무기한',status:'ok',views:987,src:'공식 유튜브',votes:{ok:89,bad:5}},
-  // 클래시 오브 클랜
   {id:'coc1',game:'클래시 오브 클랜',genre:'strategy',dev:'Supercell',code:'CLASHOFCLANS25',reward:'젬 80개 + 자원 부스터',expire:'무기한',status:'ok',views:765,src:'공식 SNS',votes:{ok:69,bad:4}},
-  // 클래시 로얄
   {id:'cr1',game:'클래시 로얄',genre:'strategy',dev:'Supercell',code:'CLASHROYALE25',reward:'골드 5,000 + 와일드카드',expire:'무기한',status:'ok',views:543,src:'공식 SNS',votes:{ok:49,bad:3}},
-  // 모두의마블 M
   {id:'mm2m',game:'모두의마블 M',genre:'casual',dev:'Nexon',code:'MARBLE2025KR',reward:'루비 200개 + 주사위 10개',expire:'2026.07.31',status:'new',views:543,src:'공식 트위터',votes:{ok:48,bad:3}},
-  // 소울워커 아리사
   {id:'sw1',game:'소울워커 아리사',genre:'rpg',dev:'Lion Games',code:'SOULWORKER2025',reward:'솔 500개 + 성장 재료',expire:'무기한',status:'ok',views:432,src:'공식 카페',votes:{ok:39,bad:2}},
-  // 카운터사이드
   {id:'cs1',game:'카운터사이드',genre:'strategy',dev:'Nexon',code:'COUNTERSIDE25',reward:'크리스탈 500개 + 소환권 3장',expire:'무기한',status:'ok',views:765,src:'공식 카페',votes:{ok:68,bad:4}},
-  // 일곱 개의 대죄
   {id:'7ds1',game:'일곱 개의 대죄: GRAND CROSS',genre:'rpg',dev:'Netmarble',code:'SEVENSINS2025',reward:'다이아 300개 + 성장 소재',expire:'2026.07.31',status:'new',views:876,src:'공식 트위터',votes:{ok:79,bad:5}},
-  // 스텔라 소라
   {id:'ss1',game:'스텔라 소라',genre:'rpg',dev:'Yostar',code:'STELLARSORA25',reward:'크리스탈 300개 + 캐릭터 픽업권',expire:'2026.07.31',status:'new',views:987,src:'공식 트위터',votes:{ok:89,bad:6}},
-  // 뱀피르
   {id:'vp1',game:'뱀피르',genre:'rpg',dev:'Netmarble',code:'VAMPIR2025KR',reward:'루비 200개 + 직업 성장 패키지',expire:'2026.07.31',status:'new',views:765,src:'공식 SNS',votes:{ok:67,bad:4}},
-  // 쿠키런: 모험의 탑
   {id:'ckt1',game:'쿠키런: 모험의 탑',genre:'casual',dev:'Devsisters',code:'CKTOWER2025',reward:'크리스탈 200개 + 등반 티켓',expire:'무기한',status:'ok',views:654,src:'공식 SNS',votes:{ok:59,bad:3}},
-  // 아이온2
   {id:'a21',game:'아이온2',genre:'rpg',dev:'NCSOFT',code:'AION2_2025',reward:'키나 1,000만 + 성장 패키지',expire:'2026.07.31',status:'new',views:1234,src:'공식 트위터',votes:{ok:109,bad:7}},
 ];
 
@@ -569,7 +538,7 @@ window.NEWS = [
 ];
 
 /* ───────────────────────────────
-   잠금 해제 시스템 (30분)
+   잠금 해제 시스템
 ─────────────────────────────── */
 var UNLOCK_MS = 24 * 60 * 60 * 1000;
 var unlockExpiry = parseInt(localStorage.getItem('unlockExpiry') || '0');
@@ -622,156 +591,27 @@ function revealAllCodes() {
   document.querySelectorAll('.copy-cta').forEach(function(el) { el.classList.add('vis'); });
 }
 
-/* ───── iTunes 이미지 로드 ───── */
 var imgCache = {};
 function loadImg(game, imgEl, fallEl, directUrl) {
   if (!imgEl) return;
-
   function applyUrl(url) {
     if (!url) return;
     imgCache[game] = url;
     imgEl.src = url;
-    imgEl.onload = function() {
-      imgEl.classList.add('loaded');
-      if (fallEl) fallEl.style.display = 'none';
-    };
-    imgEl.onerror = function() {
-      /* 이미지 로드 실패 시 iTunes 폴백 */
-      loadImgFromItunes(game, imgEl, fallEl);
-    };
+    imgEl.onload = function() { imgEl.classList.add('loaded'); if (fallEl) fallEl.style.display = 'none'; };
+    imgEl.onerror = function() {};
   }
-
-  /* 1순위: Firebase에서 받은 imageUrl (직접 전달) */
   if (directUrl) { applyUrl(directUrl); return; }
-
-  /* 2순위: 캐시 */
   if (imgCache[game]) { applyUrl(imgCache[game]); return; }
-
-  /* 3순위: GDB의 kw로 iTunes 검색 */
-  var info = GDB[game];
-  if (info && info.kw) {
-    loadImgFromItunes(game, imgEl, fallEl);
-    return;
-  }
-
-  /* 4순위: 게임명 그대로 iTunes 검색 */
-  loadImgFromItunes(game, imgEl, fallEl);
 }
 
-function loadImgFromItunes(game, imgEl, fallEl) {
-  /* iTunes CORS 이슈로 비활성화 — imageUrl은 Firebase에서 직접 수신 */
-}
-
-/* ───── 쿠폰 그리드 렌더 (게임 카드) ───── */
-/* ── 슬러그 → 한글 변환 ── */
 var SLUG_TO_KO_FRONT = {
-  'ragnarok-origin-classic':'라그나로크 오리진 클래식',
-  'ragnarok-origin':'라그나로크 오리진',
-  'last-z-survival-shooter':'Last Z: 서바이벌 슈터',
-  'dragon-traveler':'그놈은 드래곤',
-  'the-battle-cats':'냥코 대전쟁',
-  'lucky-defense':'운빨존많겜',
-  'jujutsu-kaisen-phantom-parade':'주술회전 팬텀 퍼레이드',
-  'cookierun-ovensmash':'쿠키런: 오븐스매시',
-  'dx-the-awakened':'DX: 각성자들',
-  'zombie-high-school':'좀비고등학교',
-  'the-seven-deadly-sins-origin':'일곱 개의 대죄: Origin',
-  'wow-adventurers':'우와 모험단',
-  'wuthering-waves':'명조: 워더링 웨이브',
-  'mongil-star-dive':'몬길: STAR DIVE',
-  'arknights-endfield':'명일방주: 엔드필드',
-  'top-heroes':'탑 히어로즈',
-  'cookierun':'쿠키런',
-  'cookierun-tower-of-adventures':'쿠키런: 모험의 탑',
-  'whiteout-survival':'WOS: 화이트아웃 서바이벌',
-  'where-winds-meet':'연운',
-  'raid-shadow-legends':'레이드: 그림자의 전설',
-  'pokemon-tcg-pocket':'포켓몬 카드 게임 Pocket',
-  'stella-sora':'스텔라 소라',
-  'the-return-of-the-king':'열혈강호: 귀환',
-  'once-human':'Once Human',
-  'vampir':'뱀피르',
-  'timeless-isle-latale':'라테일 플러스',
-  'seven-knights-re-birth':'세븐 나이츠 리버스',
-  'sword-of-justice':'역수한',
-  'legend-of-mir-2-red-knight':'미르2: 레드나이트',
-  'mafia-mobile':'마피아 모바일',
-  'maplestory-m':'메이플스토리M',
-  'solo-leveling-arise':'나 혼자만 레벨업: ARISE',
-  'persona-phantom-of-the-night':'페르소나: 팬텀 오브 더 나이트',
-  'dark-war-survival':'다크워: 서바이벌',
-  'tree-of-savior-new-world':'트리 오브 세이비어: 뉴월드',
-  'delta-force':'델타포스',
-  'soul-idle-two-sides-of-girls':'소울 아이들',
-  'mir-2-new-kingdom':'미르2: 새왕국',
-  'journey-of-monarch':'군주의 여정',
-  'dark-angel-wings-of-the-abyss':'다크엔젤: 심연의 날개',
-  'a-thousand-years-again':'천년 다시',
-  'three-kingdoms-of-gale':'질풍삼국',
-  'bleach-brave-souls':'블리치: 브레이브 소울즈',
-  'cloud-land-sword-and-magic':'운검선경',
-  'roem-fake-game':'ROEM',
-  'madout2':'MadOut2',
-  'fable-town-merging-games':'페이블타운',
-  'royal-kingdom':'로얄 킹덤',
-  'unlimited-fighter':'무한 파이터',
-  'abyss-destiny':'어비스 데스티니',
-  'gangrim-2':'강림2',
-  'devil-m':'데빌M',
-  'girl-war':'소녀전쟁',
-  'lord-of-nazarick':'나자릭의 군주',
-  'lineage-ii-revolution':'리니지2 레볼루션',
-  'left-to-survive-zombie-games':'Left to Survive',
-  'mini-empires-heroes-never-cry':'미니 엠파이어',
-  'go-go-muffin-cbt':'고고머핀',
-  'girls-frontline-2':'소녀전선2: 추방',
-  'horizon-walker':'호라이즌 워커',
-  'heroic-alliance':'영웅 얼라이언스',
-  'starseed-asnia-trigger':'스타시드: 아스니아 트리거',
-  'king-arthur-legends-rise':'킹 아서: 레전드 라이즈',
-  'mad-metal-world':'매드 메탈 월드',
-  'romantic-powerhouse':'로맨틱 파워하우스',
-  'ssms':'SSMS',
-  'dragons-totem':'드래곤의 토템',
-  'ace-defender-dragon-war':'에이스 디펜더',
-  'realm-of-mystery':'신비의 왕국',
-  'raising-heroes-4000-draws-given-away':'영웅 키우기',
-  'path-to-nowhere':'인외지道',
-  'ancient-seal-the-exorcist':'고인장: 강시도사',
-  'the-ragnarok':'더 라그나로크',
-  'zombie-io':'좀비.io',
-  'bangbang-survivor':'뱅뱅 서바이버',
-  'frost-and-fire-king-of-avalon':'킹 오브 아발론',
-  'monster-never-cry':'몬스터는 울지 않아',
-  'epic-seven':'에픽세븐',
-  'afk-journey':'AFK 저니',
-  'blade-m':'블레이드M',
-  'metin-overture-to-doom':'메틴',
-  'ace-division-mecha':'에이스 디비전',
-  'zenless-zone-zero':'젠레스 존 제로',
-  'combo-hero':'콤보 히어로',
-  'honor-of-kings':'Honor of Kings',
-  'genshin-impact':'원신',
-  'summoners-war':'서머너즈 워',
-  'tarisland':'타리스랜드',
-  'seven-knights-idle-adventure':'세븐나이츠 키우기',
-  'arthdal-chronicles':'아스달 연대기',
-  'soul-strike':'소울 스트라이크',
-  'the-grand-mafia':'더 그랜드 마피아',
-  'echocalypse':'에코칼립스',
-  'watcher-of-realms':'왓처 오브 렐름스',
-  'honkai-star-rail':'붕괴: 스타레일',
-  'dragonheir-silent-gods':'드래곤헤어: 사일런트 갓',
-  'limbus-company':'림버스 컴퍼니',
-  'reverse-1999':'리버스: 1999',
+  'ragnarok-origin-classic':'라그나로크 오리진 클래식','ragnarok-origin':'라그나로크 오리진','maplestory-m':'메이플스토리M','solo-leveling-arise':'나 혼자만 레벨업: ARISE','wuthering-waves':'명조: 워더링 웨이브','honkai-star-rail':'붕괴: 스타레일','genshin-impact':'원신','zenless-zone-zero':'젠레스 존 제로','epic-seven':'에픽세븐','cookierun-tower-of-adventures':'쿠키런: 모험의 탑','once-human':'Once Human','stella-sora':'스텔라 소라','vampir':'뱀피르','arthdal-chronicles':'아스달 연대기','monster-never-cry':'몬스터는 울지 않아','limbus-company':'림버스 컴퍼니','reverse-1999':'리버스: 1999',
 };
 
 function fixGameName(name) {
   if (!name || name.trim() === '') return null;
-  /* 슬러그처럼 생긴 경우 한글로 변환 */
-  if (/^[a-z0-9-]+$/.test(name)) {
-    return SLUG_TO_KO_FRONT[name] || null; /* 매핑 없으면 null → 필터링됨 */
-  }
+  if (/^[a-z0-9-]+$/.test(name)) { return SLUG_TO_KO_FRONT[name] || null; }
   return name;
 }
 
@@ -780,16 +620,13 @@ function renderCoupons(list) {
   if (!list.length) { grid.innerHTML = '<div style="color:var(--mut);padding:1rem;font-size:13px">검색 결과가 없어요.</div>'; return; }
   var unlocked = isUnlocked();
   var bmap = { new: ['b-new', 'NEW'], hot: ['b-hot', 'HOT'], ok: ['b-ok', '사용가능'] };
-
-  // 게임별로 묶기
   var gameMap = {};
   list.forEach(function(c) {
     var gname = fixGameName(c.game);
-    c.game = gname; /* 슬러그면 한글로 교체 */
+    c.game = gname;
     if (!gameMap[gname]) gameMap[gname] = [];
     gameMap[gname].push(c);
   });
-
   var html = '';
   Object.keys(gameMap).forEach(function(gameName) {
     var coupons = gameMap[gameName];
@@ -803,7 +640,6 @@ function renderCoupons(list) {
     var total = (votes.ok || 0) + (votes.bad || 0);
     var pct = total ? Math.round((votes.ok || 0) / total * 100) : 0;
     var more = coupons.length - 1;
-
     html += '<div class="coupon-card" data-genre="' + (c.genre || 'rpg') + '">';
     html += '<div class="banner-wrap" onclick="openGame(\'' + gameName.replace(/'/g, "\\'") + '\')">';
     html += '<div class="bfall" id="bf' + c.id + '" style="background:linear-gradient(135deg,' + info.bg + ',#1a1a2c)">' + info.icon + '</div>';
@@ -833,17 +669,13 @@ function renderCoupons(list) {
     html += '<div class="vote-btns">';
     html += '<button class="vote-btn' + (mv === 'ok' ? ' vok' : '') + '" onclick="castVote(\'' + c.id + '\',\'ok\')">👍</button>';
     html += '<button class="vote-btn' + (mv === 'bad' ? ' vbad' : '') + '" onclick="castVote(\'' + c.id + '\',\'bad\')">👎</button>';
-    html += '</div></div>';
-
-    html += '</div></div>';
+    html += '</div></div></div></div>';
   });
   grid.innerHTML = html;
-
   var gameCount = Object.keys(gameMap).length;
   document.getElementById('couponCount').textContent = gameCount;
   document.getElementById('statGames').textContent = gameCount;
   document.getElementById('statCoupons').textContent = list.length;
-
   Object.keys(gameMap).forEach(function(gn) {
     var c = gameMap[gn][0];
     loadImg(gn, document.getElementById('bi' + c.id), document.getElementById('bf' + c.id), c.imageUrl);
@@ -851,7 +683,6 @@ function renderCoupons(list) {
   });
 }
 
-/* ───── 게임 인라인 표시 (SEO 페이지 없을 때 fallback) ───── */
 function showGameInline(gameName) {
   var coupons = window.COUPONS.filter(function(c) { return c.game === gameName; });
   var info = GDB[gameName] || { icon: '🎮', bg: '#1a1030' };
@@ -869,113 +700,41 @@ function showGameInline(gameName) {
     coupons.forEach(function(c) {
       var expTxt = (!c.expire || c.expire === '무기한' || c.expire === 'undefined') ? '✅ 무기한' : '⏰ ' + c.expire;
       var codeId = 'gc_' + Math.random().toString(36).substr(2,6);
-      html += '<div class="coupon-card">';
-      html += '<div class="cc-body" style="padding:1rem">';
+      html += '<div class="coupon-card"><div class="cc-body" style="padding:1rem">';
       html += '<div class="cc-reward" style="margin-bottom:10px">🎁 <span>' + c.reward + '</span></div>';
-      html += '<div class="code-wrap">';
-      html += '<div class="code-lbl">쿠폰 코드</div>';
+      html += '<div class="code-wrap"><div class="code-lbl">쿠폰 코드</div>';
       html += '<div class="code-txt' + (unlocked ? '' : ' blurred') + '" id="' + codeId + '">' + c.code + '</div>';
-      if (!unlocked) {
-        html += '<div class="code-mask"><button class="unlock-code-btn" onclick="openAdModal()">📺 광고 보고 공개</button></div>';
-      }
-      html += '</div>';
-      html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">';
+      if (!unlocked) html += '<div class="code-mask"><button class="unlock-code-btn" onclick="openAdModal()">📺 광고 보고 공개</button></div>';
+      html += '</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">';
       html += '<span style="font-size:11px;color:var(--mut)">' + expTxt + '</span>';
-      if (unlocked) {
-        var safeCode = c.code.replace(/\'/g, '');
-        html += '<button class="copy-cta vis" onclick="copyCode(\'' + safeCode + '\',this)">복사하기</button>';
-      }
-      html += '</div>';
-      html += '</div></div>';
+      if (unlocked) { var safeCode = c.code.replace(/\'/g, ''); html += '<button class="copy-cta vis" onclick="copyCode(\'' + safeCode + '\',this)">복사하기</button>'; }
+      html += '</div></div></div>';
     });
   }
   document.getElementById('gamePageGrid').innerHTML = html;
   document.getElementById('gamePageLbl').textContent = '🎫 ' + gameName + ' 쿠폰 (' + coupons.length + '개)';
   document.getElementById('gamePageHowto').textContent = info.how || '게임 공식 홈페이지에서 쿠폰을 입력하세요.';
-  ['coupon','preorder','guide','news','terms'].forEach(function(t) {
-    document.getElementById('tab-' + t).style.display = 'none';
-  });
+  ['coupon','preorder','guide','news','terms'].forEach(function(t) { document.getElementById('tab-' + t).style.display = 'none'; });
   document.getElementById('tab-gamepage').style.display = 'block';
   document.querySelectorAll('.tab, nav a').forEach(function(el) { el.classList.remove('on'); });
   window.scrollTo(0, 0);
 }
-/* ───── 슬러그 생성 (SEO URL용) ───── */
+
 function toSlug(str) {
-  return str
-    .replace(/[:\s]+/g, '-')
-    .replace(/[^\w가-힣-]/g, '')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-    .toLowerCase();
+  return str.replace(/[:\s]+/g, '-').replace(/[^\w가-힣-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '').toLowerCase();
 }
 
-/* ───── 게임 전용 페이지 ───── */
 function openGame(gameName) {
-  /* SEO 게임 전용 페이지로 이동 */
   var slug = toSlug(gameName);
   if (slug) {
-    /* game 페이지 존재 여부 확인 후 이동 */
     fetch('/game/' + slug + '.html', {method:'HEAD'})
-      .then(function(r) {
-        if (r.ok) {
-          window.location.href = '/game/' + slug + '.html';
-        } else {
-          showGameInline(gameName);
-        }
-      })
+      .then(function(r) { if (r.ok) { window.location.href = '/game/' + slug + '.html'; } else { showGameInline(gameName); } })
       .catch(function() { showGameInline(gameName); });
     return;
   }
-  var coupons = COUPONS.filter(function(c) { return c.game === gameName; });
-  var info = GDB[gameName] || { icon: '🎮', bg: '#1a1030' };
-  var unlocked = isUnlocked();
-  var bmap = { new: ['b-new', 'NEW'], hot: ['b-hot', 'HOT'], ok: ['b-ok', '사용가능'] };
-
-  document.getElementById('gamePageHdr').innerHTML =
-    '<div class="game-page-img"><div class="gpfb" id="gpfb">' + info.icon + '</div>' +
-    '<img id="gpimg" alt="' + gameName + '"></div>' +
-    '<div class="game-page-info"><h2>' + gameName + '</h2>' +
-    '<p>총 ' + coupons.length + '개 쿠폰 등록 · ' + (coupons[0] ? coupons[0].dev : '') + '</p></div>';
-  loadImg(gameName, document.getElementById('gpimg'), document.getElementById('gpfb'), coupons[0] && coupons[0].imageUrl);
-
-  var html = '';
-  if (coupons.length === 0) {
-    html = '<div style="color:var(--mut);font-size:13px;padding:1rem">아직 등록된 쿠폰이 없어요.</div>';
-  } else {
-    coupons.forEach(function(c) {
-      var b = bmap[c.status] || ['b-ok', '사용가능'];
-      var expCls = c.expire === '무기한' ? 'grn' : daysTill(c.expire) < 7 ? 'red' : 'mut';
-      var expTxt = (!c.expire || c.expire === '무기한' || c.expire === 'undefined') ? '✅ 무기한' : '⏰ ' + c.expire;
-      var link = info.url ? '<a class="coupon-link-btn" href="' + info.url + '" target="_blank" rel="noopener">📋 <span style="flex:1;text-align:left">쿠폰 입력하러 가기</span> ↗</a>' : '';
-      html += '<div class="coupon-card">';
-      html += '<div class="cc-head"><div class="game-img-wrap"><div class="fbi">' + info.icon + '</div></div>';
-      html += '<div class="cc-info"><div class="cc-name">' + c.game + '</div>';
-      html += '<div class="cc-meta">' + ((c.genre || 'rpg') || 'RPG').toUpperCase() + ' · ' + (c.dev || '') + '</div></div>';
-      html += '<span class="cc-badge ' + b[0] + '">' + b[1] + '</span></div>';
-      html += '<div class="cc-body"><div class="cc-reward">🎁 <span>' + c.reward + '</span></div>';
-      html += '<div class="code-wrap"><div class="code-lbl">쿠폰 코드</div>';
-      html += '<div class="code-txt' + (unlocked ? '' : ' blurred') + '" id="gcode' + c.id + '">' + c.code + '</div>';
-      html += '<div class="code-mask' + (unlocked ? ' gone' : '') + '">';
-      html += '<button class="unlock-code-btn" onclick="openAdModal()">📺 광고 보고 공개</button></div></div>';
-      html += link;
-      html += '<div class="cc-foot"><span class="exp ' + expCls + '">' + expTxt + '</span>';
-      html += '<button class="copy-cta' + (unlocked ? ' vis' : '') + '" onclick="copyCode(\'' + c.code + '\',this)">복사하기</button></div>';
-      html += '</div></div>';
-    });
-  }
-  document.getElementById('gamePageGrid').innerHTML = html;
-  document.getElementById('gamePageLbl').textContent = '🎫 ' + gameName + ' 쿠폰 전체 목록 (' + coupons.length + '개)';
-  document.getElementById('gamePageHowto').textContent = info.how || '게임 공식 홈페이지에서 쿠폰을 입력하세요.';
-
-  ['coupon','preorder','guide','news','terms'].forEach(function(t) {
-    document.getElementById('tab-' + t).style.display = 'none';
-  });
-  document.getElementById('tab-gamepage').style.display = 'block';
-  document.querySelectorAll('.tab, nav a').forEach(function(el) { el.classList.remove('on'); });
-  window.scrollTo(0, 0);
+  showGameInline(gameName);
 }
 
-/* ───── 사전예약 렌더 ───── */
 function renderPreorders() {
   var scroll = document.getElementById('preScroll');
   scroll.innerHTML = PREORDERS.map(function(p) {
@@ -983,8 +742,7 @@ function renderPreorders() {
     var dc = p.dday <= 5 ? 'hot' : 'ok';
     return '<div class="pre-card" onclick="openGame(\'' + p.game.replace(/'/g, "\\'") + '\')">' +
       '<div class="pre-img"><div class="pfall" id="pf' + p.id + '">' + info.icon + '</div>' +
-      '<img id="pi' + p.id + '" alt="' + p.game + '">' +
-      '<div class="pgrad"></div>' +
+      '<img id="pi' + p.id + '" alt="' + p.game + '"><div class="pgrad"></div>' +
       '<div class="pre-dday ' + dc + '">' + (p.dday === 0 ? '오늘!' : 'D-' + p.dday) + '</div></div>' +
       '<div class="pre-body"><div class="pre-name">' + p.game + '</div>' +
       '<div class="pre-genre">' + p.genre + ' · ' + p.dev + '</div>' +
@@ -993,13 +751,10 @@ function renderPreorders() {
   }).join('');
   document.getElementById('preCount').textContent = PREORDERS.length;
   PREORDERS.forEach(function(p) { loadImg(p.game, document.getElementById('pi' + p.id), document.getElementById('pf' + p.id)); });
-
   document.getElementById('preGrid').innerHTML = PREORDERS.map(function(p) {
     var info = GDB[p.game] || { icon: '🎮', bg: '#1a1030' };
     return '<div class="coupon-card" onclick="openGame(\'' + p.game.replace(/'/g, "\\'") + '\')">' +
-      '<div class="banner-wrap" style="height:75px">' +
-      '<div class="bfall" style="background:linear-gradient(135deg,' + (info.bg || '#1a1030') + ',#1a1a2c)">' + info.icon + '</div>' +
-      '<div class="bgrad"></div></div>' +
+      '<div class="banner-wrap" style="height:75px"><div class="bfall" style="background:linear-gradient(135deg,' + (info.bg || '#1a1030') + ',#1a1a2c)">' + info.icon + '</div><div class="bgrad"></div></div>' +
       '<div class="cc-head"><div class="game-img-wrap"><div class="fbi">' + info.icon + '</div></div>' +
       '<div class="cc-info"><div class="cc-name">' + p.game + '</div><div class="cc-meta">' + p.genre + ' · ' + p.dev + '</div></div>' +
       '<span class="cc-badge" style="background:rgba(79,142,247,.15);color:#4f8ef7;border:1px solid rgba(79,142,247,.28)">D-' + p.dday + '</span></div>' +
@@ -1011,17 +766,11 @@ function renderPreorders() {
   }).join('');
 }
 
-/* ───── 공략 / 뉴스 렌더 ───── */
 function renderGuides() {
-  if (!GUIDES.length) {
-    document.getElementById('guideGrid').innerHTML = '<div style="color:var(--mut);font-size:13px;padding:1rem">등록된 공략이 없어요. 관리자 페이지에서 추가해주세요!</div>';
-    return;
-  }
+  if (!GUIDES.length) { document.getElementById('guideGrid').innerHTML = '<div style="color:var(--mut);font-size:13px;padding:1rem">등록된 공략이 없어요.</div>'; return; }
   document.getElementById('guideGrid').innerHTML = GUIDES.map(function(g, i) {
     return '<div class="guide-card" onclick="openGuide(' + i + ')">' +
-      '<div class="guide-thumb">' +
-      '<div class="guide-cat">' + (g.cat||'공략') + '</div>' +
-      '<span style="font-size:40px">' + (g.icon||'🎮') + '</span></div>' +
+      '<div class="guide-thumb"><div class="guide-cat">' + (g.cat||'공략') + '</div><span style="font-size:40px">' + (g.icon||'🎮') + '</span></div>' +
       '<div class="guide-body"><div class="guide-title">' + g.title + '</div>' +
       '<div class="guide-meta"><span>👁 ' + (g.views||0) + '</span><span>' + g.game + '</span></div>' +
       '</div></div>';
@@ -1035,23 +784,13 @@ function openGuide(idx) {
   var modal = document.getElementById('guideModal');
   document.getElementById('guideModalTitle').textContent = g.title;
   document.getElementById('guideModalGame').textContent = g.game + ' · ' + (g.cat||'공략');
-  /* 마크다운 간단 변환 */
-  var html = (g.content||'내용이 없어요.')
-    .replace(/^## (.+)$/gm, '<h3 style="font-size:15px;font-weight:700;color:var(--txt);margin:1rem 0 .5rem">$1</h3>')
-    .replace(/^### (.+)$/gm, '<h4 style="font-size:13px;font-weight:700;color:var(--acc2);margin:.8rem 0 .3rem">$1</h4>')
-    .replace(/^\- (.+)$/gm, '<li style="margin:.2rem 0 .2rem 1rem;color:var(--txt2)">$1</li>')
-    .replace(/\*\*(.+?)\*\*/g, '<b style="color:var(--txt)">$1</b>')
-    .replace(/\n\n/g, '<br><br>')
-    .replace(/\n/g, '<br>');
+  var html = (g.content||'내용이 없어요.').replace(/^## (.+)$/gm, '<h3 style="font-size:15px;font-weight:700;color:var(--txt);margin:1rem 0 .5rem">$1</h3>').replace(/^### (.+)$/gm, '<h4 style="font-size:13px;font-weight:700;color:var(--acc2);margin:.8rem 0 .3rem">$1</h4>').replace(/^\- (.+)$/gm, '<li style="margin:.2rem 0 .2rem 1rem;color:var(--txt2)">$1</li>').replace(/\*\*(.+?)\*\*/g, '<b style="color:var(--txt)">$1</b>').replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
   document.getElementById('guideModalContent').innerHTML = html;
   modal.classList.add('open');
 }
 
 function renderNews() {
-  if (!NEWS.length) {
-    document.getElementById('newsGrid').innerHTML = '<div style="color:var(--mut);font-size:13px;padding:1rem">등록된 뉴스가 없어요. 관리자 페이지에서 추가해주세요!</div>';
-    return;
-  }
+  if (!NEWS.length) { document.getElementById('newsGrid').innerHTML = '<div style="color:var(--mut);font-size:13px;padding:1rem">등록된 뉴스가 없어요.</div>'; return; }
   document.getElementById('newsGrid').innerHTML = NEWS.map(function(n) {
     var click = n.url ? 'onclick="window.open(\'' + n.url + '\',\'_blank\')"' : '';
     return '<div class="news-card" ' + click + ' style="' + (n.url?'cursor:pointer':'') + '">' +
@@ -1065,7 +804,6 @@ function renderNews() {
   document.getElementById('newsCount').textContent = NEWS.length;
 }
 
-/* ───── 랭킹 사이드바 ───── */
 function renderRank() {
   var gv = {};
   COUPONS.forEach(function(c) { if (!gv[c.game]) gv[c.game] = 0; gv[c.game] += c.views; });
@@ -1074,8 +812,7 @@ function renderRank() {
     return '<div class="rank-row" onclick="openGame(\'' + game.replace(/'/g, "\\'") + '\')">' +
       '<span class="rnum' + (i < 3 ? ' t' : '') + '">' + (i + 1) + '</span>' +
       '<img class="rank-img" id="ri' + i + '" alt="' + game + '">' +
-      '<div class="rinfo"><div class="rname">' + game + '</div>' +
-      '<div class="rcnt">' + gv[game].toLocaleString() + '명</div></div>' +
+      '<div class="rinfo"><div class="rname">' + game + '</div><div class="rcnt">' + gv[game].toLocaleString() + '명</div></div>' +
       (i === 0 ? '<span style="font-size:10px;color:var(--grn);font-weight:700">HOT</span>' : '') +
       '</div>';
   }).join('');
@@ -1083,7 +820,6 @@ function renderRank() {
   document.getElementById('statVotes').textContent = Object.keys(MY_VOTES).length;
 }
 
-/* ───── 광고 모달 ───── */
 var AD_POOL = [
   {ico:'🛡️', name:'리니지W 신규 서버 오픈!', sub:'다이아 10,000개 즉시 지급'},
   {ico:'⚡',  name:'던전앤파이터M 50% 할인',  sub:'오늘 하루만 한정'},
@@ -1145,7 +881,6 @@ document.getElementById('adModal').addEventListener('click', function(e) {
   if (e.target === document.getElementById('adModal')) closeModal();
 });
 
-/* ───── 투표 ───── */
 function castVote(id, type) {
   var c = COUPONS.find(function(x) { return x.id === id; });
   if (!c) return;
@@ -1166,7 +901,6 @@ function castVote(id, type) {
   showToast(type === 'ok' ? '👍 작동한다고 투표했어요!' : '👎 만료로 투표했어요!');
 }
 
-/* ───── 유틸 ───── */
 function copyCode(code, btn) {
   navigator.clipboard.writeText(code).catch(function() {});
   btn.textContent = '✓ 복사됨';
@@ -1234,14 +968,12 @@ if (localStorage.getItem('theme') === 'light') {
   document.getElementById('themeBtn').textContent = '🌙';
 }
 
-/* 초기 로드 시 순위순 정렬 */
 COUPONS.sort(function(a, b) { return (a.rank || 999) - (b.rank || 999); });
 renderCoupons(COUPONS);
 renderPreorders();
 renderGuides();
 renderNews();
 renderRank();
-/* 하드코딩 데이터 기준 stat 초기값 세팅 (Firebase 로드 후 덮어씌워짐) */
 var _initGames = (function(){ var s={}; COUPONS.forEach(function(c){s[c.game]=1;}); return Object.keys(s).length; })();
 document.getElementById('statGames').textContent = _initGames;
 document.getElementById('statCoupons').textContent = COUPONS.length;
@@ -1249,11 +981,10 @@ if (isUnlocked()) startUnlockTimer();
 else updateUnlockUI();
 </script>
 
-<!-- Firebase compat SDK (전역 스코프, module 아님) -->
+<!-- Firebase compat SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
-/* Firebase 초기화 */
 firebase.initializeApp({
   apiKey: 'AIzaSyBd0e5i2LMNtZkM1aib4kZdgjUWkzMtN7Q',
   authDomain: 'dooood-2c725.firebaseapp.com',
@@ -1264,44 +995,30 @@ firebase.initializeApp({
 });
 var db = firebase.firestore();
 
-/* ── 캐시 ── */
 var CACHE_KEY = 'cd_coupons_v5';
 var CACHE_TTL = 30 * 60 * 1000;
 function getCached() {
-  try {
-    var raw = localStorage.getItem(CACHE_KEY);
-    if (!raw) return null;
-    var obj = JSON.parse(raw);
-    if (Date.now() - obj.ts > CACHE_TTL) { localStorage.removeItem(CACHE_KEY); return null; }
-    return obj.data;
-  } catch(e) { return null; }
+  try { var raw = localStorage.getItem(CACHE_KEY); if (!raw) return null; var obj = JSON.parse(raw); if (Date.now() - obj.ts > CACHE_TTL) { localStorage.removeItem(CACHE_KEY); return null; } return obj.data; } catch(e) { return null; }
 }
 function setCache(data) {
   try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch(e) {}
 }
 
-/* ── 데이터 적용 ── */
 function applyData(dbCoupons) {
   if (!dbCoupons || dbCoupons.length === 0) return;
-  /* 유효하지 않은 쿠폰 제거 */
   dbCoupons = dbCoupons.filter(function(c) {
     if (!c.game || c.game.trim() === '') return false;
     if (!c.code || c.code.trim() === '') return false;
-    /* 영문 슬러그만 있고 한글 매핑 없는 게임 제거 */
     var name = fixGameName(c.game);
-    if (!name) return false; /* 매핑 없는 슬러그 제거 */
-    c.game = name; /* 슬러그면 한글로 교체 */
-    /* expire undefined 처리 */
+    if (!name) return false;
+    c.game = name;
     if (!c.expire || c.expire === 'undefined') c.expire = '무기한';
     return true;
   });
-  /* Firebase 게임명과 하드코딩 게임명 중복 제거 후 합치기 */
   var dbGames = {};
   dbCoupons.forEach(function(c) { dbGames[c.game] = 1; });
-  /* 하드코딩 데이터 중 Firebase에 없는 게임만 추가 */
   var hardcoded = COUPONS.filter(function(c) { return !dbGames[c.game]; });
   var merged = dbCoupons.concat(hardcoded);
-  /* 순위순 정렬 */
   merged.sort(function(a, b) { return (a.rank || 500) - (b.rank || 500); });
   COUPONS = merged;
   renderCoupons(COUPONS);
@@ -1311,69 +1028,54 @@ function applyData(dbCoupons) {
   COUPONS.forEach(function(c) { if (!seen[c.game]) { seen[c.game] = 1; games.push(c.game); } });
   document.getElementById('statGames').textContent = games.length;
   document.getElementById('statCoupons').textContent = COUPONS.length;
-  console.log('✅ 쿠폰 ' + COUPONS.length + '개 적용!');
 }
 
-/* ── 쿠폰 로드 ── */
 function loadFromDB() {
   var cached = getCached();
-  if (cached && cached.length > 0) {
-    console.log('캐시 ' + cached.length + '개 로드');
-    applyData(cached);
-    return;
-  }
+  if (cached && cached.length > 0) { applyData(cached); return; }
   db.collection('coupons').get().then(function(snap) {
-    if (snap.empty) { console.log('Firebase 비어있음'); return; }
+    if (snap.empty) return;
     var list = [];
     snap.forEach(function(doc) { list.push(Object.assign({ id: doc.id }, doc.data())); });
     setCache(list);
     applyData(list);
-    console.log('Firebase ' + list.length + '개 로드!');
   }).catch(function(e) { console.warn('Firebase 실패:', e.message); });
 }
 
-/* ── 공략 로드 ── */
 function loadGuidesFromDB() {
   db.collection('guides').orderBy('createdAt', 'desc').get().then(function(snap) {
     if (snap.empty) return;
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
-    GUIDES = items;
-    renderGuides();
+    GUIDES = items; renderGuides();
     document.getElementById('guideCount').textContent = items.length;
   }).catch(function(e) { console.warn('공략 로드 실패:', e.message); });
 }
 
-/* ── 뉴스 로드 ── */
 function loadNewsFromDB() {
   db.collection('news').orderBy('createdAt', 'desc').get().then(function(snap) {
     if (snap.empty) return;
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
-    NEWS = items;
-    renderNews();
+    NEWS = items; renderNews();
     document.getElementById('newsCount').textContent = items.length;
   }).catch(function(e) { console.warn('뉴스 로드 실패:', e.message); });
 }
 
-/* ── 사전예약 로드 ── */
 function loadPreordersFromDB() {
   db.collection('preorders').orderBy('createdAt', 'desc').get().then(function(snap) {
     if (snap.empty) return;
     var items = [];
     snap.forEach(function(d) { items.push(Object.assign({ id: d.id }, d.data())); });
-    PREORDERS = items;
-    renderPreorders();
+    PREORDERS = items; renderPreorders();
     document.getElementById('preCount').textContent = items.length;
   }).catch(function(e) { console.warn('사전예약 로드 실패:', e.message); });
 }
 
-/* ── 실행 ── */
 loadFromDB();
 loadGuidesFromDB();
 loadNewsFromDB();
 loadPreordersFromDB();
 </script>
-
 </body>
 </html>
