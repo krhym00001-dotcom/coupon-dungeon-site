@@ -133,10 +133,10 @@ nav a:hover,nav a.on{color:var(--txt);border-bottom-color:var(--acc)}
 .sb-card{background:var(--card);border:1px solid var(--b);border-radius:12px;overflow:hidden}
 .sb-head{padding:10px 13px;border-bottom:1px solid var(--b);font-size:12px;font-weight:700;color:var(--txt2)}
 .sb-ad{border-radius:12px;overflow:hidden}
-.rank-row{padding:8px 13px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--b);cursor:pointer;transition:background .2s}
+.rank-row{padding:8px 13px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--b);cursor:pointer;transition:background .2s;overflow:hidden}
 .rank-row:last-child{border:none}
 .rank-row:hover{background:var(--bg3)}
-.rank-img{width:30px;height:30px;border-radius:7px;background:var(--bg3);flex-shrink:0;opacity:0;transition:opacity .3s}
+.rank-img{width:32px;height:32px;min-width:32px;min-height:32px;max-width:32px;max-height:32px;border-radius:8px;background:var(--bg3);flex-shrink:0;opacity:0;transition:opacity .3s;object-fit:cover}
 .rank-img.loaded{opacity:1}
 .rnum{font-size:11px;font-weight:800;color:var(--mut);width:13px;flex-shrink:0;text-align:center}
 .rnum.t{color:var(--acc2)}
