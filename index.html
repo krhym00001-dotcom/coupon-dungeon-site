@@ -44,43 +44,39 @@ nav a:hover,nav a.on{color:var(--txt);border-bottom-color:var(--acc)}
 .sort-sel{background:var(--bg3);border:1px solid var(--b2);color:var(--txt);padding:7px 9px;border-radius:8px;font-size:12px;font-family:'Noto Sans KR',sans-serif;outline:none;cursor:pointer}
 .sec-lbl{font-size:10px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:1.2px;display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .sec-lbl::after{content:'';flex:1;height:1px;background:var(--b)}
-.game-img-wrap{width:44px;height:44px;border-radius:11px;overflow:hidden;flex-shrink:0;background:var(--bg3);position:relative;border:1px solid var(--b)}
-.game-img-wrap img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0;transition:opacity .3s}
-.game-img-wrap img.loaded{opacity:1}
-.game-img-wrap .fbi{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px}
-.banner-wrap{position:relative;overflow:hidden;border-radius:10px 10px 0 0;background:var(--bg3);height:85px;cursor:pointer}
+.game-img-wrap{display:none}
+.banner-wrap{position:relative;overflow:hidden;border-radius:12px 12px 0 0;background:var(--bg3);height:110px;cursor:pointer}
 .banner-wrap img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0;transition:opacity .4s}
 .banner-wrap img.loaded{opacity:1}
-.banner-wrap .bfall{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px}
-.banner-wrap .bgrad{position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,var(--card))}
-.new-tag{position:absolute;top:7px;left:7px;background:var(--acc);color:#fff;font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px}
-.more-tag{position:absolute;top:7px;right:7px;background:rgba(0,0,0,.65);color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px}
-.coupon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-@media(max-width:560px){.coupon-grid{grid-template-columns:1fr}}
-.coupon-card{background:var(--card);border:1px solid var(--b);border-radius:12px;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s}
-.coupon-card:hover{transform:translateY(-2px);border-color:var(--b2);box-shadow:var(--shadow)}
-.cc-head{padding:11px 13px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--b);cursor:pointer}
+.banner-wrap .bfall{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:42px}
+.banner-wrap .bgrad{position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(transparent,var(--card))}
+.new-tag{position:absolute;top:6px;left:6px;background:var(--acc);color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px}
+.more-tag{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.65);color:#fff;font-size:8px;font-weight:800;padding:2px 6px;border-radius:4px}
+.coupon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+@media(max-width:560px){.coupon-grid{grid-template-columns:repeat(3,1fr);gap:10px}}
+.coupon-card{background:var(--card);border:1px solid var(--b);border-radius:14px;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer;text-align:center}
+.coupon-card:hover{transform:translateY(-3px);border-color:var(--b2);box-shadow:var(--shadow)}
+.cc-head{display:none}
 .cc-info{flex:1;min-width:0}
-.cc-name{font-size:13px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cc-name{font-size:12px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cc-meta{font-size:10px;color:var(--txt2);margin-top:2px}
 .cc-badge{font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;flex-shrink:0}
 .b-new{background:rgba(233,69,96,.18);color:#e94560;border:1px solid rgba(233,69,96,.3)}
 .b-hot{background:rgba(245,166,35,.15);color:#f5a623;border:1px solid rgba(245,166,35,.25)}
 .b-ok{background:rgba(62,207,142,.13);color:#3ecf8e;border:1px solid rgba(62,207,142,.25)}
-.cc-body{padding:11px 13px}
-.cc-reward{font-size:12px;color:var(--txt2);margin-bottom:10px;line-height:1.6}
+.cc-body{padding:8px 10px}
+.cc-reward{font-size:11px;color:var(--txt2);margin-bottom:6px;line-height:1.4;display:none}
 .cc-reward span{color:var(--txt)}
-.code-wrap{background:var(--bg3);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.code-wrap{background:var(--bg3);border:1px solid var(--b2);border-radius:6px;padding:6px 8px;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:4px}
 .code-inner{flex:1;min-width:0}
-.code-lbl{font-size:9px;color:var(--mut);margin-bottom:3px;text-transform:uppercase;letter-spacing:.6px}
-.code-txt{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--txt);letter-spacing:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.copy-btn{background:var(--acc);color:#fff;border:none;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.code-lbl{font-size:8px;color:var(--mut);margin-bottom:2px;text-transform:uppercase;letter-spacing:.5px}
+.code-txt{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--txt);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy-btn{background:var(--acc);color:#fff;border:none;padding:4px 7px;border-radius:5px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;transition:all .2s;flex-shrink:0}
 .copy-btn:hover,.copy-btn.done{background:var(--grn);color:#000}
-.cc-foot{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.exp{font-size:11px}.exp.red{color:var(--acc)}.exp.grn{color:var(--grn)}.exp.mut{color:var(--mut)}
-.view-all-btn{background:var(--bg3);border:1px solid var(--b2);color:var(--txt2);padding:6px 10px;border-radius:6px;font-size:11px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;width:100%;margin-bottom:8px;transition:all .2s}
-.view-all-btn:hover{border-color:var(--blue);color:var(--blue)}
-.vote-wrap{display:flex;align-items:center;gap:6px;padding-top:8px;border-top:1px solid var(--b)}
+.cc-foot{display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.exp{font-size:10px}.exp.red{color:var(--acc)}.exp.grn{color:var(--grn)}.exp.mut{color:var(--mut)}
+.view-all-btn{display:none}
+.vote-wrap{display:none}
 .vote-lbl{font-size:10px;color:var(--mut);flex-shrink:0}
 .vote-bar{flex:1;height:5px;background:var(--bg3);border-radius:20px;overflow:hidden}
 .vote-bar-ok{height:100%;border-radius:20px;background:var(--grn);transition:width .5s}
@@ -224,14 +220,14 @@ footer a:hover{color:var(--txt)}
     <div class="terms-wrap">
       <h2>이용약관</h2>
       <p>쿠폰던전(이하 "서비스")을 이용해 주셔서 감사합니다.</p>
-      <h3>제1조 (목적)</h3><p>본 약관은 쿠폰던전이 제공하는 게임 쿠폰 정보 서비스의 이용조건 및 절차를 규정합니다.</p>
-      <h3>제2조 (서비스 내용)</h3><p>쿠폰던전은 국내외 모바일게임의 쿠폰 코드 정보, 사전예약 정보, 게임 공략, 게임 뉴스를 제공합니다.</p>
-      <h3>제3조 (면책조항)</h3><p>쿠폰 코드는 게임사 정책에 따라 변경되거나 만료될 수 있습니다. 쿠폰던전은 쿠폰의 유효성을 보증하지 않습니다.</p>
+      <h3>제1조 (목적)</h3><p>게임 쿠폰 정보 서비스의 이용조건 및 절차를 규정합니다.</p>
+      <h3>제2조 (서비스 내용)</h3><p>국내외 모바일게임의 쿠폰 코드 정보, 사전예약 정보, 게임 공략, 게임 뉴스를 제공합니다.</p>
+      <h3>제3조 (면책조항)</h3><p>쿠폰 코드는 게임사 정책에 따라 변경되거나 만료될 수 있습니다. 쿠폰의 유효성을 보증하지 않습니다.</p>
       <h3>제4조 (광고)</h3><p>본 서비스는 광고 수익으로 운영됩니다.</p>
-      <h3>제5조 (저작권)</h3><p>서비스 내 게임 이미지 및 쿠폰 정보의 저작권은 각 게임사에 있습니다.</p>
+      <h3>제5조 (저작권)</h3><p>게임 이미지 및 쿠폰 정보의 저작권은 각 게임사에 있습니다.</p>
       <h2 style="margin-top:2rem">개인정보처리방침</h2>
-      <p>쿠폰던전은 별도의 회원가입 없이 이용 가능하며, 서버에 개인정보를 저장하지 않습니다.</p>
-      <h3>광고 서비스</h3><p>구글 애드센스 등 광고 서비스를 이용할 수 있으며, 해당 서비스의 개인정보처리방침이 적용될 수 있습니다.</p>
+      <p>별도의 회원가입 없이 이용 가능하며, 서버에 개인정보를 저장하지 않습니다.</p>
+      <h3>광고 서비스</h3><p>구글 애드센스 광고 서비스의 개인정보처리방침이 적용될 수 있습니다.</p>
       <h3>문의</h3><p><a href="mailto:krhym00001@gmail.com">krhym00001@gmail.com</a></p>
     </div>
   </div>
@@ -259,7 +255,6 @@ footer a:hover{color:var(--txt)}
   </div>
 </aside>
 </div>
-
 <div class="modal-bg" id="guideModal">
   <div class="modal">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.75rem">
@@ -272,7 +267,6 @@ footer a:hover{color:var(--txt)}
     <div style="font-size:13px;color:var(--txt2);line-height:1.9;border-top:1px solid var(--b);padding-top:.875rem" id="guideModalContent"></div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 <div class="mobile-nav">
   <div class="mn-item on" onclick="showTab('coupon',this);setMN(this)"><span class="mni">🎫</span><span class="mnl">쿠폰</span></div>
@@ -289,52 +283,48 @@ footer a:hover{color:var(--txt)}
   </div>
   © 2025 쿠폰던전(쿠던) — 쿠폰 정보는 각 게임사 공식 채널 기준입니다.
 </footer>
-
 <script>
-var GDB = {
-  '리니지W':{icon:'⚔️',bg:'#2a0a14',url:'https://lineagew.plaync.com/coupon',how:'게임 실행 → 설정 → 쿠폰 입력, 또는 NCSOFT 공식 홈페이지에서 로그인 후 쿠폰 등록'},
-  '리니지M':{icon:'🗡️',bg:'#1a080c',url:'https://lineagem.plaync.com/coupon',how:'NCSOFT 공식 홈페이지 → 쿠폰 등록 → 코드 입력'},
-  '리니지2M':{icon:'🛡️',bg:'#0a0a1a',url:'https://lineage2m.plaync.com/coupon',how:'NCSOFT 공식 홈페이지 → 쿠폰 등록 → 코드 입력'},
-  '배틀그라운드 모바일':{icon:'🏆',bg:'#0a1420',url:'https://www.pubg.com/ko/coupon',how:'공식 PUBG 사이트 접속 후 로그인, 쿠폰 입력란에 코드 입력'},
-  '메이플스토리M':{icon:'🧙',bg:'#0a0a20',url:'https://maplestory.nexon.com/coupon',how:'넥슨 공식 사이트 접속 후 쿠폰 등록 페이지에서 코드 입력'},
-  '로스트아크':{icon:'🌟',bg:'#0d1520',url:'https://lostark.game.onstove.com/coupon',how:'스마일게이트 스토브 로그인 후 쿠폰 등록 메뉴에서 코드 입력'},
-  '검은사막 모바일':{icon:'🐉',bg:'#100800',url:null,how:'게임 내 설정 메뉴에서 쿠폰 코드를 직접 입력하세요'},
-  '던전앤파이터M':{icon:'⚡',bg:'#150f00',url:'https://df.nexon.com/coupon',how:'넥슨 공식 홈페이지 쿠폰 등록 페이지에 접속 후 입력'},
-  '오버워치2':{icon:'🦸',bg:'#001525',url:null,how:'배틀넷 로그인 후 게임 선택 화면에서 쿠폰 교환'},
-  '원신':{icon:'✨',bg:'#080820',url:'https://genshin.hoyoverse.com/ko/gift',how:'호요버스 공식 사이트 선물 코드 교환 페이지에서 로그인 후 입력'},
-  '붕괴: 스타레일':{icon:'🚂',bg:'#05051a',url:'https://hsr.hoyoverse.com/gift',how:'호요버스 선물 코드 교환 페이지에서 로그인 후 입력'},
-  '젠레스 존 제로':{icon:'🎮',bg:'#0a0a0f',url:null,how:'게임 내 메뉴 → 설정에서 쿠폰 코드 입력'},
-  '쿠키런: 킹덤':{icon:'🍪',bg:'#201000',url:'https://coupon.devplay.com/coupon/ck/ko',how:'공식 쿠폰 사이트에서 DevPlay 계정으로 로그인 후 코드 입력'},
-  '에픽세븐':{icon:'🌙',bg:'#0a1030',url:null,how:'게임 내 설정 → 쿠폰 코드 메뉴에서 입력'},
-  '블루 아카이브':{icon:'📚',bg:'#050a20',url:'https://bluearchive.nexon.com/coupon',how:'넥슨 블루 아카이브 공식 사이트에서 로그인 후 쿠폰 등록'},
-  '미르4':{icon:'🏯',bg:'#150a00',url:null,how:'게임 내 설정 메뉴에서 쿠폰 코드 입력'},
+var GDB={
+  '리니지W':{icon:'⚔️',bg:'#2a0a14',url:'https://lineagew.plaync.com/coupon',how:'게임 실행 → 설정 → 쿠폰 입력'},
+  '리니지M':{icon:'🗡️',bg:'#1a080c',url:'https://lineagem.plaync.com/coupon',how:'NCSOFT 공식 홈페이지 → 쿠폰 등록'},
+  '리니지2M':{icon:'🛡️',bg:'#0a0a1a',url:'https://lineage2m.plaync.com/coupon',how:'NCSOFT 공식 홈페이지 → 쿠폰 등록'},
+  '배틀그라운드 모바일':{icon:'🏆',bg:'#0a1420',url:'https://www.pubg.com/ko/coupon',how:'공식 PUBG 사이트 로그인 후 쿠폰 입력'},
+  '메이플스토리M':{icon:'🧙',bg:'#0a0a20',url:'https://maplestory.nexon.com/coupon',how:'넥슨 공식 사이트 쿠폰 등록 페이지'},
+  '로스트아크':{icon:'🌟',bg:'#0d1520',url:'https://lostark.game.onstove.com/coupon',how:'스마일게이트 스토브 로그인 후 쿠폰 등록'},
+  '검은사막 모바일':{icon:'🐉',bg:'#100800',url:null,how:'게임 내 설정 메뉴에서 쿠폰 코드 입력'},
+  '던전앤파이터M':{icon:'⚡',bg:'#150f00',url:'https://df.nexon.com/coupon',how:'넥슨 공식 홈페이지 쿠폰 등록'},
+  '오버워치2':{icon:'🦸',bg:'#001525',url:null,how:'배틀넷 로그인 후 쿠폰 교환'},
+  '원신':{icon:'✨',bg:'#080820',url:'https://genshin.hoyoverse.com/ko/gift',how:'호요버스 선물 코드 교환 페이지'},
+  '붕괴: 스타레일':{icon:'🚂',bg:'#05051a',url:'https://hsr.hoyoverse.com/gift',how:'호요버스 선물 코드 교환 페이지'},
+  '젠레스 존 제로':{icon:'🎮',bg:'#0a0a0f',url:null,how:'게임 내 메뉴 → 설정에서 쿠폰 입력'},
+  '쿠키런: 킹덤':{icon:'🍪',bg:'#201000',url:'https://coupon.devplay.com/coupon/ck/ko',how:'DevPlay 계정으로 로그인 후 코드 입력'},
+  '에픽세븐':{icon:'🌙',bg:'#0a1030',url:null,how:'게임 내 설정 → 쿠폰 코드 메뉴'},
+  '블루 아카이브':{icon:'📚',bg:'#050a20',url:'https://bluearchive.nexon.com/coupon',how:'넥슨 블루 아카이브 공식 사이트'},
+  '미르4':{icon:'🏯',bg:'#150a00',url:null,how:'게임 내 설정 메뉴에서 쿠폰 입력'},
   '나이트 크로우':{icon:'🦅',bg:'#050f05',url:null,how:'게임 내 설정 메뉴에서 쿠폰 입력'},
   '라그나로크 오리진':{icon:'🌋',bg:'#1a0500',url:null,how:'게임 내 메뉴에서 쿠폰 코드 입력'},
   '뮤 오리진3':{icon:'🌀',bg:'#05051a',url:null,how:'게임 내 설정에서 쿠폰 코드 입력'},
-  '세나: 최후의 방어선':{icon:'🛡️',bg:'#0a0a15',url:null,how:'게임 내 설정 메뉴에서 쿠폰 코드 입력'},
-  '그랑사가':{icon:'🏰',bg:'#150a20',url:null,how:'게임 내 설정 메뉴에서 쿠폰 코드 입력'},
+  '세나: 최후의 방어선':{icon:'🛡️',bg:'#0a0a15',url:null,how:'게임 내 설정 메뉴에서 쿠폰 입력'},
+  '그랑사가':{icon:'🏰',bg:'#150a20',url:null,how:'게임 내 설정 메뉴에서 쿠폰 입력'},
   '마비노기 모바일':{icon:'🎵',bg:'#0a1a0a',url:null,how:'넥슨 공식 홈페이지에서 쿠폰 등록'},
   '피파 모바일':{icon:'⚽',bg:'#004400',url:null,how:'게임 내 설정에서 쿠폰 코드 입력'},
   '브롤스타즈':{icon:'💥',bg:'#1a0a2e',url:null,how:'게임 내 설정 → 사용 코드 입력'},
   '클래시 오브 클랜':{icon:'🏰',bg:'#0a1500',url:null,how:'공식 이벤트 페이지에서 코드 입력'},
   '클래시 로얄':{icon:'👑',bg:'#15000a',url:null,how:'공식 이벤트 페이지에서 코드 입력'},
-  '모두의마블 M':{icon:'🎲',bg:'#001a10',url:null,how:'게임 내 설정 메뉴에서 쿠폰 코드 입력'},
+  '모두의마블 M':{icon:'🎲',bg:'#001a10',url:null,how:'게임 내 설정 메뉴에서 쿠폰 입력'},
   '트릭컬 RE:VIVE':{icon:'🎭',bg:'#100520',url:null,how:'게임 내 설정에서 쿠폰 코드 입력'},
   '소울워커 아리사':{icon:'💙',bg:'#050a20',url:null,how:'게임 내 메뉴에서 쿠폰 코드 입력'},
-  '카운터사이드':{icon:'🔫',bg:'#0a0f1a',url:null,how:'게임 내 설정 메뉴에서 쿠폰 코드 입력'},
-  '일곱 개의 대죄: GRAND CROSS':{icon:'🌈',bg:'#0a0020',url:null,how:'게임 내 설정 → 쿠폰 코드 입력'},
-  '스텔라 소라':{icon:'🌸',bg:'#1a0a20',url:null,how:'PC: 게임 내 쿠폰 입력 / 모바일: 공식 쿠폰 사이트에서 입력'},
-  '뱀피르':{icon:'🧛',bg:'#0a0000',url:null,how:'게임 내 설정 메뉴에서 쿠폰 코드 입력'},
-  '쿠키런: 모험의 탑':{icon:'🗼',bg:'#201505',url:'https://coupon.devplay.com',how:'DevPlay 공식 쿠폰 사이트에서 계정 로그인 후 입력'},
+  '카운터사이드':{icon:'🔫',bg:'#0a0f1a',url:null,how:'게임 내 설정 메뉴에서 쿠폰 입력'},
+  '스텔라 소라':{icon:'🌸',bg:'#1a0a20',url:null,how:'게임 내 쿠폰 입력'},
+  '뱀피르':{icon:'🧛',bg:'#0a0000',url:null,how:'게임 내 설정 메뉴에서 쿠폰 입력'},
+  '쿠키런: 모험의 탑':{icon:'🗼',bg:'#201505',url:'https://coupon.devplay.com',how:'DevPlay 공식 쿠폰 사이트'},
   '아이온2':{icon:'👼',bg:'#050a20',url:null,how:'게임 내 설정 또는 공식 홈페이지에서 쿠폰 입력'},
 };
-
-window.COUPONS = [
+window.COUPONS=[
   {id:'lw1',game:'리니지W',genre:'rpg',dev:'NCSOFT',code:'LINEAGE2025WIN',reward:'다이아 3,000개 + 강화석 20개',expire:'2026.07.31',status:'new',views:1823,votes:{ok:142,bad:8}},
   {id:'lw2',game:'리니지W',genre:'rpg',dev:'NCSOFT',code:'LWIN2504EVENT',reward:'마법인형 3개 + 게임머니 100만',expire:'2026.07.31',status:'hot',views:987,votes:{ok:88,bad:5}},
   {id:'lw3',game:'리니지W',genre:'rpg',dev:'NCSOFT',code:'NCSOFT2025GIFT',reward:'강화석 50개 + 진화의 룬',expire:'무기한',status:'ok',views:765,votes:{ok:71,bad:3}},
   {id:'lm1',game:'리니지M',genre:'rpg',dev:'NCSOFT',code:'LINEAGEM2025',reward:'다이아 2,000개 + 변신카드',expire:'2026.07.31',status:'new',views:1234,votes:{ok:98,bad:7}},
-  {id:'lm2',game:'리니지M',genre:'rpg',dev:'NCSOFT',code:'LM2504SPRING',reward:'정령석 30개 + 경험치 물약',expire:'무기한',status:'ok',views:543,votes:{ok:55,bad:2}},
   {id:'l2m1',game:'리니지2M',genre:'rpg',dev:'NCSOFT',code:'LINEAGE2M2025',reward:'다이아 1,500개 + 각성 재료',expire:'2026.07.31',status:'new',views:876,votes:{ok:78,bad:4}},
   {id:'bg1',game:'배틀그라운드 모바일',genre:'fps',dev:'Krafton',code:'BGRK2025GIFT',reward:'UC 600 + 한정 스킨',expire:'무기한',status:'hot',views:3241,votes:{ok:287,bad:12}},
   {id:'bg2',game:'배틀그라운드 모바일',genre:'fps',dev:'Krafton',code:'BGMOBILE2025',reward:'BP 10,000 + 경험치 카드',expire:'2026.05.01',status:'new',views:1876,votes:{ok:165,bad:8}},
@@ -342,7 +332,7 @@ window.COUPONS = [
   {id:'mm2',game:'메이플스토리M',genre:'rpg',dev:'Nexon',code:'MAPLE2025FREE',reward:'스타포스 주문서 3개',expire:'무기한',status:'ok',views:1654,votes:{ok:145,bad:12}},
   {id:'la1',game:'로스트아크',genre:'rpg',dev:'Smilegate',code:'LOSTARK25EVT',reward:'결정석 1,000개 + 카드팩 3개',expire:'무기한',status:'ok',views:1654,votes:{ok:198,bad:5}},
   {id:'la2',game:'로스트아크',genre:'rpg',dev:'Smilegate',code:'LARK2025S4',reward:'실링 100,000 + 강화재료 세트',expire:'2026.05.15',status:'new',views:2103,votes:{ok:187,bad:9}},
-  {id:'gs1',game:'원신',genre:'rpg',dev:'HoYoverse',code:'GENSHIN2025KR',reward:'원석 160개 + 육성 소재 패키지',expire:'2026.07.31',status:'new',views:3412,votes:{ok:312,bad:18}},
+  {id:'gs1',game:'원신',genre:'rpg',dev:'HoYoverse',code:'GENSHIN2025KR',reward:'원석 160개 + 육성 소재',expire:'2026.07.31',status:'new',views:3412,votes:{ok:312,bad:18}},
   {id:'gs2',game:'원신',genre:'rpg',dev:'HoYoverse',code:'GENSHINVER55',reward:'원석 60개 + 경험치 책',expire:'2026.07.31',status:'hot',views:2876,votes:{ok:256,bad:14}},
   {id:'hsr1',game:'붕괴: 스타레일',genre:'rpg',dev:'HoYoverse',code:'STARRAIL2025',reward:'성간여정 60개 + 크레딧 10만',expire:'2026.07.31',status:'new',views:2341,votes:{ok:210,bad:11}},
   {id:'zz1',game:'젠레스 존 제로',genre:'rpg',dev:'HoYoverse',code:'ZENLESS2025KR',reward:'폴리크롬 160개 + 육성 재료',expire:'2026.07.31',status:'new',views:1876,votes:{ok:168,bad:10}},
@@ -351,51 +341,64 @@ window.COUPONS = [
   {id:'ba1',game:'블루 아카이브',genre:'rpg',dev:'Nexon',code:'BLUEARCHIVE2025',reward:'파이로나이트 600개 + 모집권',expire:'2026.07.31',status:'new',views:2103,votes:{ok:189,bad:12}},
   {id:'df1',game:'던전앤파이터M',genre:'rpg',dev:'Nexon',code:'DNFM2025EPIC',reward:'골드 1,000만 + 에픽 장비 선택권',expire:'2026.07.31',status:'hot',views:2103,votes:{ok:165,bad:21}},
   {id:'bd1',game:'검은사막 모바일',genre:'rpg',dev:'Pearl Abyss',code:'BDM2025DARK',reward:'블랙스톤 50개 + 마력의 서',expire:'2026.07.31',status:'new',views:987,votes:{ok:76,bad:3}},
-  {id:'ow1',game:'오버워치2',genre:'fps',dev:'Blizzard',code:'OW2KR2025FREE',reward:'코인 500 + 한정 스프레이 3개',expire:'무기한',status:'ok',views:876,votes:{ok:89,bad:6}},
   {id:'nc1',game:'나이트 크로우',genre:'rpg',dev:'MAG',code:'NIGHTCROW2025',reward:'루비 300개 + 성장 패키지',expire:'2026.07.31',status:'new',views:1234,votes:{ok:98,bad:5}},
   {id:'ro1',game:'라그나로크 오리진',genre:'rpg',dev:'Gravity',code:'RAGNAROK2025',reward:'제니 100만 + 강화 아이템',expire:'2026.07.31',status:'hot',views:987,votes:{ok:89,bad:6}},
   {id:'a21',game:'아이온2',genre:'rpg',dev:'NCSOFT',code:'AION2_2025',reward:'키나 1,000만 + 성장 패키지',expire:'2026.07.31',status:'new',views:1234,votes:{ok:109,bad:7}},
-  {id:'mb1',game:'마비노기 모바일',genre:'rpg',dev:'Nexon',code:'MABINOGI2025',reward:'금화 50만 + 특별 장비 상자',expire:'2026.07.31',status:'new',views:765,votes:{ok:67,bad:3}},
-  {id:'tr1',game:'트릭컬 RE:VIVE',genre:'rpg',dev:'Broccoli',code:'TRICKCAL2025',reward:'다이아 600개 + 픽업 티켓',expire:'2026.07.31',status:'new',views:1123,votes:{ok:101,bad:6}},
-  {id:'bs1',game:'브롤스타즈',genre:'casual',dev:'Supercell',code:'BRAWL2025STAR',reward:'젬 80개 + 한정 스킨 박스',expire:'2026.07.31',status:'hot',views:1543,votes:{ok:138,bad:9}},
-  {id:'ss1',game:'스텔라 소라',genre:'rpg',dev:'Yostar',code:'STELLARSORA25',reward:'크리스탈 300개 + 캐릭터 픽업권',expire:'2026.07.31',status:'new',views:987,votes:{ok:89,bad:6}},
+  {id:'bs1',game:'브롤스타즈',genre:'casual',dev:'Supercell',code:'BRAWL2025STAR',reward:'젬 80개 + 한정 스킨',expire:'2026.07.31',status:'hot',views:1543,votes:{ok:138,bad:9}},
+  {id:'ss1',game:'스텔라 소라',genre:'rpg',dev:'Yostar',code:'STELLARSORA25',reward:'크리스탈 300개 + 픽업권',expire:'2026.07.31',status:'new',views:987,votes:{ok:89,bad:6}},
   {id:'vp1',game:'뱀피르',genre:'rpg',dev:'Netmarble',code:'VAMPIR2025KR',reward:'루비 200개 + 직업 성장 패키지',expire:'2026.07.31',status:'new',views:765,votes:{ok:67,bad:4}},
 ];
-
-window.PREORDERS = [
+window.PREORDERS=[
   {id:'p1',game:'그랑사가',genre:'RPG',dev:'NPIXEL',dday:3,reg:'284,000',launch:'2025.04.12'},
   {id:'p2',game:'나이트 크로우',genre:'MMORPG',dev:'MAG',dday:8,reg:'156,000',launch:'2025.04.17'},
   {id:'p3',game:'블루 아카이브',genre:'RPG',dev:'Nexon',dday:5,reg:'412,000',launch:'2025.04.14'},
   {id:'p4',game:'아이온2',genre:'MMORPG',dev:'NCSOFT',dday:12,reg:'387,000',launch:'2025.04.21'},
 ];
-
-window.GUIDES = [
-  {game:'리니지W',cat:'초보가이드',title:'리니지W 초보자 완벽 가이드 — 시작부터 성장까지',icon:'⚔️',views:'12.4k'},
+window.GUIDES=[
+  {game:'리니지W',cat:'초보가이드',title:'리니지W 초보자 완벽 가이드',icon:'⚔️',views:'12.4k'},
   {game:'메이플스토리M',cat:'공략',title:'메이플스토리M 스타포스 강화 효율 총정리 2025',icon:'🧙',views:'8.7k'},
-  {game:'로스트아크',cat:'공략',title:'로스트아크 결정석 파밍 최적 루트 — 하루 1,000개 가능?',icon:'🌟',views:'15.2k'},
+  {game:'로스트아크',cat:'공략',title:'로스트아크 결정석 파밍 최적 루트',icon:'🌟',views:'15.2k'},
   {game:'원신',cat:'캐릭터',title:'원신 신규 캐릭터 티어표 2025년 최신판',icon:'✨',views:'22.1k'},
-  {game:'배틀그라운드 모바일',cat:'팁',title:'배그 모바일 감도 설정 프로게이머 세팅 공개',icon:'🏆',views:'9.3k'},
-  {game:'붕괴: 스타레일',cat:'공략',title:'붕괴: 스타레일 최강 덱 추천 — 2025년 4월 최신',icon:'🚂',views:'7.8k'},
+  {game:'배틀그라운드 모바일',cat:'팁',title:'배그 모바일 감도 설정 프로게이머 세팅',icon:'🏆',views:'9.3k'},
+  {game:'붕괴: 스타레일',cat:'공략',title:'붕괴: 스타레일 최강 덱 추천 2025',icon:'🚂',views:'7.8k'},
 ];
-
-window.NEWS = [
+window.NEWS=[
   {icon:'🔥',title:'리니지W, 신규 서버 "아이온" 오픈 — 사전예약자 전원 특별 보상 지급',date:'2025.04.09',game:'리니지W'},
-  {icon:'🆕',title:'메이플스토리M 대규모 업데이트 — 신규 직업 "소울마스터" 추가 출시',date:'2025.04.08',game:'메이플스토리M'},
-  {icon:'🏆',title:'배틀그라운드 모바일 시즌30 시작 — 신규 맵 "사막 전장" 공개',date:'2025.04.07',game:'배틀그라운드 모바일'},
-  {icon:'✨',title:'원신 5.5 업데이트 — 신규 5성 캐릭터 2종 동시 출시 예정',date:'2025.04.06',game:'원신'},
-  {icon:'🌟',title:'로스트아크 시즌4 대규모 패치 — 신규 레이드 "심연의 탑" 추가',date:'2025.04.03',game:'로스트아크'},
-  {icon:'📚',title:'블루 아카이브 2주년 이벤트 — 무료 10연차 및 한정 캐릭터 복각',date:'2025.04.02',game:'블루 아카이브'},
+  {icon:'🆕',title:'메이플스토리M 대규모 업데이트 — 신규 직업 "소울마스터" 추가',date:'2025.04.08',game:'메이플스토리M'},
+  {icon:'🏆',title:'배틀그라운드 모바일 시즌30 — 신규 맵 "사막 전장" 공개',date:'2025.04.07',game:'배틀그라운드 모바일'},
+  {icon:'✨',title:'원신 5.5 업데이트 — 신규 5성 캐릭터 2종 출시 예정',date:'2025.04.06',game:'원신'},
+  {icon:'🌟',title:'로스트아크 시즌4 패치 — 신규 레이드 "심연의 탑" 추가',date:'2025.04.03',game:'로스트아크'},
 ];
-
 var MY_VOTES=JSON.parse(localStorage.getItem('mv')||'{}');
 var activeGenre='all';
 var imgCache={};
-
-var SLUG_MAP={'ragnarok-origin':'라그나로크 오리진','maplestory-m':'메이플스토리M','honkai-star-rail':'붕괴: 스타레일','genshin-impact':'원신','zenless-zone-zero':'젠레스 존 제로','epic-seven':'에픽세븐','stella-sora':'스텔라 소라','vampir':'뱀피르','monster-never-cry':'몬스터는 울지 않아','once-human':'Once Human'};
-
-function fixGameName(n){if(!n||!n.trim()) return null;if(/^[a-z0-9-]+$/.test(n)) return SLUG_MAP[n]||null;return n;}
-function loadImg(game,imgEl,fallEl,directUrl){if(!imgEl) return;function ap(url){if(!url) return;imgCache[game]=url;imgEl.src=url;imgEl.onload=function(){imgEl.classList.add('loaded');if(fallEl)fallEl.style.display='none';};imgEl.onerror=function(){};}if(directUrl){ap(directUrl);return;}if(imgCache[game]){ap(imgCache[game]);}}
-
+var SLUG_MAP={'ragnarok-origin':'라그나로크 오리진','maplestory-m':'메이플스토리M','honkai-star-rail':'붕괴: 스타레일','genshin-impact':'원신','zenless-zone-zero':'젠레스 존 제로','epic-seven':'에픽세븐','stella-sora':'스텔라 소라','vampir':'뱀피르','once-human':'Once Human','monster-never-cry':'몬스터는 울지 않아'};
+function fixGameName(n){if(!n||!n.trim())return null;if(/^[a-z0-9-]+$/.test(n))return SLUG_MAP[n]||null;return n;}
+function loadImg(game,imgEl,fallEl,url){if(!imgEl)return;if(!url&&imgCache[game])url=imgCache[game];if(!url)return;imgCache[game]=url;imgEl.src=url;imgEl.onload=function(){imgEl.classList.add('loaded');if(fallEl)fallEl.style.display='none';};imgEl.onerror=function(){};}
+function openGamePage(gname){
+  var slug=gname.toLowerCase().replace(/[:\s]+/g,'-').replace(/[^a-z0-9가-힣-]/g,'').replace(/-+/g,'-').replace(/^-|-$/g,'');
+  fetch('/game/'+slug+'.html',{method:'HEAD'}).then(function(r){if(r.ok)window.location.href='/game/'+slug+'.html';else showInline(gname);}).catch(function(){showInline(gname);});
+}
+function showInline(gname){
+  var coupons=COUPONS.filter(function(c){return c.game===gname;});
+  var info=GDB[gname]||{icon:'🎮',bg:'#1a1030'};
+  document.getElementById('gamePageHdr').innerHTML='<div class="game-page-img"><div class="gpfb" id="gpfb">'+info.icon+'</div><img id="gpimg" alt="'+gname+'"></div><div class="game-page-info"><h2>'+gname+'</h2><p>총 '+coupons.length+'개 쿠폰</p></div>';
+  loadImg(gname,document.getElementById('gpimg'),document.getElementById('gpfb'),null);
+  var html='';
+  coupons.forEach(function(c){
+    var et=(!c.expire||c.expire==='무기한')?'✅ 무기한':'⏰ '+c.expire;
+    html+='<div class="coupon-card"><div class="cc-body" style="padding:1rem"><div class="cc-reward" style="margin-bottom:10px">🎁 <span>'+c.reward+'</span></div><div class="code-wrap"><div class="code-inner"><div class="code-lbl">쿠폰 코드</div><div class="code-txt">'+c.code+'</div></div><button class="copy-btn" data-code="'+c.code+'">복사</button></div><div style="font-size:11px;color:var(--mut);margin-top:8px">'+et+'</div></div></div>';
+  });
+  if(info.url)html+='<div style="margin-top:12px"><a href="'+info.url+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--b2);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--txt2);text-decoration:none">📋 공식 쿠폰 입력 페이지로 이동 ↗</a></div>';
+  document.getElementById('gamePageGrid').innerHTML=html;
+  document.getElementById('gamePageGrid').querySelectorAll('.copy-btn').forEach(function(btn){btn.addEventListener('click',function(){copyCode(this.dataset.code,this);});});
+  document.getElementById('gamePageLbl').textContent='🎫 '+gname+' 쿠폰 ('+coupons.length+'개)';
+  document.getElementById('gamePageHowto').textContent=info.how||'게임 공식 홈페이지에서 쿠폰을 입력하세요.';
+  ['coupon','preorder','guide','news','terms'].forEach(function(t){document.getElementById('tab-'+t).style.display='none';});
+  document.getElementById('tab-gamepage').style.display='block';
+  document.querySelectorAll('.tab,nav a').forEach(function(el){el.classList.remove('on');});
+  window.scrollTo(0,0);
+}
 function renderCoupons(list){
   var grid=document.getElementById('couponGrid');
   if(!list.length){grid.innerHTML='<div style="color:var(--mut);padding:1rem;font-size:13px">검색 결과가 없어요.</div>';return;}
@@ -407,176 +410,113 @@ function renderCoupons(list){
     var coupons=gameMap[gn],c=coupons[0];
     var info=GDB[c.game]||{icon:'🎮',bg:'#1a1030'};
     var b=bmap[c.status]||['b-ok','사용가능'];
-    var expTxt=(!c.expire||c.expire==='무기한'||c.expire==='undefined')?'✅ 무기한':'⏰ '+c.expire;
-    var expCls=c.expire==='무기한'?'grn':daysTill(c.expire)<7?'red':'mut';
-    var mv=MY_VOTES[c.id],votes=c.votes||{ok:0,bad:0};
-    var total=(votes.ok||0)+(votes.bad||0),pct=total?Math.round((votes.ok||0)/total*100):0;
+    var et=(!c.expire||c.expire==='무기한'||c.expire==='undefined')?'✅ 무기한':'⏰ '+c.expire;
+    var ec=c.expire==='무기한'?'grn':daysTill(c.expire)<7?'red':'mut';
+    var mv=MY_VOTES[c.id],v=c.votes||{ok:0,bad:0};
+    var tot=(v.ok||0)+(v.bad||0),pct=tot?Math.round((v.ok||0)/tot*100):0;
     var more=coupons.length-1;
-    var gns=gn.replace(/'/g,"\'");
-    html+='<div class="coupon-card" data-genre="'+(c.genre||'rpg')+'">';
-    html+='<div class="banner-wrap" onclick="openGame(''+gns+'')"><div class="bfall" id="bf'+c.id+'" style="background:linear-gradient(135deg,'+info.bg+',#1a1a2c)">'+info.icon+'</div><img id="bi'+c.id+'" alt="'+gn+'"><div class="bgrad"></div>';
-    if(c.status==='new') html+='<div class="new-tag">NEW</div>';
-    if(more>0) html+='<div class="more-tag">+'+more+'개 더</div>';
+    html+='<div class="coupon-card" data-game="'+gn+'" data-genre="'+(c.genre||'rpg')+'">';
+    html+='<div class="banner-wrap game-link" data-game="'+gn+'"><div class="bfall" id="bf'+c.id+'" style="background:linear-gradient(135deg,'+info.bg+',#1a1a2c)">'+info.icon+'</div><img id="bi'+c.id+'" alt="'+gn+'"><div class="bgrad"></div>';
+    if(c.status==='new')html+='<div class="new-tag">NEW</div>';
+    if(more>0)html+='<div class="more-tag">+'+more+'개 더</div>';
     html+='</div>';
-    html+='<div class="cc-head" onclick="openGame(''+gns+'')"><div class="game-img-wrap"><div class="fbi" id="if'+c.id+'">'+info.icon+'</div><img id="ii'+c.id+'" alt="'+gn+'"></div>';
-    html+='<div class="cc-info"><div class="cc-name">'+gn+'</div><div class="cc-meta">'+((c.genre||'rpg')).toUpperCase()+' · '+(c.dev||'')+' · 쿠폰 '+coupons.length+'개</div></div>';
-    html+='<span class="cc-badge '+b[0]+'">'+b[1]+'</span></div>';
-    html+='<div class="cc-body"><div class="cc-reward">🎁 <span>'+(c.reward||'인게임 보상')+'</span></div>';
-    html+='<div class="code-wrap"><div class="code-inner"><div class="code-lbl">쿠폰 코드</div><div class="code-txt">'+c.code+'</div></div>';
-    html+='<button class="copy-btn" onclick="copyCode(''+c.code.replace(/'/g,"\'")+'',this)">복사</button></div>';
-    html+='<div class="cc-foot"><span class="exp '+expCls+'">'+expTxt+'</span></div>';
-    html+='<button class="view-all-btn" onclick="openGame(''+gns+'')">🎮 '+gn+' 쿠폰 전체 보기 ('+coupons.length+'개) →</button>';
-    html+='<div class="vote-wrap"><span class="vote-lbl">작동?</span><div class="vote-bar"><div class="vote-bar-ok" id="vb'+c.id+'" style="width:'+pct+'%"></div></div>';
-    html+='<span class="vote-cnt" id="vc'+c.id+'">'+(votes.ok||0)+'👍</span><div class="vote-btns">';
-    html+='<button class="vote-btn'+(mv==='ok'?' vok':'')+'" onclick="castVote(''+c.id+'','ok')">👍</button>';
-    html+='<button class="vote-btn'+(mv==='bad'?' vbad':'')+'" onclick="castVote(''+c.id+'','bad')">👎</button>';
-    html+='</div></div></div></div>';
+    html+='<div class="cc-head game-link" data-game="'+gn+'"><div class="game-img-wrap"><div class="fbi" id="if'+c.id+'">'+info.icon+'</div><img id="ii'+c.id+'" alt="'+gn+'"></div><div class="cc-info"><div class="cc-name">'+gn+'</div><div class="cc-meta">'+((c.genre||'rpg')).toUpperCase()+' · '+(c.dev||'')+' · 쿠폰 '+coupons.length+'개</div></div><span class="cc-badge '+b[0]+'">'+b[1]+'</span></div>';
+    html+='<div class="cc-body"><div style="font-size:12px;font-weight:700;color:var(--txt);text-align:center;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+gn+'</div><div style="font-size:10px;color:var(--txt2);text-align:center;margin-bottom:6px">쿠폰 '+coupons.length+'개</div>';
+    html+='<div class="code-wrap"><div class="code-inner"><div class="code-lbl">최신 코드</div><div class="code-txt">'+c.code+'</div></div><button class="copy-btn" data-code="'+c.code+'">복사</button></div>';
+    html+='<div class="cc-foot"><span class="exp '+ec+'">'+et+'</span></div>';
+    html+='<button class="view-all-btn game-link" data-game="'+gn+'">🎮 '+gn+' 쿠폰 전체 보기 ('+coupons.length+'개) →</button>';
+    html+='<div class="vote-wrap"><span class="vote-lbl">작동?</span><div class="vote-bar"><div class="vote-bar-ok" id="vb'+c.id+'" style="width:'+pct+'%"></div></div><span class="vote-cnt" id="vc'+c.id+'">'+(v.ok||0)+'👍</span><div class="vote-btns"><button class="vote-btn'+(mv==='ok'?' vok':'')+'" data-id="'+c.id+'" data-type="ok">👍</button><button class="vote-btn'+(mv==='bad'?' vbad':'')+'" data-id="'+c.id+'" data-type="bad">👎</button></div></div>';
+    html+='</div></div>';
   });
   grid.innerHTML=html;
+  grid.querySelectorAll('.game-link').forEach(function(el){el.style.cursor='pointer';el.addEventListener('click',function(){openGamePage(this.dataset.game);});});
+  grid.querySelectorAll('.copy-btn').forEach(function(btn){btn.addEventListener('click',function(){copyCode(this.dataset.code,this);});});
+  grid.querySelectorAll('.vote-btn').forEach(function(btn){btn.addEventListener('click',function(){castVote(this.dataset.id,this.dataset.type);});});
   var gc=Object.keys(gameMap).length;
   document.getElementById('couponCount').textContent=gc;
   document.getElementById('statGames').textContent=gc;
   document.getElementById('statCoupons').textContent=list.length;
   Object.keys(gameMap).forEach(function(gn){var c=gameMap[gn][0];loadImg(gn,document.getElementById('bi'+c.id),document.getElementById('bf'+c.id),c.imageUrl);loadImg(gn,document.getElementById('ii'+c.id),document.getElementById('if'+c.id),c.imageUrl);});
 }
-
-function showGameInline(gn){
-  var coupons=window.COUPONS.filter(function(c){return c.game===gn;});
-  var info=GDB[gn]||{icon:'🎮',bg:'#1a1030'};
-  document.getElementById('gamePageHdr').innerHTML='<div class="game-page-img"><div class="gpfb" id="gpfb">'+info.icon+'</div><img id="gpimg" alt="'+gn+'"></div><div class="game-page-info"><h2>'+gn+'</h2><p>총 '+coupons.length+'개 쿠폰</p></div>';
-  loadImg(gn,document.getElementById('gpimg'),document.getElementById('gpfb'),coupons[0]&&coupons[0].imageUrl);
-  var html='';
-  if(!coupons.length){html='<div style="color:var(--mut);font-size:13px;padding:1rem">아직 등록된 쿠폰이 없어요.</div>';}
-  else{coupons.forEach(function(c){
-    var expTxt=(!c.expire||c.expire==='무기한')?'✅ 무기한':'⏰ '+c.expire;
-    html+='<div class="coupon-card"><div class="cc-body" style="padding:1rem"><div class="cc-reward" style="margin-bottom:10px">🎁 <span>'+c.reward+'</span></div>';
-    html+='<div class="code-wrap"><div class="code-inner"><div class="code-lbl">쿠폰 코드</div><div class="code-txt">'+c.code+'</div></div>';
-    html+='<button class="copy-btn" onclick="copyCode(''+c.code.replace(/'/g,"\'")+'',this)">복사</button></div>';
-    html+='<div style="font-size:11px;color:var(--mut);margin-top:8px">'+expTxt+'</div></div></div>';
-  });}
-  if(info.url){html+='<div style="margin-top:12px"><a href="'+info.url+'" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--b2);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--txt2);text-decoration:none">📋 공식 쿠폰 입력 페이지로 이동 ↗</a></div>';}
-  document.getElementById('gamePageGrid').innerHTML=html;
-  document.getElementById('gamePageLbl').textContent='🎫 '+gn+' 쿠폰 ('+coupons.length+'개)';
-  document.getElementById('gamePageHowto').textContent=info.how||'게임 공식 홈페이지에서 쿠폰을 입력하세요.';
-  ['coupon','preorder','guide','news','terms'].forEach(function(t){document.getElementById('tab-'+t).style.display='none';});
-  document.getElementById('tab-gamepage').style.display='block';
-  document.querySelectorAll('.tab, nav a').forEach(function(el){el.classList.remove('on');});
-  window.scrollTo(0,0);
-}
-
-function toSlug(s){return s.replace(/[:\s]+/g,'-').replace(/[^\w가-힣-]/g,'').replace(/-+/g,'-').replace(/^-|-$/g,'').toLowerCase();}
-function openGame(gn){
-  var slug=toSlug(gn);
-  if(slug){fetch('/game/'+slug+'.html',{method:'HEAD'}).then(function(r){if(r.ok)window.location.href='/game/'+slug+'.html';else showGameInline(gn);}).catch(function(){showGameInline(gn);});return;}
-  showGameInline(gn);
-}
-
 function renderPreorders(){
   var scroll=document.getElementById('preScroll');
-  scroll.innerHTML=PREORDERS.map(function(p){var info=GDB[p.game]||{icon:'🎮'};var dc=p.dday<=5?'hot':'ok';
-    return '<div class="pre-card" onclick="openGame(''+p.game.replace(/'/g,"\'")+'')"><div class="pre-img"><div class="pfall" id="pf'+p.id+'">'+info.icon+'</div><div class="pgrad"></div><div class="pre-dday '+dc+'">'+(p.dday===0?'오늘!':'D-'+p.dday)+'</div></div><div class="pre-body"><div class="pre-name">'+p.game+'</div><div class="pre-genre">'+p.genre+'</div><div style="font-size:10px;color:var(--mut);margin-bottom:5px">👥 '+p.reg+'명</div><button class="pre-regbtn">📋 사전예약</button></div></div>';
-  }).join('');
+  scroll.innerHTML=PREORDERS.map(function(p){var info=GDB[p.game]||{icon:'🎮'};var dc=p.dday<=5?'hot':'ok';return '<div class="pre-card" data-game="'+p.game+'"><div class="pre-img"><div class="pfall">'+info.icon+'</div><div class="pgrad"></div><div class="pre-dday '+dc+'">'+(p.dday===0?'오늘!':'D-'+p.dday)+'</div></div><div class="pre-body"><div class="pre-name">'+p.game+'</div><div class="pre-genre">'+p.genre+'</div><div style="font-size:10px;color:var(--mut);margin-bottom:5px">👥 '+p.reg+'명</div><button class="pre-regbtn">📋 사전예약</button></div></div>';}).join('');
+  scroll.querySelectorAll('.pre-card').forEach(function(el){el.addEventListener('click',function(){openGamePage(this.dataset.game);});});
   document.getElementById('preCount').textContent=PREORDERS.length;
-  document.getElementById('preGrid').innerHTML=PREORDERS.map(function(p){var info=GDB[p.game]||{icon:'🎮',bg:'#1a1030'};
-    return '<div class="coupon-card" onclick="openGame(''+p.game.replace(/'/g,"\'")+'')"><div class="banner-wrap" style="height:75px"><div class="bfall" style="background:linear-gradient(135deg,'+(info.bg||'#1a1030')+',#1a1a2c)">'+info.icon+'</div><div class="bgrad"></div></div><div class="cc-head"><div class="game-img-wrap"><div class="fbi">'+info.icon+'</div></div><div class="cc-info"><div class="cc-name">'+p.game+'</div><div class="cc-meta">'+p.genre+' · '+p.dev+'</div></div><span class="cc-badge" style="background:rgba(79,142,247,.15);color:#4f8ef7;border:1px solid rgba(79,142,247,.28)">D-'+p.dday+'</span></div><div class="cc-body"><div class="cc-reward">📅 출시: <span>'+p.launch+'</span></div></div></div>';
-  }).join('');
+  document.getElementById('preGrid').innerHTML=PREORDERS.map(function(p){var info=GDB[p.game]||{icon:'🎮',bg:'#1a1030'};return '<div class="coupon-card" data-game="'+p.game+'"><div class="banner-wrap" style="height:75px"><div class="bfall" style="background:linear-gradient(135deg,'+(info.bg||'#1a1030')+',#1a1a2c)">'+info.icon+'</div><div class="bgrad"></div></div><div class="cc-head"><div class="game-img-wrap"><div class="fbi">'+info.icon+'</div></div><div class="cc-info"><div class="cc-name">'+p.game+'</div><div class="cc-meta">'+p.genre+' · '+p.dev+'</div></div><span class="cc-badge" style="background:rgba(79,142,247,.15);color:#4f8ef7;border:1px solid rgba(79,142,247,.28)">D-'+p.dday+'</span></div><div class="cc-body"><div class="cc-reward">📅 출시: <span>'+p.launch+'</span></div></div></div>';}).join('');
+  document.getElementById('preGrid').querySelectorAll('.coupon-card').forEach(function(el){el.style.cursor='pointer';el.addEventListener('click',function(){openGamePage(this.dataset.game);});});
 }
-
 function renderGuides(){
-  if(!GUIDES.length){document.getElementById('guideGrid').innerHTML='<div style="color:var(--mut);font-size:13px;padding:1rem">등록된 공략이 없어요.</div>';return;}
-  document.getElementById('guideGrid').innerHTML=GUIDES.map(function(g,i){
-    return '<div class="guide-card" onclick="openGuide('+i+')"><div class="guide-thumb"><div class="guide-cat">'+(g.cat||'공략')+'</div><span style="font-size:40px">'+(g.icon||'🎮')+'</span></div><div class="guide-body"><div class="guide-title">'+g.title+'</div><div class="guide-meta"><span>👁 '+(g.views||0)+'</span><span>'+g.game+'</span></div></div></div>';
-  }).join('');
+  if(!GUIDES.length){document.getElementById('guideGrid').innerHTML='<div style="color:var(--mut);font-size:13px;padding:1rem">공략이 없어요.</div>';return;}
+  document.getElementById('guideGrid').innerHTML=GUIDES.map(function(g,i){return '<div class="guide-card" data-idx="'+i+'"><div class="guide-thumb"><div class="guide-cat">'+(g.cat||'공략')+'</div><span style="font-size:40px">'+(g.icon||'🎮')+'</span></div><div class="guide-body"><div class="guide-title">'+g.title+'</div><div class="guide-meta"><span>👁 '+(g.views||0)+'</span><span>'+g.game+'</span></div></div></div>';}).join('');
+  document.getElementById('guideGrid').querySelectorAll('.guide-card').forEach(function(el){el.addEventListener('click',function(){openGuide(parseInt(this.dataset.idx));});});
   document.getElementById('guideCount').textContent=GUIDES.length;
 }
-function openGuide(i){var g=GUIDES[i];if(!g) return;document.getElementById('guideModalTitle').textContent=g.title;document.getElementById('guideModalGame').textContent=g.game+' · '+(g.cat||'공략');document.getElementById('guideModalContent').innerHTML=(g.content||'내용이 없어요.').replace(/\n/g,'<br>');document.getElementById('guideModal').classList.add('open');}
-
+function openGuide(i){var g=GUIDES[i];if(!g)return;document.getElementById('guideModalTitle').textContent=g.title;document.getElementById('guideModalGame').textContent=g.game+' · '+(g.cat||'공략');document.getElementById('guideModalContent').innerHTML=(g.content||'내용이 없어요.').replace(/\n/g,'<br>');document.getElementById('guideModal').classList.add('open');}
 function renderNews(){
-  if(!NEWS.length){document.getElementById('newsGrid').innerHTML='<div style="color:var(--mut);font-size:13px;padding:1rem">등록된 뉴스가 없어요.</div>';return;}
-  document.getElementById('newsGrid').innerHTML=NEWS.map(function(n){
-    return '<div class="news-card" style="'+(n.url?'cursor:pointer':'')+'"'+(n.url?' onclick="window.open(''+n.url+'','_blank')"':'')+'>'+
-      '<div class="news-ico">'+(n.icon||'📰')+'</div><div style="flex:1"><div class="news-title">'+n.title+'</div><div class="news-meta">'+(n.date||'')+' · '+n.game+'</div>'+(n.url?'<div style="font-size:11px;color:var(--blue);margin-top:4px">원문 보기 →</div>':'')+'</div></div>';
-  }).join('');
+  if(!NEWS.length){document.getElementById('newsGrid').innerHTML='<div style="color:var(--mut);font-size:13px;padding:1rem">뉴스가 없어요.</div>';return;}
+  document.getElementById('newsGrid').innerHTML=NEWS.map(function(n){return '<div class="news-card">'+'<div class="news-ico">'+(n.icon||'📰')+'</div><div style="flex:1"><div class="news-title">'+n.title+'</div><div class="news-meta">'+(n.date||'')+' · '+n.game+'</div></div></div>';}).join('');
   document.getElementById('newsCount').textContent=NEWS.length;
 }
-
 function renderRank(){
   var gv={};COUPONS.forEach(function(c){if(!gv[c.game])gv[c.game]=0;gv[c.game]+=c.views;});
   var sorted=Object.keys(gv).sort(function(a,b){return gv[b]-gv[a];}).slice(0,5);
-  document.getElementById('rankList').innerHTML=sorted.map(function(game,i){
-    return '<div class="rank-row" onclick="openGame(''+game.replace(/'/g,"\'")+'')"><span class="rnum'+(i<3?' t':'')+'">'+( i+1)+'</span><img class="rank-img" id="ri'+i+'" alt="'+game+'"><div class="rinfo"><div class="rname">'+game+'</div><div class="rcnt">'+gv[game].toLocaleString()+'명</div></div>'+(i===0?'<span style="font-size:10px;color:var(--grn);font-weight:700">HOT</span>':'')+'</div>';
-  }).join('');
-  sorted.forEach(function(g,i){loadImg(g,document.getElementById('ri'+i),null);});
+  document.getElementById('rankList').innerHTML=sorted.map(function(g,i){return '<div class="rank-row" data-game="'+g+'"><span class="rnum'+(i<3?' t':'')+'">'+( i+1)+'</span><img class="rank-img" id="ri'+i+'" alt="'+g+'"><div class="rinfo"><div class="rname">'+g+'</div><div class="rcnt">'+gv[g].toLocaleString()+'명</div></div>'+(i===0?'<span style="font-size:10px;color:var(--grn);font-weight:700">HOT</span>':'')+'</div>';}).join('');
+  document.getElementById('rankList').querySelectorAll('.rank-row').forEach(function(el){el.addEventListener('click',function(){openGamePage(this.dataset.game);});});
+  sorted.forEach(function(g,i){loadImg(g,document.getElementById('ri'+i),null,null);});
   document.getElementById('statVotes').textContent=Object.keys(MY_VOTES).length;
 }
-
 function castVote(id,type){
-  var c=COUPONS.find(function(x){return x.id===id;});if(!c) return;
-  var prev=MY_VOTES[id];if(prev===type) return;
+  var c=COUPONS.find(function(x){return x.id===id;});if(!c)return;
+  var prev=MY_VOTES[id];if(prev===type)return;
   if(!c.votes)c.votes={ok:0,bad:0};
   if(prev)c.votes[prev]=Math.max(0,(c.votes[prev]||0)-1);
   c.votes[type]=(c.votes[type]||0)+1;MY_VOTES[id]=type;localStorage.setItem('mv',JSON.stringify(MY_VOTES));
-  var total=(c.votes.ok||0)+(c.votes.bad||0),pct=total?Math.round((c.votes.ok||0)/total*100):0;
+  var tot=(c.votes.ok||0)+(c.votes.bad||0),pct=tot?Math.round((c.votes.ok||0)/tot*100):0;
   var vb=document.getElementById('vb'+id),vc=document.getElementById('vc'+id);
   if(vb)vb.style.width=pct+'%';if(vc)vc.textContent=c.votes.ok+'👍';
   document.getElementById('statVotes').textContent=Object.keys(MY_VOTES).length;
   showToast(type==='ok'?'👍 작동한다고 투표했어요!':'👎 만료로 투표했어요!');
 }
-function copyCode(code,btn){navigator.clipboard.writeText(code).catch(function(){});btn.textContent='✓ 복사됨';btn.classList.add('done');showToast('✅ 쿠폰 코드가 복사됐어요!');setTimeout(function(){btn.textContent='복사';btn.classList.remove('done');},2000);}
+function copyCode(code,btn){navigator.clipboard.writeText(code).catch(function(){});btn.textContent='✓ 복사됨';btn.classList.add('done');showToast('✅ 쿠폰 코드 복사됐어요!');setTimeout(function(){btn.textContent='복사';btn.classList.remove('done');},2000);}
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
-function daysTill(s){if(!s||s==='무기한') return 999;var p=s.split('.');if(p.length<3) return 999;return Math.ceil((new Date(p[0],p[1]-1,p[2])-new Date())/86400000);}
+function daysTill(s){if(!s||s==='무기한')return 999;var p=s.split('.');if(p.length<3)return 999;return Math.ceil((new Date(p[0],p[1]-1,p[2])-new Date())/86400000);}
 function setGenre(btn,g){activeGenre=g;document.querySelectorAll('.filt').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');filterCards();}
-function filterCards(){
-  var q=document.getElementById('searchInput').value.toLowerCase();
-  renderCoupons(COUPONS.filter(function(c){return (activeGenre==='all'||(c.genre||'rpg')===activeGenre)&&(!q||c.game.toLowerCase().indexOf(q)>-1||c.code.toLowerCase().indexOf(q)>-1);}));
-}
-function sortCards(v){
-  if(v==='rank')COUPONS.sort(function(a,b){return (a.rank||999)-(b.rank||999);});
-  else if(v==='popular')COUPONS.sort(function(a,b){return b.views-a.views;});
-  else if(v==='expire')COUPONS.sort(function(a,b){return daysTill(a.expire)-daysTill(b.expire);});
-  else COUPONS.sort(function(a,b){return new Date(b.createdAt||0)-new Date(a.createdAt||0);});
-  filterCards();
-}
-function showTab(name,el){
-  ['coupon','preorder','guide','news','terms','gamepage'].forEach(function(t){var e=document.getElementById('tab-'+t);if(e)e.style.display='none';});
-  var tab=document.getElementById('tab-'+name);if(tab)tab.style.display='block';
-  document.querySelectorAll('.tab, nav a').forEach(function(a){a.classList.remove('on');});
-  if(el)el.classList.add('on');window.scrollTo(0,0);
-}
+function filterCards(){var q=document.getElementById('searchInput').value.toLowerCase();renderCoupons(COUPONS.filter(function(c){return(activeGenre==='all'||(c.genre||'rpg')===activeGenre)&&(!q||c.game.toLowerCase().indexOf(q)>-1||c.code.toLowerCase().indexOf(q)>-1);}));}
+function sortCards(v){if(v==='rank')COUPONS.sort(function(a,b){return(a.rank||999)-(b.rank||999);});else if(v==='popular')COUPONS.sort(function(a,b){return b.views-a.views;});else if(v==='expire')COUPONS.sort(function(a,b){return daysTill(a.expire)-daysTill(b.expire);});else COUPONS.sort(function(a,b){return new Date(b.createdAt||0)-new Date(a.createdAt||0);});filterCards();}
+function showTab(name,el){['coupon','preorder','guide','news','terms','gamepage'].forEach(function(t){var e=document.getElementById('tab-'+t);if(e)e.style.display='none';});var tab=document.getElementById('tab-'+name);if(tab)tab.style.display='block';document.querySelectorAll('.tab,nav a').forEach(function(a){a.classList.remove('on');});if(el)el.classList.add('on');window.scrollTo(0,0);}
 function setMN(el){document.querySelectorAll('.mn-item').forEach(function(i){i.classList.remove('on');});el.classList.add('on');}
 function toggleTheme(){document.body.classList.toggle('light');var isL=document.body.classList.contains('light');document.getElementById('themeBtn').textContent=isL?'🌙':'☀️';localStorage.setItem('theme',isL?'light':'dark');}
 if(localStorage.getItem('theme')==='light'){document.body.classList.add('light');document.getElementById('themeBtn').textContent='🌙';}
-
-COUPONS.sort(function(a,b){return (a.rank||999)-(b.rank||999);});
+COUPONS.sort(function(a,b){return(a.rank||999)-(b.rank||999);});
 renderCoupons(COUPONS);renderPreorders();renderGuides();renderNews();renderRank();
 var _ig=(function(){var s={};COUPONS.forEach(function(c){s[c.game]=1;});return Object.keys(s).length;})();
 document.getElementById('statGames').textContent=_ig;
 document.getElementById('statCoupons').textContent=COUPONS.length;
 </script>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
 firebase.initializeApp({apiKey:'AIzaSyBd0e5i2LMNtZkM1aib4kZdgjUWkzMtN7Q',authDomain:'dooood-2c725.firebaseapp.com',projectId:'dooood-2c725',storageBucket:'dooood-2c725.firebasestorage.app',messagingSenderId:'805524185808',appId:'1:805524185808:web:2e3ebcd0e27172efa334d5'});
 var db=firebase.firestore();
-var CK='cd_coupons_v7',CT=30*60*1000;
-function getCached(){try{var r=localStorage.getItem(CK);if(!r) return null;var o=JSON.parse(r);if(Date.now()-o.ts>CT){localStorage.removeItem(CK);return null;}return o.data;}catch(e){return null;}}
+var CK='cd_v8',CT=30*60*1000;
+function getCached(){try{var r=localStorage.getItem(CK);if(!r)return null;var o=JSON.parse(r);if(Date.now()-o.ts>CT){localStorage.removeItem(CK);return null;}return o.data;}catch(e){return null;}}
 function setCache(d){try{localStorage.setItem(CK,JSON.stringify({ts:Date.now(),data:d}));}catch(e){}}
 function applyData(data){
-  if(!data||!data.length) return;
-  data=data.filter(function(c){if(!c.game||!c.code) return false;var n=fixGameName(c.game);if(!n) return false;c.game=n;if(!c.expire||c.expire==='undefined')c.expire='무기한';return true;});
+  if(!data||!data.length)return;
+  data=data.filter(function(c){if(!c.game||!c.code)return false;var n=fixGameName(c.game);if(!n)return false;c.game=n;if(!c.expire||c.expire==='undefined')c.expire='무기한';return true;});
   var dbG={};data.forEach(function(c){dbG[c.game]=1;});
-  var merged=data.concat(COUPONS.filter(function(c){return !dbG[c.game];}));
-  merged.sort(function(a,b){return (a.rank||500)-(b.rank||500);});
+  var merged=data.concat(COUPONS.filter(function(c){return!dbG[c.game];}));
+  merged.sort(function(a,b){return(a.rank||500)-(b.rank||500);});
   COUPONS=merged;renderCoupons(COUPONS);renderRank();
   var s={};COUPONS.forEach(function(c){s[c.game]=1;});
   document.getElementById('statGames').textContent=Object.keys(s).length;
   document.getElementById('statCoupons').textContent=COUPONS.length;
 }
-function loadFromDB(){var c=getCached();if(c&&c.length){applyData(c);return;}db.collection('coupons').get().then(function(snap){if(snap.empty) return;var l=[];snap.forEach(function(d){l.push(Object.assign({id:d.id},d.data()));});setCache(l);applyData(l);}).catch(function(){});}
-function loadGuidesFromDB(){db.collection('guides').orderBy('createdAt','desc').get().then(function(snap){if(snap.empty) return;var items=[];snap.forEach(function(d){items.push(Object.assign({id:d.id},d.data()));});GUIDES=items;renderGuides();document.getElementById('guideCount').textContent=items.length;}).catch(function(){});}
-function loadNewsFromDB(){db.collection('news').orderBy('createdAt','desc').get().then(function(snap){if(snap.empty) return;var items=[];snap.forEach(function(d){items.push(Object.assign({id:d.id},d.data()));});NEWS=items;renderNews();document.getElementById('newsCount').textContent=items.length;}).catch(function(){});}
-function loadPreordersFromDB(){db.collection('preorders').orderBy('createdAt','desc').get().then(function(snap){if(snap.empty) return;var items=[];snap.forEach(function(d){items.push(Object.assign({id:d.id},d.data()));});PREORDERS=items;renderPreorders();document.getElementById('preCount').textContent=items.length;}).catch(function(){});}
+function loadFromDB(){var c=getCached();if(c&&c.length){applyData(c);return;}db.collection('coupons').get().then(function(snap){if(snap.empty)return;var l=[];snap.forEach(function(d){l.push(Object.assign({id:d.id},d.data()));});setCache(l);applyData(l);}).catch(function(){});}
+function loadGuidesFromDB(){db.collection('guides').orderBy('createdAt','desc').get().then(function(snap){if(snap.empty)return;var items=[];snap.forEach(function(d){items.push(Object.assign({id:d.id},d.data()));});GUIDES=items;renderGuides();document.getElementById('guideCount').textContent=items.length;}).catch(function(){});}
+function loadNewsFromDB(){db.collection('news').orderBy('createdAt','desc').get().then(function(snap){if(snap.empty)return;var items=[];snap.forEach(function(d){items.push(Object.assign({id:d.id},d.data()));});NEWS=items;renderNews();document.getElementById('newsCount').textContent=items.length;}).catch(function(){});}
+function loadPreordersFromDB(){db.collection('preorders').orderBy('createdAt','desc').get().then(function(snap){if(snap.empty)return;var items=[];snap.forEach(function(d){items.push(Object.assign({id:d.id},d.data()));});PREORDERS=items;renderPreorders();document.getElementById('preCount').textContent=items.length;}).catch(function(){});}
 loadFromDB();loadGuidesFromDB();loadNewsFromDB();loadPreordersFromDB();
 </script>
 </body>
