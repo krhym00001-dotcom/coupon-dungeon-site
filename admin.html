@@ -21,18 +21,14 @@ input:focus{border-color:#e94560}
 .btn-grn:hover{background:#2db87a}
 .btn-red{background:#e94560;color:#fff}
 .btn-sm{padding:6px 12px;font-size:12px;width:auto;border-radius:6px}
-
-/* 대시보드 */
 #dashboard{display:none}
 header{background:#13131f;border-bottom:1px solid rgba(255,255,255,.07);padding:0 1.5rem;height:54px;display:flex;align-items:center;justify-content:space-between}
 header h1{font-size:16px;font-weight:700}
 .logout-btn{background:none;border:1px solid rgba(255,255,255,.2);color:#aaa;padding:5px 12px;border-radius:6px;font-size:12px;cursor:pointer}
-.tabs{display:flex;background:#13131f;border-bottom:1px solid rgba(255,255,255,.07);padding:0 1.5rem}
-.tab{padding:12px 16px;font-size:13px;font-weight:500;color:#aaa;cursor:pointer;border-bottom:2px solid transparent}
+.tabs{display:flex;background:#13131f;border-bottom:1px solid rgba(255,255,255,.07);padding:0 1.5rem;overflow-x:auto}
+.tab{padding:12px 16px;font-size:13px;font-weight:500;color:#aaa;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
 .tab.on{color:#efefef;border-bottom-color:#e94560}
 .content{max-width:900px;margin:0 auto;padding:1.5rem}
-
-/* 폼 */
 .card{background:#1a1a2c;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.25rem;margin-bottom:1rem}
 .card h2{font-size:14px;font-weight:700;margin-bottom:1rem;color:#e94560}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
@@ -41,8 +37,6 @@ label{font-size:12px;color:#aaa;margin-bottom:4px;display:block}
 select{width:100%;background:#0f0f1a;border:1px solid rgba(255,255,255,.15);color:#efefef;padding:10px 14px;border-radius:8px;font-size:13px;outline:none}
 textarea{width:100%;background:#0f0f1a;border:1px solid rgba(255,255,255,.15);color:#efefef;padding:10px 14px;border-radius:8px;font-size:13px;outline:none;resize:vertical;min-height:120px;font-family:inherit}
 textarea:focus,select:focus,input:focus{border-color:#e94560}
-
-/* 목록 */
 .list-item{background:#13131f;border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:12px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px}
 .list-item-info{flex:1;min-width:0}
 .list-item-title{font-size:13px;font-weight:700;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -59,6 +53,8 @@ textarea:focus,select:focus,input:focus{border-color:#e94560}
 .stat-box{background:#13131f;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:1rem;text-align:center}
 .stat-num{font-size:28px;font-weight:700;color:#e94560}
 .stat-lbl{font-size:12px;color:#aaa;margin-top:4px}
+.error-msg{color:#e94560;font-size:12px;margin-top:6px;min-height:18px}
+.user-email{font-size:12px;color:#aaa;margin-right:8px}
 </style>
 </head>
 <body>
@@ -68,9 +64,11 @@ textarea:focus,select:focus,input:focus{border-color:#e94560}
   <div class="login-box">
     <div style="font-size:32px;margin-bottom:10px">⚔️</div>
     <h1>쿠폰던전 관리자</h1>
-    <p>관리자 비밀번호를 입력하세요</p>
+    <p>Firebase 계정으로 로그인하세요</p>
+    <input type="email" id="emailInput" placeholder="이메일" onkeydown="if(event.key==='Enter')doLogin()">
     <input type="password" id="pwInput" placeholder="비밀번호" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="btn" onclick="doLogin()">로그인</button>
+    <div class="error-msg" id="loginError"></div>
+    <button class="btn" id="loginBtn" onclick="doLogin()">로그인</button>
   </div>
 </div>
 
@@ -78,7 +76,10 @@ textarea:focus,select:focus,input:focus{border-color:#e94560}
 <div id="dashboard">
   <header>
     <h1>⚔️ 쿠폰던전 관리자</h1>
-    <button class="logout-btn" onclick="doLogout()">로그아웃</button>
+    <div style="display:flex;align-items:center">
+      <span class="user-email" id="userEmail"></span>
+      <button class="logout-btn" onclick="doLogout()">로그아웃</button>
+    </div>
   </header>
   <div class="tabs">
     <div class="tab on" onclick="showTab('guide',this)">📖 공략</div>
@@ -186,9 +187,11 @@ textarea:focus,select:focus,input:focus{border-color:#e94560}
 
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, orderBy, query } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-const ADMIN_PW = 'coupondungeon2026'; // ← 원하는 비밀번호로 변경하세요!
+// 허용 이메일 목록 (관리자만)
+const ALLOWED_EMAILS = ['krhym00001@gmail.com'];
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBd0e5i2LMNtZkM1aib4kZdgjUWkzMtN7Q',
@@ -198,23 +201,59 @@ const firebaseConfig = {
   messagingSenderId: '805524185808',
   appId: '1:805524185808:web:2e3ebcd0e27172efa334d5',
 };
+
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
 
-// 로그인
-window.doLogin = function() {
-  const pw = document.getElementById('pwInput').value;
-  if (pw === ADMIN_PW) {
+// 인증 상태 감지
+onAuthStateChanged(auth, (user) => {
+  if (user && ALLOWED_EMAILS.includes(user.email)) {
     document.getElementById('loginWrap').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('userEmail').textContent = user.email;
     loadAll();
   } else {
-    showToast('❌ 비밀번호가 틀렸어요!');
+    document.getElementById('loginWrap').style.display = 'flex';
+    document.getElementById('dashboard').style.display = 'none';
+  }
+});
+
+// 로그인
+window.doLogin = async function() {
+  const email = document.getElementById('emailInput').value.trim();
+  const pw = document.getElementById('pwInput').value;
+  const errEl = document.getElementById('loginError');
+  const btn = document.getElementById('loginBtn');
+
+  if (!email || !pw) { errEl.textContent = '이메일과 비밀번호를 입력하세요'; return; }
+  if (!ALLOWED_EMAILS.includes(email)) { errEl.textContent = '접근 권한이 없는 계정이에요'; return; }
+
+  btn.textContent = '로그인 중...';
+  btn.disabled = true;
+  errEl.textContent = '';
+
+  try {
+    await signInWithEmailAndPassword(auth, email, pw);
+  } catch(e) {
+    const msgs = {
+      'auth/user-not-found': '등록되지 않은 이메일이에요',
+      'auth/wrong-password': '비밀번호가 틀렸어요',
+      'auth/invalid-email': '이메일 형식이 올바르지 않아요',
+      'auth/too-many-requests': '너무 많은 시도로 잠시 차단됐어요',
+      'auth/invalid-credential': '이메일 또는 비밀번호가 틀렸어요',
+    };
+    errEl.textContent = msgs[e.code] || '로그인 실패: ' + e.message;
+  } finally {
+    btn.textContent = '로그인';
+    btn.disabled = false;
   }
 };
-window.doLogout = function() {
-  document.getElementById('loginWrap').style.display = 'flex';
-  document.getElementById('dashboard').style.display = 'none';
+
+// 로그아웃
+window.doLogout = async function() {
+  await signOut(auth);
+  showToast('👋 로그아웃됐어요');
 };
 
 // 탭 전환
@@ -263,17 +302,17 @@ async function loadGuides() {
     snap.forEach(d => {
       const data = d.data();
       el.innerHTML += `<div class="list-item">
-        <div style="font-size:24px">${data.icon}</div>
+        <div style="font-size:24px">${data.icon||'🎮'}</div>
         <div class="list-item-info">
           <div class="list-item-title">${data.title}</div>
           <div class="list-item-meta">${data.game} · <span class="badge badge-guide">${data.cat}</span></div>
         </div>
         <div class="list-item-actions">
-          <button class="btn btn-red btn-sm" onclick="delDoc('guides','${d.id}','guide-list',loadGuides)">삭제</button>
+          <button class="btn btn-red btn-sm" onclick="delDoc('guides','${d.id}',loadGuides)">삭제</button>
         </div>
       </div>`;
     });
-  } catch(e) {}
+  } catch(e) { console.error(e); }
 }
 
 // ── 사전예약 ──────────────────────────────
@@ -310,14 +349,14 @@ async function loadPreorders() {
         <div style="font-size:24px">🚀</div>
         <div class="list-item-info">
           <div class="list-item-title">${data.game}</div>
-          <div class="list-item-meta">${data.dev} · ${data.genre} · 출시: ${data.launch} · D-${data.dday}</div>
+          <div class="list-item-meta">${data.dev||''} · ${data.genre} · 출시: ${data.launch} · D-${data.dday}</div>
         </div>
         <div class="list-item-actions">
-          <button class="btn btn-red btn-sm" onclick="delDoc('preorders','${d.id}','preorder-list',loadPreorders)">삭제</button>
+          <button class="btn btn-red btn-sm" onclick="delDoc('preorders','${d.id}',loadPreorders)">삭제</button>
         </div>
       </div>`;
     });
-  } catch(e) {}
+  } catch(e) { console.error(e); }
 }
 
 // ── 뉴스 ──────────────────────────────────
@@ -350,17 +389,17 @@ async function loadNews() {
     snap.forEach(d => {
       const data = d.data();
       el.innerHTML += `<div class="list-item">
-        <div style="font-size:24px">${data.icon}</div>
+        <div style="font-size:24px">${data.icon||'📰'}</div>
         <div class="list-item-info">
           <div class="list-item-title">${data.title}</div>
-          <div class="list-item-meta">${data.game} · ${data.date}</div>
+          <div class="list-item-meta">${data.game} · ${data.date||''}</div>
         </div>
         <div class="list-item-actions">
-          <button class="btn btn-red btn-sm" onclick="delDoc('news','${d.id}','news-list',loadNews)">삭제</button>
+          <button class="btn btn-red btn-sm" onclick="delDoc('news','${d.id}',loadNews)">삭제</button>
         </div>
       </div>`;
     });
-  } catch(e) {}
+  } catch(e) { console.error(e); }
 }
 
 // ── 쿠폰 직접 추가 ────────────────────────
@@ -374,8 +413,7 @@ window.saveCoupon = async function() {
   if (!game || !code) { showToast('❌ 게임명과 쿠폰코드를 입력해주세요'); return; }
   const id = `${game}_${code}`.replace(/[^a-zA-Z0-9가-힣_-]/g, '_');
   try {
-    const { setDoc, doc: firestoreDoc } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-    await setDoc(firestoreDoc(db, 'coupons', id), {
+    await setDoc(doc(db, 'coupons', id), {
       game, code, reward, expire, genre, source,
       rank: 500, status: 'new', views: 0,
       votes: { ok: 0, bad: 0 },
@@ -388,7 +426,7 @@ window.saveCoupon = async function() {
 };
 
 // ── 삭제 공통 ─────────────────────────────
-window.delDoc = async function(colName, id, listId, reloadFn) {
+window.delDoc = async function(colName, id, reloadFn) {
   if (!confirm('정말 삭제할까요?')) return;
   try {
     await deleteDoc(doc(db, colName, id));
