@@ -308,7 +308,7 @@ async function loadGuides() {
           <div class="list-item-meta">${data.game} · <span class="badge badge-guide">${data.cat}</span></div>
         </div>
         <div class="list-item-actions">
-          <button class="btn btn-red btn-sm" onclick="delDoc('guides','${d.id}',loadGuides)">삭제</button>
+          <button class="btn btn-red btn-sm" data-col="guides" data-id="${d.id}" onclick="delDoc(this)">삭제</button>
         </div>
       </div>`;
     });
@@ -352,7 +352,7 @@ async function loadPreorders() {
           <div class="list-item-meta">${data.dev||''} · ${data.genre} · 출시: ${data.launch} · D-${data.dday}</div>
         </div>
         <div class="list-item-actions">
-          <button class="btn btn-red btn-sm" onclick="delDoc('preorders','${d.id}',loadPreorders)">삭제</button>
+          <button class="btn btn-red btn-sm" data-col="preorders" data-id="${d.id}" onclick="delDoc(this)">삭제</button>
         </div>
       </div>`;
     });
@@ -395,7 +395,7 @@ async function loadNews() {
           <div class="list-item-meta">${data.game} · ${data.date||''}</div>
         </div>
         <div class="list-item-actions">
-          <button class="btn btn-red btn-sm" onclick="delDoc('news','${d.id}',loadNews)">삭제</button>
+          <button class="btn btn-red btn-sm" data-col="news" data-id="${d.id}" onclick="delDoc(this)">삭제</button>
         </div>
       </div>`;
     });
@@ -426,13 +426,17 @@ window.saveCoupon = async function() {
 };
 
 // ── 삭제 공통 ─────────────────────────────
-window.delDoc = async function(colName, id, reloadFn) {
+window.delDoc = async function(btn) {
+  const colName = btn.dataset.col;
+  const id = btn.dataset.id;
   if (!confirm('정말 삭제할까요?')) return;
   try {
     await deleteDoc(doc(db, colName, id));
     showToast('🗑️ 삭제 완료');
-    reloadFn();
-  } catch(e) { showToast('❌ 삭제 실패'); }
+    if (colName === 'guides') loadGuides();
+    else if (colName === 'preorders') loadPreorders();
+    else if (colName === 'news') loadNews();
+  } catch(e) { showToast('❌ 삭제 실패: ' + e.message); }
 };
 
 async function loadAll() {
