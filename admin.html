@@ -128,16 +128,19 @@ textarea:focus,select:focus,input:focus{border-color:#e94560}
             <option value="캐주얼">캐주얼</option><option value="액션">액션</option>
           </select>
         </div>
-        <div><label>출시 예정일</label><input type="text" id="p-launch" placeholder="예: 2026.06.01"></div>
+        <div><label>출시 예정일</label><input type="text" id="p-launch" placeholder="예: 2026.06.01" oninput="calcDday()"></div>
       </div>
       <div class="form-row">
-        <div><label>D-day (숫자만)</label><input type="number" id="p-dday" placeholder="예: 30"></div>
+        <div><label>D-day <small style="color:#555">(출시일 입력 시 자동계산)</small></label><input type="number" id="p-dday" placeholder="자동계산" readonly style="color:#aaa;cursor:not-allowed"></div>
         <div><label>사전예약자 수</label><input type="text" id="p-reg" placeholder="예: 50,000"></div>
       </div>
       <div class="form-row full"><label>게임 소개</label><textarea id="p-desc" style="min-height:80px" placeholder="게임 간단 소개..."></textarea></div>
       <div class="form-row full"><label>사전예약 링크 URL</label><input type="text" id="p-url" placeholder="https://..."></div>
       <button class="btn btn-grn btn-sm" onclick="savePreorder()" style="margin-top:8px">✅ 사전예약 저장</button>
     </div>
+    <div style="font-size:14px;font-weight:700;color:#f5a623;margin-bottom:8px">⏳ 승인 대기 <span id="pendingCount" style="background:#f5a623;color:#000;font-size:11px;padding:2px 8px;border-radius:20px;margin-left:4px">0</span></div>
+    <div id="preorder-pending-list" style="margin-bottom:1.5rem"></div>
+    <div style="font-size:14px;font-weight:700;color:#aaa;margin-bottom:8px">✅ 승인된 사전예약</div>
     <div id="preorder-list"><div class="empty">등록된 사전예약이 없어요</div></div>
   </div>
 
@@ -316,6 +319,20 @@ async function loadGuides() {
 }
 
 // ── 사전예약 ──────────────────────────────
+function calcDday() {
+  var dateStr = document.getElementById('p-launch').value.trim();
+  if (!dateStr) return;
+  var parts = dateStr.replace(/\./g, '-').split('-');
+  if (parts.length !== 3) return;
+  var target = new Date(parts[0], parts[1]-1, parts[2]);
+  var today = new Date();
+  today.setHours(0,0,0,0);
+  var diff = Math.ceil((target - today) / 86400000);
+  if (!isNaN(diff)) {
+    document.getElementById('p-dday').value = diff > 0 ? diff : 0;
+  }
+}
+
 window.savePreorder = async function() {
   const game = document.getElementById('p-game').value.trim();
   const dev = document.getElementById('p-dev').value.trim();
@@ -339,8 +356,36 @@ window.savePreorder = async function() {
 
 async function loadPreorders() {
   try {
+    // 승인 대기 목록
+    const { getDocs: gd2, query: q2, collection: col2, orderBy: ob2, doc: d2, getDoc: gc2, setDoc: sc2, deleteDoc: dc2 } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+    const pendingSnap = await getDocs(query(collection(db, 'preorders_pending'), orderBy('createdAt', 'desc')));
+    const pendingEl = document.getElementById('preorder-pending-list');
+    const pendingCount = document.getElementById('pendingCount');
+    if (pendingEl) {
+      if (pendingSnap.empty) {
+        pendingEl.innerHTML = '<div class="empty">대기 중인 사전예약이 없어요 ✅</div>';
+        if (pendingCount) pendingCount.textContent = '0';
+      } else {
+        pendingEl.innerHTML = '';
+        if (pendingCount) pendingCount.textContent = pendingSnap.size;
+        pendingSnap.forEach(d => {
+          const data = d.data();
+          pendingEl.innerHTML += `<div class="list-item" style="border-color:rgba(245,166,35,.3)">
+            <div style="font-size:24px">⏳</div>
+            <div class="list-item-info">
+              <div class="list-item-title">${data.name||data.game||''}</div>
+              <div class="list-item-meta">${data.dev||''} · ${data.releaseDate||'출시일 미정'} · 출처: ${data.source||''}</div>
+            </div>
+            <button class="btn btn-sm" style="background:#3ecf8e;color:#000;margin-right:6px;padding:5px 12px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700" onclick="approvePreorder('${d.id}')">✅ 승인</button>
+            <button class="btn btn-red btn-sm" data-col="preorders_pending" data-id="${d.id}" onclick="delDoc(this)">거절</button>
+          </div>`;
+        });
+      }
+    }
+    // 승인된 목록
     const snap = await getDocs(query(collection(db, 'preorders'), orderBy('createdAt', 'desc')));
     const el = document.getElementById('preorder-list');
+    if (!el) return;
     if (snap.empty) { el.innerHTML = '<div class="empty">등록된 사전예약이 없어요</div>'; return; }
     el.innerHTML = '';
     snap.forEach(d => {
@@ -348,8 +393,8 @@ async function loadPreorders() {
       el.innerHTML += `<div class="list-item">
         <div style="font-size:24px">🚀</div>
         <div class="list-item-info">
-          <div class="list-item-title">${data.game}</div>
-          <div class="list-item-meta">${data.dev||''} · ${data.genre} · 출시: ${data.launch} · D-${data.dday}</div>
+          <div class="list-item-title">${data.game||data.name||''}</div>
+          <div class="list-item-meta">${data.dev||''} · ${data.genre||''} · 출시: ${data.launch||data.releaseDate||''} · D-${data.dday||'?'}</div>
         </div>
         <div class="list-item-actions">
           <button class="btn btn-red btn-sm" data-col="preorders" data-id="${d.id}" onclick="delDoc(this)">삭제</button>
@@ -359,7 +404,22 @@ async function loadPreorders() {
   } catch(e) { console.error(e); }
 }
 
-// ── 뉴스 ──────────────────────────────────
+window.approvePreorder = async function(id) {
+  try {
+    const docRef = doc(db, 'preorders_pending', id);
+    const snap = await getDoc(docRef);
+    if (!snap.exists()) return;
+    const data = snap.data();
+    await setDoc(doc(db, 'preorders', id), {
+      ...data, game: data.name||data.game||'', status: 'approved', approvedAt: new Date().toISOString(),
+    });
+    await deleteDoc(docRef);
+    showToast('✅ 승인 완료! 다음 수집기 실행 시 페이지 자동 생성됩니다.');
+    loadPreorders();
+  } catch(e) { showToast('❌ 승인 실패: ' + e.message); }
+};
+
+
 window.saveNews = async function() {
   const game = document.getElementById('n-game').value.trim();
   const title = document.getElementById('n-title').value.trim();
