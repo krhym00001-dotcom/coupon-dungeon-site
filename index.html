@@ -506,13 +506,13 @@ function renderCoupons(list){
 }
 function renderPreorders(){
   var scroll=document.getElementById('preScroll');
-  scroll.innerHTML=PREORDERS.map(function(p){var info=GDB[p.game]||{icon:'🎮'};var dc=p.dday<=5?'hot':'ok';return '<div class="pre-card" data-game="'+p.game+'" data-url="'+(p.url||'')+'"><div class="pre-img"><div class="pfall">'+info.icon+'</div><div class="pgrad"></div><div class="pre-dday '+dc+'">'+(p.dday===0?'오늘!':'D-'+p.dday)+'</div></div><div class="pre-body"><div class="pre-name">'+p.game+'</div><div class="pre-genre">'+p.genre+'</div><div style="font-size:10px;color:var(--mut);margin-bottom:5px">👥 '+p.reg+'명</div><button class="pre-regbtn">📋 사전예약</button></div></div>';}).join('');
+  scroll.innerHTML=PREORDERS.map(function(p){var info=GDB[p.game]||{icon:'🎮'};var dc=p.dday<=5?'hot':'ok';return '<div class="pre-card" data-game="'+p.game+'" data-url="'+(p.url||'')+'"><div class="pre-img"><div class="pfall">'+info.icon+'</div><div class="pgrad"></div><div class="pre-dday '+dc+'">'+(p.dday===0?'오늘!':'D-'+p.dday)+'</div></div><div class="pre-body"><div class="pre-name">'+p.game+'</div><div class="pre-genre">'+p.genre+'</div><div style="font-size:10px;color:var(--mut);margin-bottom:5px">👥 '+p.reg+'명</div>'+(p.url?'<a href="'+p.url+'" target="_blank" class="pre-regbtn" style="text-decoration:none;display:inline-block">📋 사전예약</a>':'<a href="'+pageUrl+'" class="pre-regbtn" style="text-decoration:none;display:inline-block">📋 상세보기</a>')+'</div></div>';}).join('');
   scroll.querySelectorAll('.pre-card').forEach(function(el){el.addEventListener('click',function(e){
   if(e.target.classList.contains('pre-regbtn')) return;
   var game=this.dataset.game;
   var url=this.dataset.url;
   if(url) window.open(url,'_blank');
-  else openGamePage(game);
+  else { var pg=this.dataset.page; if(pg) window.location.href=pg; else openGamePage(game); }
 });
   el.querySelector('.pre-regbtn') && el.querySelector('.pre-regbtn').addEventListener('click',function(e){
     e.stopPropagation();
@@ -527,14 +527,20 @@ function renderPreorders(){
 }
 function renderGuides(){
   if(!GUIDES.length){document.getElementById('guideGrid').innerHTML='<div style="color:var(--mut);font-size:13px;padding:1rem">공략이 없어요.</div>';return;}
-  document.getElementById('guideGrid').innerHTML=GUIDES.map(function(g,i){return '<div class="guide-card" data-idx="'+i+'"><div class="guide-thumb"><div class="guide-cat">'+(g.cat||'공략')+'</div><span style="font-size:40px">'+(g.icon||'🎮')+'</span></div><div class="guide-body"><div class="guide-title">'+g.title+'</div><div class="guide-meta"><span>👁 '+(g.views||0)+'</span><span>'+g.game+'</span></div></div></div>';}).join('');
+  document.getElementById('guideGrid').innerHTML=GUIDES.map(function(g,i){
+    var href=g.id?'/guide/'+g.id+'.html':'#';
+    return '<a href="'+href+'" class="guide-card" style="text-decoration:none;display:block"><div class="guide-thumb"><div class="guide-cat">'+(g.cat||'공략')+'</div><span style="font-size:40px">'+(g.icon||'🎮')+'</span></div><div class="guide-body"><div class="guide-title">'+g.title+'</div><div class="guide-meta"><span>👁 '+(g.views||0)+'</span><span>'+g.game+'</span></div></div></a>';
+  }).join('');
   
   document.getElementById('guideCount').textContent=GUIDES.length;
 }
 function openGuide(i){var g=GUIDES[i];if(!g)return;document.getElementById('guideModalTitle').textContent=g.title;document.getElementById('guideModalGame').textContent=g.game+' · '+(g.cat||'공략');document.getElementById('guideModalContent').innerHTML=(g.content||'내용이 없어요.').replace(/\n/g,'<br>');document.getElementById('guideModal').classList.add('open');}
 function renderNews(){
   if(!NEWS.length){document.getElementById('newsGrid').innerHTML='<div style="color:var(--mut);font-size:13px;padding:1rem">뉴스가 없어요.</div>';return;}
-  document.getElementById('newsGrid').innerHTML=NEWS.map(function(n,i){return '<div class="news-card" data-idx="'+i+'" style="cursor:pointer">'+'<div class="news-ico">'+(n.icon||'📰')+'</div><div style="flex:1"><div class="news-title">'+n.title+'</div><div class="news-meta">'+(n.date||'')+' · '+n.game+'</div></div></div>';}).join('');
+  document.getElementById('newsGrid').innerHTML=NEWS.map(function(n,i){
+    var href=n.id?'/news/'+n.id+'.html':'#';
+    return '<a href="'+href+'" class="news-card" style="cursor:pointer;text-decoration:none;display:flex;align-items:center">'+'<div class="news-ico">'+(n.icon||'📰')+'</div><div style="flex:1"><div class="news-title">'+n.title+'</div><div class="news-meta">'+(n.date||'')+' · '+n.game+'</div></div></a>';
+  }).join('');
   document.getElementById('newsCount').textContent=NEWS.length;
 }
 // 뉴스 클릭 이벤트 위임
