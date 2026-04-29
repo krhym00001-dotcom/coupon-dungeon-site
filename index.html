@@ -274,6 +274,24 @@ footer a:hover{color:var(--txt)}
   </div>
   <div id="tab-guide" style="display:none">
     <div class="sec-lbl">📖 게임 공략</div>
+    <div style="padding:0 0 14px">
+      <div style="position:relative">
+        <input type="text" id="guideSearch" placeholder="공략 검색 (게임명, 카테고리...)" 
+          oninput="filterGuides(this.value)"
+          style="width:100%;background:#13131f;border:1px solid rgba(255,255,255,.15);color:#efefef;padding:11px 14px 11px 40px;border-radius:10px;font-size:14px;font-family:inherit;outline:none;box-sizing:border-box">
+        <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#555;font-size:16px">🔍</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <button onclick="filterGuidesByCat(this,'')" class="gcat-btn" style="background:rgba(233,69,96,.15);border:1px solid rgba(233,69,96,.4);color:#e94560;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">전체</button>
+        <button onclick="filterGuidesByCat(this,'초보가이드')" class="gcat-btn" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#aaa;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">초보가이드</button>
+        <button onclick="filterGuidesByCat(this,'팀구성')" class="gcat-btn" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#aaa;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">팀구성</button>
+        <button onclick="filterGuidesByCat(this,'공략')" class="gcat-btn" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#aaa;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">공략</button>
+        <button onclick="filterGuidesByCat(this,'육성가이드')" class="gcat-btn" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#aaa;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">육성가이드</button>
+        <button onclick="filterGuidesByCat(this,'무과금가이드')" class="gcat-btn" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#aaa;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">무과금</button>
+        <button onclick="filterGuidesByCat(this,'PVP가이드')" class="gcat-btn" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#aaa;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer">PVP</button>
+      </div>
+      <div id="guideSearchResult" style="font-size:12px;color:#555;margin-top:8px"></div>
+    </div>
     <div class="guide-grid" id="guideGrid"></div>
   </div>
   <div id="tab-news" style="display:none">
@@ -342,8 +360,8 @@ footer a:hover{color:var(--txt)}
   <div style="margin-bottom:4px">
     <a href="/about.html">소개</a> &nbsp;|&nbsp;
     <a href="/contact.html">문의하기</a> &nbsp;|&nbsp;
-    <a onclick="showTab('terms',null)">이용약관</a> &nbsp;|&nbsp;
-    <a onclick="showTab('terms',null)">개인정보처리방침</a> &nbsp;|&nbsp;
+    <a href="/terms.html">이용약관</a> &nbsp;|&nbsp;
+    <a href="/privacy.html">개인정보처리방침</a> &nbsp;|&nbsp;
     <a href="mailto:krhym00001@gmail.com">광고문의</a>
   </div>
   © 2025 쿠폰던전(쿠던) — 쿠폰 정보는 각 게임사 공식 채널 기준입니다.
@@ -525,6 +543,50 @@ function renderPreorders(){
   document.getElementById('preGrid').innerHTML=PREORDERS.map(function(p){var info=GDB[p.game]||{icon:'🎮',bg:'#1a1030'};return '<div class="coupon-card" data-game="'+p.game+'"><div class="banner-wrap" style="height:75px"><div class="bfall" style="background:linear-gradient(135deg,'+(info.bg||'#1a1030')+',#1a1a2c)">'+info.icon+'</div><div class="bgrad"></div></div><div class="cc-head"><div class="game-img-wrap"><div class="fbi">'+info.icon+'</div></div><div class="cc-info"><div class="cc-name">'+p.game+'</div><div class="cc-meta">'+p.genre+' · '+p.dev+'</div></div><span class="cc-badge" style="background:rgba(79,142,247,.15);color:#4f8ef7;border:1px solid rgba(79,142,247,.28)">D-'+p.dday+'</span></div><div class="cc-body"><div class="cc-reward">📅 출시: <span>'+p.launch+'</span></div></div></div>';}).join('');
   document.getElementById('preGrid').querySelectorAll('.coupon-card').forEach(function(el){el.style.cursor='pointer';el.addEventListener('click',function(){openGamePage(this.dataset.game);});});
 }
+var GUIDES_FILTERED = [];
+function filterGuides(q) {
+  var query = q.trim().toLowerCase();
+  if (!query) {
+    GUIDES_FILTERED = GUIDES;
+  } else {
+    GUIDES_FILTERED = GUIDES.filter(function(g) {
+      return (g.title||'').toLowerCase().includes(query) ||
+             (g.game||'').toLowerCase().includes(query) ||
+             (g.cat||'').toLowerCase().includes(query) ||
+             (g.content||'').toLowerCase().includes(query);
+    });
+  }
+  renderGuidesFiltered();
+  var el = document.getElementById('guideSearchResult');
+  if (el) el.textContent = query ? ('검색 결과: ' + GUIDES_FILTERED.length + '개') : '';
+}
+function filterGuidesByCat(el, cat) {
+  document.querySelectorAll('.gcat-btn').forEach(function(b){ 
+    b.style.background='rgba(255,255,255,.05)';
+    b.style.borderColor='rgba(255,255,255,.1)';
+    b.style.color='#aaa';
+  });
+  el.style.background='rgba(233,69,96,.15)';
+  el.style.borderColor='rgba(233,69,96,.4)';
+  el.style.color='#e94560';
+  if (!cat) {
+    GUIDES_FILTERED = GUIDES;
+  } else {
+    GUIDES_FILTERED = GUIDES.filter(function(g){ return (g.cat||'') === cat; });
+  }
+  document.getElementById('guideSearch').value = '';
+  renderGuidesFiltered();
+  var el = document.getElementById('guideSearchResult');
+  if (el) el.textContent = cat ? (cat + ': ' + GUIDES_FILTERED.length + '개') : '';
+}
+function renderGuidesFiltered() {
+  var list = GUIDES_FILTERED.length ? GUIDES_FILTERED : GUIDES;
+  document.getElementById('guideGrid').innerHTML = list.map(function(g) {
+    var href = g.id ? '/guide/'+g.id+'.html' : '#';
+    return '<a href="'+href+'" class="guide-card" style="text-decoration:none;display:block"><div class="guide-thumb"><div class="guide-cat">'+(g.cat||'공략')+'</div><span style="font-size:40px">'+(g.icon||'🎮')+'</span></div><div class="guide-body"><div class="guide-title">'+g.title+'</div><div class="guide-meta"><span>👁 '+(g.views||0)+'</span><span>'+g.game+'</span></div></div></a>';
+  }).join('');
+  if (!list.length) document.getElementById('guideGrid').innerHTML = '<div style="color:var(--mut);font-size:13px;padding:1rem">검색 결과가 없어요.</div>';
+}
 function renderGuides(){
   if(!GUIDES.length){document.getElementById('guideGrid').innerHTML='<div style="color:var(--mut);font-size:13px;padding:1rem">공략이 없어요.</div>';return;}
   document.getElementById('guideGrid').innerHTML=GUIDES.map(function(g,i){
@@ -533,6 +595,7 @@ function renderGuides(){
   }).join('');
   
   document.getElementById('guideCount').textContent=GUIDES.length;
+  GUIDES_FILTERED = GUIDES;
 }
 function openGuide(i){var g=GUIDES[i];if(!g)return;document.getElementById('guideModalTitle').textContent=g.title;document.getElementById('guideModalGame').textContent=g.game+' · '+(g.cat||'공략');document.getElementById('guideModalContent').innerHTML=(g.content||'내용이 없어요.').replace(/\n/g,'<br>');document.getElementById('guideModal').classList.add('open');}
 function renderNews(){
