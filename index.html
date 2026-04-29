@@ -480,11 +480,12 @@ function renderCoupons(list){
     var mv=MY_VOTES[c.id],v=c.votes||{ok:0,bad:0};
     var tot=(v.ok||0)+(v.bad||0),pct=tot?Math.round((v.ok||0)/tot*100):0;
     var more=coupons.length-1;
+    var gslug=gn.toLowerCase().replace(/[:\s]+/g,'-').replace(/[^a-z0-9가-힣-]/g,'').replace(/-+/g,'-').replace(/^-|-$/g,'');
     html+='<div class="coupon-card" data-game="'+gn+'" data-genre="'+(c.genre||'rpg')+'">';
-    html+='<div class="banner-wrap game-link" data-game="'+gn+'"><div class="bfall" id="bf'+c.id+'" style="background:linear-gradient(135deg,'+info.bg+',#1a1a2c)">'+info.icon+'</div><img id="bi'+c.id+'" alt="'+gn+'"><div class="bgrad"></div>';
+    html+='<a href="/game/'+gslug+'.html" class="banner-wrap game-link" data-game="'+gn+'" style="display:block;text-decoration:none;"><div class="bfall" id="bf'+c.id+'" style="background:linear-gradient(135deg,'+info.bg+',#1a1a2c)">'+info.icon+'</div><img id="bi'+c.id+'" alt="'+gn+'"><div class="bgrad"></div>';
     if(c.status==='new')html+='<div class="new-tag">NEW</div>';
     if(more>0)html+='<div class="more-tag">+'+more+'개 더</div>';
-    html+='</div>';
+    html+='</a>';
     html+='<div class="cc-head game-link" data-game="'+gn+'"><div class="game-img-wrap"><div class="fbi" id="if'+c.id+'">'+info.icon+'</div><img id="ii'+c.id+'" alt="'+gn+'"></div><div class="cc-info"><div class="cc-name">'+gn+'</div><div class="cc-meta">'+((c.genre||'rpg')).toUpperCase()+' · '+(c.dev||'')+' · 쿠폰 '+coupons.length+'개</div></div><span class="cc-badge '+b[0]+'">'+b[1]+'</span></div>';
     html+='<div class="cc-body"><div style="font-size:12px;font-weight:700;color:var(--txt);text-align:center;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+gn+'</div><div style="font-size:10px;color:var(--txt2);text-align:center;margin-bottom:6px">쿠폰 '+coupons.length+'개</div>';
     html+='<div class="code-wrap"><div class="code-inner"><div class="code-lbl">최신 코드</div><div class="code-txt">'+c.code+'</div></div><button class="copy-btn" data-code="'+c.code+'">복사</button></div>';
@@ -505,8 +506,21 @@ function renderCoupons(list){
 }
 function renderPreorders(){
   var scroll=document.getElementById('preScroll');
-  scroll.innerHTML=PREORDERS.map(function(p){var info=GDB[p.game]||{icon:'🎮'};var dc=p.dday<=5?'hot':'ok';return '<div class="pre-card" data-game="'+p.game+'"><div class="pre-img"><div class="pfall">'+info.icon+'</div><div class="pgrad"></div><div class="pre-dday '+dc+'">'+(p.dday===0?'오늘!':'D-'+p.dday)+'</div></div><div class="pre-body"><div class="pre-name">'+p.game+'</div><div class="pre-genre">'+p.genre+'</div><div style="font-size:10px;color:var(--mut);margin-bottom:5px">👥 '+p.reg+'명</div><button class="pre-regbtn">📋 사전예약</button></div></div>';}).join('');
-  scroll.querySelectorAll('.pre-card').forEach(function(el){el.addEventListener('click',function(){openGamePage(this.dataset.game);});});
+  scroll.innerHTML=PREORDERS.map(function(p){var info=GDB[p.game]||{icon:'🎮'};var dc=p.dday<=5?'hot':'ok';return '<div class="pre-card" data-game="'+p.game+'" data-url="'+(p.url||'')+'"><div class="pre-img"><div class="pfall">'+info.icon+'</div><div class="pgrad"></div><div class="pre-dday '+dc+'">'+(p.dday===0?'오늘!':'D-'+p.dday)+'</div></div><div class="pre-body"><div class="pre-name">'+p.game+'</div><div class="pre-genre">'+p.genre+'</div><div style="font-size:10px;color:var(--mut);margin-bottom:5px">👥 '+p.reg+'명</div><button class="pre-regbtn">📋 사전예약</button></div></div>';}).join('');
+  scroll.querySelectorAll('.pre-card').forEach(function(el){el.addEventListener('click',function(e){
+  if(e.target.classList.contains('pre-regbtn')) return;
+  var game=this.dataset.game;
+  var url=this.dataset.url;
+  if(url) window.open(url,'_blank');
+  else openGamePage(game);
+});
+  el.querySelector('.pre-regbtn') && el.querySelector('.pre-regbtn').addEventListener('click',function(e){
+    e.stopPropagation();
+    var url=el.dataset.url;
+    if(url) window.open(url,'_blank');
+    else openGamePage(el.dataset.game);
+  });
+});
   document.getElementById('preCount').textContent=PREORDERS.length;
   document.getElementById('preGrid').innerHTML=PREORDERS.map(function(p){var info=GDB[p.game]||{icon:'🎮',bg:'#1a1030'};return '<div class="coupon-card" data-game="'+p.game+'"><div class="banner-wrap" style="height:75px"><div class="bfall" style="background:linear-gradient(135deg,'+(info.bg||'#1a1030')+',#1a1a2c)">'+info.icon+'</div><div class="bgrad"></div></div><div class="cc-head"><div class="game-img-wrap"><div class="fbi">'+info.icon+'</div></div><div class="cc-info"><div class="cc-name">'+p.game+'</div><div class="cc-meta">'+p.genre+' · '+p.dev+'</div></div><span class="cc-badge" style="background:rgba(79,142,247,.15);color:#4f8ef7;border:1px solid rgba(79,142,247,.28)">D-'+p.dday+'</span></div><div class="cc-body"><div class="cc-reward">📅 출시: <span>'+p.launch+'</span></div></div></div>';}).join('');
   document.getElementById('preGrid').querySelectorAll('.coupon-card').forEach(function(el){el.style.cursor='pointer';el.addEventListener('click',function(){openGamePage(this.dataset.game);});});
@@ -597,8 +611,8 @@ function applyData(data){
   document.getElementById('statCoupons').textContent=COUPONS.length;
 }
 function loadFromDB(){var c=getCached();if(c&&c.length){applyData(c);return;}db.collection('coupons').get().then(function(snap){if(snap.empty)return;var l=[];snap.forEach(function(d){l.push(Object.assign({id:d.id},d.data()));});setCache(l);applyData(l);}).catch(function(){});}
-function loadGuidesFromDB(){db.collection('guides').orderBy('createdAt','desc').limit(30).get().then(function(snap){if(snap.empty)return;var items=[];snap.forEach(function(d){items.push(Object.assign({id:d.id},d.data()));});items.sort(function(a,b){return new Date(b.createdAt||0)-new Date(a.createdAt||0);});GUIDES=items;renderGuides();document.getElementById('guideCount').textContent=items.length;}).catch(function(){});}
-function loadNewsFromDB(){db.collection('news').orderBy('createdAt','desc').limit(30).get().then(function(snap){if(snap.empty)return;var items=[];snap.forEach(function(d){items.push(Object.assign({id:d.id},d.data()));});items.sort(function(a,b){
+function loadGuidesFromDB(){db.collection('guides').orderBy('createdAt','desc').limit(200).get().then(function(snap){if(snap.empty)return;var items=[];snap.forEach(function(d){items.push(Object.assign({id:d.id},d.data()));});items.sort(function(a,b){return new Date(b.createdAt||0)-new Date(a.createdAt||0);});GUIDES=items;renderGuides();document.getElementById('guideCount').textContent=items.length;}).catch(function(){});}
+function loadNewsFromDB(){db.collection('news').orderBy('createdAt','desc').limit(200).get().then(function(snap){if(snap.empty)return;var items=[];snap.forEach(function(d){items.push(Object.assign({id:d.id},d.data()));});items.sort(function(a,b){
   var da=b.date?b.date.replace(/\./g,'-'):null;
   var db2=a.date?a.date.replace(/\./g,'-'):null;
   if(da&&db2&&da!==db2)return new Date(da)-new Date(db2);
